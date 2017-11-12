@@ -15,13 +15,13 @@ import com.bookstore.domain.security.UserRole;
 import com.bookstore.service.UserService;
 
 @SpringBootApplication
-public class BookstoreAngularApplication implements CommandLineRunner {
+public class BookstoreApplication implements CommandLineRunner {
 	
 	@Autowired
 	private UserService userService;
 
 	public static void main(String[] args) {
-		SpringApplication.run(BookstoreAngularApplication.class, args);
+		SpringApplication.run(BookstoreApplication.class, args);
 	}
 	
 	@Override
@@ -55,5 +55,5 @@ public class BookstoreAngularApplication implements CommandLineRunner {
 		
 		userService.createUser(user2, userRoles);
 	}
-	
+
 }

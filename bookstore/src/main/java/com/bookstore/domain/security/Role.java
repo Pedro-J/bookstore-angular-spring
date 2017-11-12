@@ -1,16 +1,12 @@
 package com.bookstore.domain.security;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
 @Entity
+@Table(name="tb_role")
 public class Role implements Serializable{
 	
 	private static final long serialVersionUID = 890245234L;

@@ -1,8 +1,8 @@
 package com.bookstore.domain.security;
 
-import java.io.Serializable;
-
 import org.springframework.security.core.GrantedAuthority;
+
+import java.io.Serializable;
 
 public class Authority implements GrantedAuthority, Serializable {
 	private static final long serialVersionUID = 123123L;

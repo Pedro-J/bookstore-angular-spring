@@ -1,25 +1,17 @@
 package com.bookstore.domain.security;
 
-import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.bookstore.domain.User;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
 @Entity
-@Table(name="user_role")
+@Table(name="tb_user_role")
 public class UserRole implements Serializable {
 	private static final long serialVersionUID = 890345L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userRoleId;
 	
 	public UserRole () {}

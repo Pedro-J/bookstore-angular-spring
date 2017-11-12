@@ -9,30 +9,30 @@ export class LoginService {
 
   }
 
-  sendCredentials(username:string, password:string){
-    let url = 'http://localhost:8181/token';
-    let encodedCredentials = btoa(username + ':' + password);
-    let basicHeader = "Basic " + encodedCredentials;
-    let headers = new Headers({
-      'Content-Type':'application/x-www-form-urlencoded',
-      'Authorization':basicHeader
+  sendCredentials(username: string, password: string){
+    const url = 'http://localhost:8181/token';
+    const encodedCredentials = btoa(username + ':' + password);
+    const basicHeader = 'Basic ' + encodedCredentials;
+    const headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': basicHeader
     });
     return this.http.get(url, {headers: headers});
   }
 
   checkLogged(){
-    let isLogged = false;
-    let url = 'http://localhost:8181/checksession';
-    let headers = new Headers({
+    const isLogged = false;
+    const url = 'http://localhost:8181/checksession';
+    const headers = new Headers({
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
     return this.http.get(url, {headers: headers});
   }
 
   logout(){
-    let isLogged = false;
-    let url = 'http://localhost:8181/user/logout';
-    let headers = new Headers({
+    const isLogged = false;
+    const url = 'http://localhost:8181/user/logout';
+    const headers = new Headers({
       'x-auth-token': localStorage.getItem('xAuthToken')
     });
     return this.http.post(url, '', {headers: headers});

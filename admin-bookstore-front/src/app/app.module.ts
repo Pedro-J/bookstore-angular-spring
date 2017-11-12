@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import 'hammerjs';
 
-import { MatToolbarModule, MatButtonModule, MatGridListModule, MatInputModule } from '@angular/material';
+import { MaterialModule } from './modules/material.module';
 import { routing } from './app.routing';
 
 import { AppComponent } from './app.component';
@@ -14,22 +14,21 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LoginComponent } from './components/login/login.component';
 
 import { LoginService } from './services/login.service';
+import { AddNewBookComponent } from './components/add-new-book/add-new-book.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    LoginComponent
+    LoginComponent,
+    AddNewBookComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatInputModule,
-    MatGridListModule,
+    MaterialModule,
     routing
   ],
   providers: [

@@ -1,34 +1,26 @@
 package com.bookstore.domain;
 
+import com.bookstore.domain.security.Authority;
+import com.bookstore.domain.security.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.bookstore.domain.security.Authority;
-import com.bookstore.domain.security.UserRole;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
+@Table(name="tb_user")
 public class User implements UserDetails, Serializable{
 
 	private static final long serialVersionUID = 902783495L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="Id", nullable=false, updatable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id", nullable=false, updatable = false)
 	private Long id;
 	
 	private String username;

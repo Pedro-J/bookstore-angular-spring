@@ -7,10 +7,10 @@ import { LoginService } from '../../services/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  private credentials = {'username':'', 'password':''};
+  private credentials = {'username': '', 'password': ''};
   private loggedIn = false;
 
-  constructor(private loginService:LoginService) { }
+  constructor(private loginService: LoginService) { }
 
   ngOnInit() {
     this.loginService.checkLogged().subscribe(
@@ -23,10 +23,9 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  onSubmit(){
+  onSubmit() {
     this.loginService.sendCredentials(this.credentials.username, this.credentials.password)
-      .subscribe( 
-        res => {
+      .subscribe(res => {
             console.log(res);
             localStorage.setItem('xAuthToken', res.json().token);
             this.loggedIn = true;
@@ -35,5 +34,6 @@ export class LoginComponent implements OnInit {
         error => {
           console.log(error);
         }
-  )}
+    );
+  }
 }
