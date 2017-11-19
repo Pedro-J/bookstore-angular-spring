@@ -14,6 +14,8 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LoginComponent } from './components/login/login.component';
 
 import { LoginService } from './services/login.service';
+import { AddBookService } from './services/add-book.service';
+import { UploadImageService } from './services/upload-image.service';
 import { AddNewBookComponent } from './components/add-new-book/add-new-book.component';
 
 @NgModule({
@@ -32,7 +34,9 @@ import { AddNewBookComponent } from './components/add-new-book/add-new-book.comp
     routing
   ],
   providers: [
-    LoginService
+    LoginService,
+    AddBookService,
+    UploadImageService
   ],
   bootstrap: [AppComponent]
 })
