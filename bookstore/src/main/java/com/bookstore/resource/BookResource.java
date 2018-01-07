@@ -2,6 +2,7 @@ package com.bookstore.resource;
 
 import com.bookstore.domain.Book;
 import com.bookstore.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Iterator;
+import java.util.List;
 
 @RestController
 @RequestMapping("/book")
@@ -22,12 +24,19 @@ public class BookResource {
 
     private BookService bookService;
 
+    @Autowired
+    public BookResource(BookService bookService){
+        this.bookService = bookService;
+    }
+
     @PostMapping("/add")
+    @ResponseStatus(HttpStatus.OK)
     public Book addBook(@RequestBody Book book){
         return bookService.save(book);
     }
 
     @PostMapping("/add/image")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> upload(@RequestParam("id") Long id, HttpServletResponse response, HttpServletRequest request){
         try{
             Book book = bookService.findById(id);
@@ -38,7 +47,7 @@ public class BookResource {
 
             byte[] fileContent = multipartFile.getBytes();
 
-            File fileDestination = new File("src/main/resource/static/image/book/" + fileName);
+            File fileDestination = new File("src/main/resources/static/image/book/" + fileName);
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(fileDestination));
             stream.write(fileContent);
             stream.close();
@@ -48,6 +57,24 @@ public class BookResource {
             e.printStackTrace();
             return new ResponseEntity("Upload failed", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.OK)
+    public Book updateBook(@RequestBody Book book){
+        return bookService.save(book);
+    }
+
+    @GetMapping("/list")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Book> getBooks(){
+        return bookService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Book getBook(@PathVariable("id") Long id){
+        return bookService.findById(id);
     }
 
 

@@ -8,7 +8,7 @@ export class UploadImageService {
   constructor() { }
 
   upload(bookId) {
-   this.makeFileRequest('http://localhost:8080/book/add/image?id=' + bookId, [], this.filesToUpload).then(result => {
+   this.makeFileRequest('http://localhost:8181/book/add/image?id=' + bookId, [], this.filesToUpload).then(result => {
      console.log(result);
    },
      error => {
@@ -17,14 +17,14 @@ export class UploadImageService {
   }
 
   fileChangeEvent(fileInput: any) {
-    this.filesToUpload = <Array<File>> fileInput.target.file;
+    this.filesToUpload = <Array<File>> fileInput.target.files;
   }
 
   makeFileRequest(url: string, params: Array<string>, files: Array<File>) {
     return new Promise((resolve, reject) => {
       const formData: any = new FormData();
       const xhr = new XMLHttpRequest();
-      for (let i = 0; i < files.length; i++) {
+      for (let i = 0; i < files.length ; i++) {
         formData.append('uploads[]', files[i], files[i].name);
       }
       xhr.onreadystatechange = function(){
