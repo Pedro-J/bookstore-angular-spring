@@ -19,9 +19,9 @@ export class AddNewBookComponent implements OnInit {
   }
 
   onSubmit() {
-    this.bookService.sendBook(this.book).subscribe(
+    this.bookService.saveNew(this.book).subscribe(
       res => {
-        console.log('The has been saved sucessfully.');
+        console.log('The image has been saved sucessfully.');
         console.log(res);
         this.uploadImageService.upload(JSON.parse(JSON.parse(JSON.stringify(res))._body).id);
         this.bookAdded = true;
@@ -32,6 +32,10 @@ export class AddNewBookComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  imageUpload(event): void {
+    this.uploadImageService.fileChangeEvent(event);
   }
 
   private initBook(): void {

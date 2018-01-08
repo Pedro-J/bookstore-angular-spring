@@ -9,25 +9,25 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
 
-  private loggedIn = false;
+  private _loggedIn = false;
 
   constructor(private loginService: LoginService, private router: Router) { }
 
   toggleDisplay() {
-    this.loggedIn = !this.loggedIn;
+    this._loggedIn = !this._loggedIn;
   }
 
   ngOnInit() {
     this.loginService.checkLogged().subscribe(
       res => {
-        this.loggedIn = true;
+        this._loggedIn = true;
       },
       erros => {
-        this.loggedIn = false;
+        this._loggedIn = false;
       }
     );
     this.router.navigate(['/']);
-    console.log('está: ' + this.loggedIn);
+    console.log('está: ' + this._loggedIn);
   }
 
   logout() {
@@ -39,4 +39,11 @@ export class NavBarComponent implements OnInit {
     );
   }
 
+  get loggedIn(): boolean {
+    return this._loggedIn;
+  }
+
+  set loggedIn(value: boolean) {
+    this._loggedIn = value;
+  }
 }

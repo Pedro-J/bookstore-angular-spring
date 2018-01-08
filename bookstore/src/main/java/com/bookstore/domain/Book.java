@@ -27,6 +27,7 @@ public class Book implements Serializable{
     private Double shippingWeight;
     private Double listPrice;
     private Double ourPrice;
+    private Integer inStockNumber;
     private Boolean active = true;
 
     @Column(columnDefinition = "text")
@@ -161,5 +162,13 @@ public class Book implements Serializable{
 
     public void setBookImage(MultipartFile bookImage) {
         this.bookImage = bookImage;
+    }
+
+    public Integer getInStockNumber() {
+        return inStockNumber;
+    }
+
+    public void setInStockNumber(Integer inStockNumber) {
+        this.inStockNumber = inStockNumber;
     }
 }

@@ -15,6 +15,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 
@@ -24,18 +26,22 @@ public class BookResource {
 
     private BookService bookService;
 
+    public static final String BASE_URL = "/api/v1/bookstore";
+
+    private final String bookImagesDirectory = "src/main/resources/static/image/book/";
+
     @Autowired
     public BookResource(BookService bookService){
         this.bookService = bookService;
     }
 
     @PostMapping("/add")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public Book addBook(@RequestBody Book book){
         return bookService.save(book);
     }
 
-    @PostMapping("/add/image")
+    @PostMapping("/image/upload")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> upload(@RequestParam("id") Long id, HttpServletResponse response, HttpServletRequest request){
         try{
@@ -47,7 +53,11 @@ public class BookResource {
 
             byte[] fileContent = multipartFile.getBytes();
 
-            File fileDestination = new File("src/main/resources/static/image/book/" + fileName);
+            File fileDestination = new File(bookImagesDirectory + fileName);
+
+            if( fileDestination.exists() )
+                Files.delete(Paths.get(bookImagesDirectory + fileName));
+
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(fileDestination));
             stream.write(fileContent);
             stream.close();
@@ -76,6 +86,13 @@ public class BookResource {
     public Book getBook(@PathVariable("id") Long id){
         return bookService.findById(id);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable Long id){
+        bookService.remove(id);
+    }
+
 
 
 }

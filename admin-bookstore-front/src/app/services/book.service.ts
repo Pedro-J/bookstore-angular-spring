@@ -8,7 +8,7 @@ export class BookService {
 
   constructor(private http: Http) {}
 
-  sendBook(book: Book): Observable<Response> {
+  saveNew(book: Book): Observable<Response> {
     const url = 'http://localhost:8181/book/add';
 
     const headers = new Headers({
@@ -19,7 +19,7 @@ export class BookService {
     return this.http.post(url, JSON.stringify(book), {headers: headers});
   }
 
-  getBookList(): Observable<Response> {
+  getList(): Observable<Response> {
     const url = 'http://localhost:8181/book/list';
     const headers = new Headers({
       'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export class BookService {
     return this.http.get(url, {headers: headers});
   }
 
-  getBook(id: number): Observable<Response> {
+  getOne(id: number): Observable<Response> {
     const url = 'http://localhost:8181/book/' + id;
     const headers = new Headers({
       'Content-Type': 'application/json',
@@ -37,5 +37,26 @@ export class BookService {
     });
 
     return this.http.get(url, {headers: headers});
+  }
+
+  update(book: Book): Observable<Response> {
+    const url = 'http://localhost:8181/book/update';
+
+    const headers = new Headers({
+      'Content-Type': 'application/json;charset=UTF-8',
+      'x-auth-token': localStorage.getItem('xAuthToken')
+    });
+
+    return this.http.put(url, JSON.stringify(book), {headers: headers});
+  }
+
+  delete(id: number): Observable<Response> {
+    const url = 'http://localhost:8181/book/' + id;
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'x-auth-token': localStorage.getItem('xAuthToken')
+    });
+
+    return this.http.delete(url, {headers: headers});
   }
 }

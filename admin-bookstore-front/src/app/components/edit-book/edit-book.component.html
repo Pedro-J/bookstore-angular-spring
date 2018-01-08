@@ -1,6 +1,6 @@
 <div class="container-fluid" style="width:50%">
-  <div [hidden]="bookAdded">
-    <h3 style="margin-top: 30px;"> New Book Information<span style="font-size: small">* is required field</span></h3>
+  <div [hidden]="bookUpdated">
+    <h3 style="margin-top: 30px;"> Update Book Information<span style="font-size: small">* is required field</span></h3>
     <form (ngSubmit)="onSubmit()">
 
       <mat-grid-list cols="4" rowHeight="60px">
@@ -17,7 +17,7 @@
         <mat-grid-tile [colspan]="2" [rowspan]="1" >
           <mat-form-field class="full-width">
             <input matInput type="text" id="author" required [(ngModel)]="book.author"
-                  name="author" placeholder="author"/>
+                   name="author" placeholder="author"/>
           </mat-form-field>
         </mat-grid-tile>
 
@@ -129,9 +129,9 @@
         </mat-grid-tile>
 
         <mat-grid-tile [colspan]="2" [rowspan]="1">
-            &nbsp;
-            <mat-slide-toggle [color]="'color'" [checked]="'checked'" [disabled]="'disabled'"
-              [(ngModel)]="book.active" name="active">Active</mat-slide-toggle>
+          &nbsp;
+          <mat-slide-toggle [color]="'color'" [checked]="'checked'" [disabled]="'disabled'"
+                            [(ngModel)]="book.active" name="active">Active</mat-slide-toggle>
         </mat-grid-tile>
       </mat-grid-list>
 
@@ -154,16 +154,16 @@
 
       <mat-grid-list cols="4" rowHeight="60px">
         <mat-grid-tile [colspan]="2" [rowspan]="1" >
-            <button type="submit" class="primary" mat-raised-button >Add Book</button>
+          <button type="submit" class="primary" mat-raised-button >Add Book</button>
         </mat-grid-tile>
 
         <mat-grid-tile [colspan]="2" [rowspan]="1" >
-            <a class="mat-warn" mat-raised-button routerLink="/">Cancel</a>
+          <a class="mat-warn" mat-raised-button routerLink="/">Cancel</a>
         </mat-grid-tile>
       </mat-grid-list>
 
-      <div class="row" [hidden]="!bookAdded">
-        <h3>Book Added Sucessfully</h3>
+      <div class="row" [hidden]="!bookUpdated">
+        <h3>Book Updated Sucessfully</h3>
       </div>
 
     </form>

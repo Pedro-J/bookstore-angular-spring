@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <th>
-            <input type="checkbox" (change)="uploadSelected($event.target.checked)" />
+            <input type="checkbox" (change)="onCheckAll($event.target.checked)" [checked]="allChecked" />
           </th>
           <th>Title</th>
           <th>Author</th>
@@ -19,8 +19,8 @@
         <tr *ngFor="let book of bookList">
           <td>
             <input hidden="hidden" name="id" />
-            <input type="checkbox" [checked]="allChecked"
-              (change)="updateRemoveBookList($event.target.checked)" />
+            <input type="checkbox" [checked]="allChecked || isBookChecked(book)"
+              (change)="onCheckOne($event.target.checked, book)" />
           </td>
           <td>
             <a (click)="onSelected(book)" style="cursor:pointer;">{{book.title}}</a>
@@ -40,5 +40,5 @@
       </tbody>
     </table>
   </div>
-  <button mat-raised-button class="mat-warn" id="deleteSelected" (click)="removeSelectedBooks()" >Delete All</button>
+  <button mat-raised-button class="mat-warn" id="deleteSelected" (click)="removeSelectedBooks()">Delete All</button>
 </div>

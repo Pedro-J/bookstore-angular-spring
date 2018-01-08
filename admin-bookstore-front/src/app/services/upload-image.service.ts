@@ -7,13 +7,19 @@ export class UploadImageService {
 
   constructor() { }
 
-  upload(bookId) {
-   this.makeFileRequest('http://localhost:8181/book/add/image?id=' + bookId, [], this.filesToUpload).then(result => {
+  upload(bookId: number) {
+   this.makeFileRequest('http://localhost:8181/book/image/upload?id=' + bookId, [], this.filesToUpload).then(result => {
      console.log(result);
    },
      error => {
      console.log(error);
    });
+  }
+
+  uploadWhenModified(bookId: number) {
+    if (this.filesToUpload.length > 0) {
+      this.upload(bookId);
+    }
   }
 
   fileChangeEvent(fileInput: any) {
