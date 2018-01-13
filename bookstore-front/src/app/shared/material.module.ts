@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {
   MatButtonModule,
@@ -12,8 +13,10 @@ import {
   MatSelectModule,
   MatPaginatorModule,
   MatTableModule,
-  MatDialogModule
+  MatDialogModule,
+  MatTabsModule
 } from '@angular/material';
+
 
 @NgModule({
   exports: [
@@ -28,7 +31,9 @@ import {
     MatSelectModule,
     MatPaginatorModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule,
+    BrowserAnimationsModule
   ]
 })
 export class MaterialModule {}

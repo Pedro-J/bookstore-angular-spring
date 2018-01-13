@@ -3,7 +3,7 @@
 <nav class="navbar navbar-default navbar-inverse">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand poiner" routerLink="/home">LE'S BOOKSTORE</a>
+      <a class="navbar-brand poiner" routerLink="/home">BookStore</a>
     </div>
 
     <div id="navbar">
@@ -20,12 +20,12 @@
         <li *ngIf="!loggedIn">
           <a mat-button routerLink="/user/account">MY ACCOUNT</a>
         </li>
-<!--        <li *ngIf="loggedIn">
+        <li *ngIf="loggedIn">
           <a md-button routerLink="/shoppingCart">SHOPPING CART</a>
         </li>
         <li *ngIf="loggedIn">
           <a md-button routerLink="/myProfile">MY PROFILE</a>
-        </li>-->
+        </li>
         <li *ngIf="loggedIn">
           <a mat-button (click)="logout()">LOGOUT</a>
         </li>

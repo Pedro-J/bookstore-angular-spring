@@ -35,6 +35,9 @@ export class NavBarComponent implements OnInit {
     );
   }
 
+  onSearcyByTitle() {
+
+  }
 
   get loggedIn(): boolean {
     return this._loggedIn;
