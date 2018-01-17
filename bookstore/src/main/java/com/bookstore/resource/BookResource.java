@@ -14,19 +14,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 
 @RestController
-@RequestMapping("/book")
+@RequestMapping(BookResource.BASE_URL)
 public class BookResource {
 
     private BookService bookService;
 
-    public static final String BASE_URL = "/api/v1/bookstore";
+    public static final String BASE_URL = "/bookstore/api/v1/books";
 
     private final String bookImagesDirectory = "src/main/resources/static/image/book/";
 
@@ -39,6 +38,30 @@ public class BookResource {
     @ResponseStatus(HttpStatus.CREATED)
     public Book addBook(@RequestBody Book book){
         return bookService.save(book);
+    }
+
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.OK)
+    public Book updateBook(@RequestBody Book book){
+        return bookService.save(book);
+    }
+
+    @GetMapping("/list")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Book> getBooks(){
+        return bookService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Book getBook(@PathVariable("id") Long id){
+        return bookService.findById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable Long id){
+        bookService.remove(id);
     }
 
     @PostMapping("/image/upload")
@@ -68,31 +91,6 @@ public class BookResource {
             return new ResponseEntity("Upload failed", HttpStatus.BAD_REQUEST);
         }
     }
-
-    @PutMapping("/update")
-    @ResponseStatus(HttpStatus.OK)
-    public Book updateBook(@RequestBody Book book){
-        return bookService.save(book);
-    }
-
-    @GetMapping("/list")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Book> getBooks(){
-        return bookService.findAll();
-    }
-
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Book getBook(@PathVariable("id") Long id){
-        return bookService.findById(id);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable Long id){
-        bookService.remove(id);
-    }
-
 
 
 }

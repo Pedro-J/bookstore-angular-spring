@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { AppConst } from '../constants/app-const';
 import { User } from './user.model';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
-  private serverPath: string = AppConst.serverPath;
+  private serverPath: string = AppConst.FULL_API_BASE_PATH;
 
   constructor(private http: Http) { }
 
   newUser(username: string, email: string): Observable<Response> {
-    const url = this.serverPath + '/user/newUser';
+    const url = this.serverPath + '/users/add';
     const userInfo = {
       'username': username,
       'email': email
@@ -20,12 +20,12 @@ export class UserService {
       'Content-Type' : 'application/json',
       'x-auth-token' : localStorage.getItem('xAuthToken')
     });
-    
+
     return this.http.post(url, JSON.stringify(userInfo), {headers : tokenHeader});
   }
 
   updateUserInfo(user: User, newPassword: string, currentPassword: string): Observable<Response> {
-    const url = this.serverPath + '/user/updateUserInfo';
+    const url = this.serverPath + '/users/' + user.id + '/update';
     const userInfo = {
       'id' : user.id,
       'firstName' : user.firstName,
@@ -45,7 +45,7 @@ export class UserService {
   }
 
   retrievePassword(email: string): Observable<Response> {
-    const url = this.serverPath + '/user/forgetPassword';
+    const url = this.serverPath + '/users/forgetPassword';
     const userInfo = {
       'email' : email
     };
@@ -58,7 +58,7 @@ export class UserService {
   }
 
   getCurrentUser(): Observable<Response> {
-    const url = this.serverPath + '/user/getCurrentUser';
+    const url = this.serverPath + '/users/current';
 
     const tokenHeader = new Headers({
       'Content-Type' : 'application/json',

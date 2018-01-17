@@ -11,7 +11,10 @@ import java.util.Collections;
 import java.util.Map;
 
 @RestController
+@RequestMapping(LoginResource.BASE_URL)
 public class LoginResource {
+
+    public static final String BASE_URL = "/bookstore/api/v1";
 
     private UserService userService;
 
@@ -32,7 +35,7 @@ public class LoginResource {
         return Collections.singletonMap("token", session.getId());
     }
 
-    @GetMapping("/checksession")
+    @GetMapping("/session/active")
     @ResponseStatus(HttpStatus.OK)
     public String checkSession(){
         return "Session Active!";

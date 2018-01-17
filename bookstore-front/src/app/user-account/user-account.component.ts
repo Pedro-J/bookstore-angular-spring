@@ -11,8 +11,6 @@ import { AppConst } from '../constants/app-const';
 })
 export class UserAccountComponent implements OnInit {
 
-  private serverPath = AppConst.serverPath;
-
   private loggedIn = false;
 
   constructor(

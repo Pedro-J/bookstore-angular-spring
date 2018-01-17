@@ -5,11 +5,13 @@ import com.bookstore.repository.BookRepository;
 import com.bookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional( readOnly = true )
 public class BookServiceImpl implements BookService {
 
     private BookRepository bookRepository;
@@ -19,17 +21,15 @@ public class BookServiceImpl implements BookService {
         this.bookRepository = bookRepository;
     }
 
-    @Override
+    @Transactional
     public Book save(Book book) {
         return bookRepository.save(book);
     }
 
-    @Override
     public Book findById(Long id) {
         return bookRepository.findOne(id);
     }
 
-    @Override
     public List<Book> findAll() {
         List<Book> books = (List<Book>) bookRepository.findAll();
         List<Book> activeBooks = books.stream()
@@ -38,7 +38,6 @@ public class BookServiceImpl implements BookService {
         return activeBooks;
     }
 
-    @Override
     public List<Book> search(String keyword) {
         List<Book> books = bookRepository.findByTitleContaining(keyword);
         List<Book> activeBooks = books.stream()
@@ -47,7 +46,7 @@ public class BookServiceImpl implements BookService {
         return activeBooks;
     }
 
-    @Override
+    @Transactional
     public void remove(Long id) {
         bookRepository.delete(id);
     }

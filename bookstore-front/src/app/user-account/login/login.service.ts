@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 
 @Injectable()
 export class LoginService {
-  private serverPath: string = AppConst.serverPath;
+  private serverPath: string = AppConst.FULL_API_BASE_PATH;
 
   constructor(private http: Http, private router: Router) { }
 
@@ -23,7 +23,7 @@ export class LoginService {
   }
 
   checkSession(): Observable<Response> {
-    const url = this.serverPath + '/checkSession';
+    const url = this.serverPath + '/session/active';
     const headers = new Headers({
       'x-auth-token' : localStorage.getItem('xAuthToken')
     });

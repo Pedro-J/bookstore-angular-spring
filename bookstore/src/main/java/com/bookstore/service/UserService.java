@@ -1,12 +1,13 @@
 package com.bookstore.service;
 
-import java.util.Set;
-
 import com.bookstore.domain.User;
-import com.bookstore.domain.security.UserRole;
 
 public interface UserService {
-	
-	User createUser(User user, Set<UserRole> userRoles);
-
+	User findById(Long id);
+	User createUser(User user);
+	User findByUsername(String username);
+	User findByEmail(String email);
+	void updateForgottenPassword(String email);
+	void updateProfile(User modifiedUser, User currentUser);
+	void update(User user);
 }

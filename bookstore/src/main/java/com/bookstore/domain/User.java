@@ -24,7 +24,10 @@ public class User implements UserDetails, Serializable{
 	private Long id;
 	
 	private String username;
+
+	@JsonIgnore
 	private String password;
+
 	private String firstName;
 	private String lastName;
 	
@@ -36,7 +39,16 @@ public class User implements UserDetails, Serializable{
 	@JsonIgnore
 	private Set<UserRole> userRoles = new HashSet<>();
 
-	public Long getId() {
+	@Transient
+	@JsonIgnore
+	private String newPassword;
+
+	public User(){}
+
+    public User(String email, String username) {
+    }
+
+    public Long getId() {
 		return id;
 	}
 
@@ -92,10 +104,20 @@ public class User implements UserDetails, Serializable{
 		this.phone = phone;
 	}
 
-	
-
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 	}
 
 	public Set<UserRole> getUserRoles() {
@@ -137,8 +159,6 @@ public class User implements UserDetails, Serializable{
 	public boolean isEnabled() {
 		return enabled;
 	}
-	
-	
-	
-	
+
+
 }
