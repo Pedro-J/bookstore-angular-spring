@@ -160,6 +160,7 @@ public class UserServiceImpl implements UserService{
 
 	}
 
+	@Transactional
 	public void update(User user) {
 		userRepository.save(user);
 	}

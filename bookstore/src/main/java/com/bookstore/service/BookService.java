@@ -1,7 +1,6 @@
 package com.bookstore.service;
 
 import com.bookstore.domain.Book;
-import com.bookstore.domain.User;
 
 import java.util.List;
 
@@ -11,5 +10,4 @@ public interface BookService {
     List<Book> findAll();
     List<Book> search(String title);
     void remove(Long id);
-
 }

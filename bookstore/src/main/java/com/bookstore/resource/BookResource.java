@@ -36,7 +36,7 @@ public class BookResource {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public Book addBook(@RequestBody Book book){
+    public Book addNewBook(@RequestBody Book book){
         return bookService.save(book);
     }
 
@@ -60,7 +60,7 @@ public class BookResource {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable Long id){
+    public void deleteBook(@PathVariable Long id){
         bookService.remove(id);
     }
 

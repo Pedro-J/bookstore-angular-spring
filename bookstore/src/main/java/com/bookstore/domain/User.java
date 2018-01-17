@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,6 +39,12 @@ public class User implements UserDetails, Serializable{
 	@OneToMany(mappedBy = "user", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<UserRole> userRoles = new HashSet<>();
+
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "user")
+	private List<UserPayment> userPaymentList;
+
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "user")
+	private List<UserShipping> userShippingList;
 
 	@Transient
 	@JsonIgnore
@@ -128,6 +135,22 @@ public class User implements UserDetails, Serializable{
 		this.userRoles = userRoles;
 	}
 
+	public List<UserPayment> getUserPaymentList() {
+		return userPaymentList;
+	}
+
+	public void setUserPaymentList(List<UserPayment> userPaymentList) {
+		this.userPaymentList = userPaymentList;
+	}
+
+	public List<UserShipping> getUserShippingList() {
+		return userShippingList;
+	}
+
+	public void setUserShippingList(List<UserShipping> userShippingList) {
+		this.userShippingList = userShippingList;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		
@@ -159,6 +182,7 @@ public class User implements UserDetails, Serializable{
 	public boolean isEnabled() {
 		return enabled;
 	}
+
 
 
 }

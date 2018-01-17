@@ -25,7 +25,7 @@ public class UserResource {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public User createUser(@RequestBody Map<String, String> mapper) {
+    public User addNewUser(@RequestBody Map<String, String> mapper) {
 
         String email = mapper.get("email");
         String username = mapper.get("username");
