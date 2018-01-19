@@ -1,0 +1,10 @@
+<div>
+  <md-tab-group (selectedIndexChange)="selectedChange($event)" [selectedIndex]="selectedTab">
+    <md-tab label="List of Credit Cards">
+      <app-payment-list></app-payment-list>
+    </md-tab>
+    <md-tab label="Add(Update) Credit Card">
+      <app-new-payment></app-new-payment>
+    </md-tab>
+  </md-tab-group>
+</div>

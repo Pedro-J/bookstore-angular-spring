@@ -12,13 +12,13 @@ import { User } from '../user.model';
 })
 export class MyProfileComponent implements OnInit {
 
-  private dataFetched = false;
-  private loggedIn: boolean;
-  private user: User = new User();
-  private updateSuccess: boolean;
-  private newPassword: string;
-  private incorrectPassword: boolean;
-  private currentPassword: string;
+  private _dataFetched = false;
+  private _loggedIn: boolean;
+  private _user: User = new User();
+  private _updateSuccess: boolean;
+  private _newPassword: string;
+  private _incorrectPassword: boolean;
+  private _currentPassword: string;
 
   constructor(
     private loginService: LoginService,
@@ -26,16 +26,16 @@ export class MyProfileComponent implements OnInit {
     private router: Router ) { }
 
   onUpdateUserInfo () {
-    this.userService.updateUserInfo(this.user, this.newPassword, this.currentPassword).subscribe(
+    this.userService.updateUserInfo(this._user, this._newPassword, this._currentPassword).subscribe(
       res => {
         console.log(res.text());
-        this.updateSuccess = true;
+        this._updateSuccess = true;
         },
         error => {
           console.log(error.text());
           const errorMessage = error.text();
           if (errorMessage === 'Incorrect current password!') {
-            this.incorrectPassword = true;
+            this._incorrectPassword = true;
           }
       });
   }
@@ -43,8 +43,8 @@ export class MyProfileComponent implements OnInit {
   getCurrentUser() {
     this.userService.getCurrentUser().subscribe(
       res => {
-        this.user = res.json();
-        this.dataFetched = true;
+        this._user = res.json();
+        this._dataFetched = true;
         },
         error => {
           console.log(error);
@@ -52,29 +52,63 @@ export class MyProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginService.checkSession().subscribe(
-      res => {
-        this.loggedIn = true;
-        },
-      error => {
-        this.loggedIn = false;
-        console.log('inactive session');
-        this.router.navigate(['/myAccount']);
-      }
-    );
     this.getCurrentUser();
   }
 
-/*  onNewPayment() {
-    this.paymentService.newPayment(this.userPayment).subscribe(
-      res => {
-        this.getCurrentUser();
-        this.selectedBillingTab = 0;
-      },
-      error => {
-        console.log(error.text());
-      }
-     );
-  }*/
 
+  get dataFetched(): boolean {
+    return this._dataFetched;
+  }
+
+  set dataFetched(value: boolean) {
+    this._dataFetched = value;
+  }
+
+  get loggedIn(): boolean {
+    return this._loggedIn;
+  }
+
+  set loggedIn(value: boolean) {
+    this._loggedIn = value;
+  }
+
+  get user(): User {
+    return this._user;
+  }
+
+  set user(value: User) {
+    this._user = value;
+  }
+
+  get updateSuccess(): boolean {
+    return this._updateSuccess;
+  }
+
+  set updateSuccess(value: boolean) {
+    this._updateSuccess = value;
+  }
+
+  get newPassword(): string {
+    return this._newPassword;
+  }
+
+  set newPassword(value: string) {
+    this._newPassword = value;
+  }
+
+  get incorrectPassword(): boolean {
+    return this._incorrectPassword;
+  }
+
+  set incorrectPassword(value: boolean) {
+    this._incorrectPassword = value;
+  }
+
+  get currentPassword(): string {
+    return this._currentPassword;
+  }
+
+  set currentPassword(value: string) {
+    this._currentPassword = value;
+  }
 }

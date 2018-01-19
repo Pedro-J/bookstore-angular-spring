@@ -8,6 +8,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { NewAccountComponent } from './new-account/new-account.component';
 import { UserAccountComponent } from './user-account.component';
 import {MaterialModule} from '../shared/material.module';
+import { AccountEditComponent } from './account-edit/account-edit.component';
 
 
 
@@ -22,7 +23,8 @@ import {MaterialModule} from '../shared/material.module';
     ForgetPasswordComponent,
     MyProfileComponent,
     NewAccountComponent,
-    UserAccountComponent
+    UserAccountComponent,
+    AccountEditComponent
   ]
 })
 export class UserAccountModule { }

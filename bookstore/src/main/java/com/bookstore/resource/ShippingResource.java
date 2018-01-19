@@ -27,27 +27,27 @@ public class ShippingResource {
 
 	@PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-	public UserShipping addNewUserShippingPost(@RequestBody UserShipping userShipping, Principal principal) {
+	public void addNewShipping(@RequestBody UserShipping userShipping, Principal principal) {
 		User user = userService.findByUsername(principal.getName());
-		return userShippingService.updateUserShipping(userShipping, user);
+		userShippingService.updateUserShipping(userShipping, user);
 	}
 	
 	@GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-	public List<UserShipping> getUserShippingList(Principal principal){
+	public List<UserShipping> getShippingList(Principal principal){
 		User user = userService.findByUsername(principal.getName());
 		return user.getUserShippingList();
 	}
 	
 	@DeleteMapping("{id}/remove")
     @ResponseStatus(HttpStatus.OK)
-	public void removeUserShippingPost(@PathVariable Long id) {
+	public void removeShipping(@PathVariable Long id) {
 		userShippingService.removeById(id);
 	}
 	
 	@PostMapping("/setDefault")
     @ResponseStatus(HttpStatus.OK)
-	public void setDefaultUserShippingPost(@RequestBody String id, Principal principal){
+	public void setDefaultShipping(@RequestBody String id, Principal principal){
 		User user = userService.findByUsername(principal.getName());
 		userShippingService.setUserDefaultShipping(Long.parseLong(id), user);
 	}

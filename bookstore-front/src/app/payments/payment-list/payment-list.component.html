@@ -1,0 +1,26 @@
+<p *ngIf="defaultPayment">Default payment set successfully!</p>
+<form (ngSubmit)="setDefaultPayment()" method="post">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Default</th>
+      <th>Credit Card</th>
+      <th>Operations</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let payment of paymentList">
+      <td>
+        <input type="radio" name="defaultPaymentId" [(ngModel)]="defaultPaymentId" [value]="payment.id" />
+        <span>default</span>
+      </td>
+      <td>{{payment.cardName}}</td>
+      <td>
+        <a md-button (click)="onUpdatePayment(payment)"><i class="fa fa-pencil"></i></a>
+        <a md-button (click)="onDeletePayment(payment.id)"><i class="fa fa-times"></i></a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <button md-raised-button class="mat-primary" type="submit">Save</button>
+</form>

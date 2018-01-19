@@ -1,0 +1,26 @@
+<p *ngIf="defaultShippingSet">Default shipping set successfully!</p>
+<form (ngSubmit)="setDefaultShipping()" method="post">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Default</th>
+      <th>Shipping Address</th>
+      <th>Operations</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let shipping of shippingList">
+      <td>
+        <input type="radio" name="defaultUserShippingId" [(ngModel)]="defaultShippingId" [value]="shipping.id" />
+        <span>default</span>
+      </td>
+      <td>{{shipping.userShippingStreet1}}, {{shipping.userShippingStreetCity}}, {{shipping.userShippingState}}</td>
+      <td>
+        <a md-button (click)="onUpdateShipping(shipping)"><i class="fa fa-pencil"></i></a>
+        <a md-button (click)="onRemoveShipping(shipping.id)"><i class="fa fa-times"></i></a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <button md-raised-button class="mat-primary" type="submit">Save</button>
+</form>

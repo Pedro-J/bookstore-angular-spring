@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional( readOnly = true )
 public class UserPaymentServiceImpl implements UserPaymentService {
@@ -43,5 +45,20 @@ public class UserPaymentServiceImpl implements UserPaymentService {
 		userBillingRepository.save(userBilling);
 		userPaymentRepository.save(userPayment);
 	}
+
+    @Transactional
+    public void setUserDefaultPayment(Long userPaymentId, User user) {
+        List<UserPayment> userPaymentList = (List<UserPayment>) userPaymentRepository.findAll();
+
+        for (UserPayment userPayment : userPaymentList) {
+            if( userPayment.getId().equals(userPaymentId) ) {
+                userPayment.setDefaultPayment(true);
+                userPaymentRepository.save(userPayment);
+            } else {
+                userPayment.setDefaultPayment(false);
+                userPaymentRepository.save(userPayment);
+            }
+        }
+    }
 	
 }

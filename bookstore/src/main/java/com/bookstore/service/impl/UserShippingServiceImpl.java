@@ -35,13 +35,11 @@ public class UserShippingServiceImpl implements UserShippingService{
 	}
 
 	@Transactional
-	public UserShipping updateUserShipping(UserShipping userShipping, User user) {
+	public void updateUserShipping(UserShipping userShipping, User user) {
 		userShipping.setUser(user);
 		userShipping.setUserShippingDefault(true);
 		user.getUserShippingList().add(userShipping);
 		userRepository.save(user);
-
-		return userShipping;
 	}
 
 	@Transactional

@@ -8,5 +8,4 @@ public interface UserBillingService {
 
     void updateUserBilling(UserBilling userBilling, UserPayment userPayment, User user);
 
-    void setUserDefaultPayment(Long userPaymentId, User user);
 }

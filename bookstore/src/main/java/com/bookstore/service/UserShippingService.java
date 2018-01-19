@@ -9,7 +9,7 @@ public interface UserShippingService {
 	
 	void removeById(Long id);
 
-	UserShipping updateUserShipping(UserShipping userShipping, User user);
+	void updateUserShipping(UserShipping userShipping, User user);
 	void setUserDefaultShipping(Long userShippingId, User user);
 
 }

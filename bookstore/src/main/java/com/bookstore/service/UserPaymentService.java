@@ -8,6 +8,6 @@ public interface UserPaymentService {
 	UserPayment findById(Long id);
 	
 	void removeById(Long id);
-
+	void setUserDefaultPayment(Long userPaymentId, User user);
 	void updateUserPaymentInfo(UserBilling userBilling, UserPayment userPayment, User user);
 }
