@@ -12,8 +12,10 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/shipping")
+@RequestMapping(ShippingResource.BASE_URL)
 public class ShippingResource {
+
+    public static final String BASE_URL = "/bookstore/api/v1/shipping";
 
 	private UserService userService;
 

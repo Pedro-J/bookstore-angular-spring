@@ -1,4 +1,4 @@
-import {UserBilling} from './billing';
+import {Billing} from './billing';
 
 export class Payment {
   public id: number;
@@ -10,5 +10,5 @@ export class Payment {
   public cvc: number;
   public holderName: string;
   public defaultPayment: boolean;
-  public userBilling: UserBilling;
+  public userBilling: Billing;
 }

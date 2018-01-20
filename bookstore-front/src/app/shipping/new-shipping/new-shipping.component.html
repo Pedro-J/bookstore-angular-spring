@@ -1,42 +1,44 @@
-<form (ngSubmit)="onNewShipping()" method="post">
-  <div class="bg-info" *ngIf="updateUserShippingInfo">User info updated.</div>
-  <input hidden="hidden" name="id" [(ngModel)]="userShipping.id" />
-  <div class="form-group">
-    <label for="shippingname">* Name</label>
-    <input type="text" class="form-control" id="shippingName" placeholder="Receiver Name" name="userShippingName" required="required" [(ngModel)]="userShipping.userShippingName" />
-  </div>
-  <div class="form-group">
-    <label for="shippingAddress">* Street Address</label>
-    <input type="text" class="form-control" id="shippingAddress" placeholder="Street Address 1" name="userShippingStreet1" required="required" [(ngModel)]="userShipping.userShippingStreet1" />
-  </div>
-  <div class="form-group">
-    <input type="text" class="form-control" placeholder="Street Address 2" name="userShippingStreet2" [(ngModel)]="userShipping.userShippingStreet2" />
-  </div>
-  <div class="row">
-    <div class="col-xs-4">
-      <div class="form-group">
-        <label for="shippingCity">* City</label>
-        <input type="text" class="form-control" id="shippingCity" placeholder="Your Shipping City" name="userShippingCity" required="required" [(ngModel)]="userShipping.userShippingCity" />
+<div class="container" style="margin-top:20px;">
+  <form (ngSubmit)="onNewShipping()" method="post">
+    <div class="bg-info" *ngIf="updateUserShippingInfo">User info updated.</div>
+    <input hidden="hidden" name="id" [(ngModel)]="shipping.id" />
+    <div class="form-group">
+      <label for="shippingname">* Name</label>
+      <input type="text" class="form-control" id="shippingName" placeholder="Receiver Name" name="shippingName" required="required" [(ngModel)]="shipping.shippingName" />
+    </div>
+    <div class="form-group">
+      <label for="shippingAddress">* Street Address</label>
+      <input type="text" class="form-control" id="shippingAddress" placeholder="Street Address 1" name="shippingStreet1" required="required" [(ngModel)]="shipping.shippingStreet1" />
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Street Address 2" name="shippingStreet2" [(ngModel)]="shipping.shippingStreet2" />
+    </div>
+    <div class="row">
+      <div class="col-xs-4">
+        <div class="form-group">
+          <label for="shippingCity">* City</label>
+          <input type="text" class="form-control" id="shippingCity" placeholder="Your Shipping City" name="shippingCity" required="required" [(ngModel)]="shipping.shippingCity" />
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="form-group">
+          <label for="shippingState">* State</label>
+          <select id="shippingState" class="form-control" name="shippingState" [(ngModel)]="shipping.shippingState" required="required">
+            <option value="" disabled>-- state --</option>
+            <option *ngFor="let state of stateList">{{state}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="form-group">
+          <label for="shippingZipcode">* Zipcode</label>
+          <input type="text" class="form-control" id="shippingZipcode" placeholder="Zipcode" name="shippingZipcode" required="required" [(ngModel)]="shipping.shippingZipcode" />
+        </div>
       </div>
     </div>
-    <div class="col-xs-4">
-      <div class="form-group">
-        <label for="shippingState">* State</label>
-        <select id="shippingState" class="form-control" name="userShippingState" [(ngModel)]="userShipping.userShippingState" required="required">
-          <option value="" disabled>-- state --</option>
-          <option *ngFor="let state of stateList">{{state}}</option>
-        </select>
-      </div>
-    </div>
-    <div class="col-xs-4">
-      <div class="form-group">
-        <label for="shippingZipcode">* Zipcode</label>
-        <input type="text" class="form-control" id="userShippingZipcode" placeholder="Zipcode" name="userShippingZipcode" required="required" [(ngModel)]="userShipping.userShippingZipcode" />
-      </div>
-    </div>
-  </div>
-  <hr />
-  <button md-raised-button type="submit" class="mat-primary">
-    Save All
-  </button>
-</form>
+    <hr />
+    <button mat-raised-button type="submit" class="mat-primary">
+      Save All
+    </button>
+  </form>
+</div>

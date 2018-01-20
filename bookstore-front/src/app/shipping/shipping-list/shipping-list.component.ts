@@ -20,6 +20,7 @@ export class ShippingListComponent implements OnInit {
   constructor(private shippingService: ShippingService) { }
 
   ngOnInit() {
+    this.loadShippingList();
   }
 
   private loadShippingList(): void {
@@ -67,5 +68,38 @@ export class ShippingListComponent implements OnInit {
         console.log(error.text());
       }
     );
+  }
+
+
+  get shipping(): Shipping {
+    return this._shipping;
+  }
+
+  set shipping(value: Shipping) {
+    this._shipping = value;
+  }
+
+  get shippingList(): Shipping[] {
+    return this._shippingList;
+  }
+
+  set shippingList(value: Shipping[]) {
+    this._shippingList = value;
+  }
+
+  get isDefaultShippingSet(): boolean {
+    return this._isDefaultShippingSet;
+  }
+
+  set isDefaultShippingSet(value: boolean) {
+    this._isDefaultShippingSet = value;
+  }
+
+  get defaultShippingId(): number {
+    return this._defaultShippingId;
+  }
+
+  set defaultShippingId(value: number) {
+    this._defaultShippingId = value;
   }
 }

@@ -23,7 +23,7 @@ export class ShippingService {
   }
 
   public getShippingList(): Observable<Response> {
-    const url = this.serverPath + '/shipping/getUserShippingList';
+    const url = this.serverPath + '/shipping/list';
 
     const tokenHeader = new Headers({
       'Content-Type' : 'application/json',

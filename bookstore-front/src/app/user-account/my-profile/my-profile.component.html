@@ -20,23 +20,25 @@
 		</div>
 	</div>
 
-	<div class="row" style="margin-top:30px;">cd
+	<div class="row" style="margin-top:30px;">
 		<div class="col-xs-2"></div>
 		<div *ngIf="dataFetched">
 			<div class="col-xs-10">
 				<div class="panel-group">
 					<div class="panel panel-default" style="border:none;">
-						<div class="panel-body" style="background-color: #b3b3b3; margin-top: 20px;">
-							<mat-tab-group selectedProfileTab >
+						<div class="panel-body" style="background-color: #303030; margin-top: 20px; color:white;">
+							<mat-tab-group [selectedIndex]="selectedProfileTab">
 								<mat-tab label="Edit">
-
+                  <div class="container">
+                    <app-account-edit></app-account-edit>
+                  </div>
 								</mat-tab>
-                <md-tab label="Payment">
-
-                </md-tab>
-                <md-tab label="Shipping">
-
-                </md-tab>
+                <mat-tab label="Payment">
+                    <app-payments></app-payments>
+                </mat-tab>
+                <mat-tab label="Shipping">
+                  <app-shipping></app-shipping>
+                </mat-tab>
 							</mat-tab-group>
 						</div>
 					</div>

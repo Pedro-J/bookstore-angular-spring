@@ -19,6 +19,7 @@ export class MyProfileComponent implements OnInit {
   private _newPassword: string;
   private _incorrectPassword: boolean;
   private _currentPassword: string;
+  private _selectedProfileTab = 0;
 
   constructor(
     private loginService: LoginService,
@@ -110,5 +111,13 @@ export class MyProfileComponent implements OnInit {
 
   set currentPassword(value: string) {
     this._currentPassword = value;
+  }
+
+  get selectedProfileTab(): number {
+    return this._selectedProfileTab;
+  }
+
+  set selectedProfileTab(value: number) {
+    this._selectedProfileTab = value;
   }
 }

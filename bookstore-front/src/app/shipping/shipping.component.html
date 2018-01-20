@@ -1,10 +1,11 @@
 <div>
-  <md-tab-group (selectedIndexChange)="selectedShippingChange($event)" [selectedIndex]="selectedShippingTab">
-    <md-tab label="List of Shipping Addresses">
-
-    </md-tab>
-    <md-tab label="Add(Update) Shipping Address">
-
-    </md-tab>
-  </md-tab-group>
+  <br/>
+  <mat-tab-group (selectedIndexChange)="selectedChange($event)" [selectedIndex]="selectedShippingTab">
+    <mat-tab label="List of Shipping Addresses" >
+      <app-shipping-list></app-shipping-list>
+    </mat-tab>
+    <mat-tab label="Add(Update) Shipping Address">
+      <app-new-shipping></app-new-shipping>
+    </mat-tab>
+  </mat-tab-group>
 </div>

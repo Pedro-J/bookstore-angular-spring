@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentsComponent implements OnInit {
 
-  private _selectedTab = 0;
+  private _selectedPaymentTab = 0;
 
   constructor() { }
 
@@ -15,14 +15,15 @@ export class PaymentsComponent implements OnInit {
   }
 
   public selectedChange(val: number): void {
-    this._selectedTab = val;
+    this._selectedPaymentTab = val;
   }
 
-  get selectedTab(): number {
-    return this._selectedTab;
+  get selectedPaymentTab(): number {
+    return this._selectedPaymentTab;
   }
 
-  set selectedTab(value: number) {
-    this._selectedTab = value;
+  set selectedPaymentTab(value: number) {
+    this._selectedPaymentTab = value;
   }
+
 }

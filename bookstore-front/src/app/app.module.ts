@@ -11,25 +11,11 @@ import {UserService} from './user-account/user.service';
 import {CoreModule} from './core/core.module';
 import {UserAccountModule} from './user-account/user-account.module';
 import {MaterialModule} from './shared/material.module';
-import { NewPaymentComponent } from './payments/new-payment/new-payment.component';
-import { PaymentListComponent } from './payments/payment-list/payment-list.component';
-import { PaymentsComponent } from './payments/payments.component';
-import { ShippingComponent } from './shipping/shipping.component';
-import { NewShippingComponent } from './shipping/new-shipping/new-shipping.component';
-import { ShippingEditComponent } from './shipping/shipping-edit/shipping-edit.component';
-import { ShippingListComponent } from './shipping/shipping-list/shipping-list.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NewPaymentComponent,
-    PaymentListComponent,
-    PaymentsComponent,
-    ShippingComponent,
-    NewShippingComponent,
-    ShippingEditComponent,
-    ShippingListComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

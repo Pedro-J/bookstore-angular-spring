@@ -45,5 +45,44 @@ export class AccountEditComponent implements OnInit {
   ngOnInit() {
     this.getCurrentUser();
   }
+  
+  get user(): User {
+    return this._user;
+  }
 
+  set user(value: User) {
+    this._user = value;
+  }
+
+  get updateSuccess(): boolean {
+    return this._updateSuccess;
+  }
+
+  set updateSuccess(value: boolean) {
+    this._updateSuccess = value;
+  }
+
+  get newPassword(): string {
+    return this._newPassword;
+  }
+
+  set newPassword(value: string) {
+    this._newPassword = value;
+  }
+
+  get incorrectPassword(): boolean {
+    return this._incorrectPassword;
+  }
+
+  set incorrectPassword(value: boolean) {
+    this._incorrectPassword = value;
+  }
+
+  get currentPassword(): string {
+    return this._currentPassword;
+  }
+
+  set currentPassword(value: string) {
+    this._currentPassword = value;
+  }
 }

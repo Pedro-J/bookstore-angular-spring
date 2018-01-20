@@ -13,8 +13,10 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/payments")
+@RequestMapping(PaymentResource.BASE_URL)
 public class PaymentResource {
+
+    public static final String BASE_URL = "/bookstore/api/v1/payments";
 
 	private UserService userService;
 
