@@ -20,7 +20,7 @@ public class UserPayment implements Serializable {
 	private int expiryYear;
 	private int cvc;
 	private String holderName;
-	private boolean defaultPayment;
+	private Boolean isDefault;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
@@ -94,12 +94,12 @@ public class UserPayment implements Serializable {
 		this.holderName = holderName;
 	}
 
-	public boolean isDefaultPayment() {
-		return defaultPayment;
+	public Boolean getDefault() {
+		return isDefault;
 	}
 
-	public void setDefaultPayment(boolean defaultPayment) {
-		this.defaultPayment = defaultPayment;
+	public void setDefault(Boolean aDefault) {
+		isDefault = aDefault;
 	}
 
 	public User getUser() {

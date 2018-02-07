@@ -29,9 +29,16 @@ public class ShippingResource {
 
 	@PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-	public void addNewShipping(@RequestBody UserShipping userShipping, Principal principal) {
+	public UserShipping addNewShipping(@RequestBody UserShipping userShipping, Principal principal) {
 		User user = userService.findByUsername(principal.getName());
-		userShippingService.updateUserShipping(userShipping, user);
+		return userShippingService.save(userShipping, user);
+	}
+
+	@PutMapping("/update")
+    @ResponseStatus(HttpStatus.OK)
+	public void updateShipping(@RequestBody UserShipping shipping, Principal principal){
+	    shipping.setUser(userService.findByUsername(principal.getName()));
+        userShippingService.save(shipping);
 	}
 	
 	@GetMapping("/list")

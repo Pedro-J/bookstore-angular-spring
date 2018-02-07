@@ -2,9 +2,9 @@ export class AppMessage {
   private _text: string;
   private _title: string;
   private _type: string;
-  private _show: boolean;
+  private _show = false;
 
-  constructor(message?: {text?: string, title?: string, type?: string, show?: boolean}) {
+/*  constructor(message?: {text?: string, title?: string, type?: string, show?: boolean}) {
     if ( message ) {
       this._text = message.text;
       this._title = message.title;
@@ -13,6 +13,18 @@ export class AppMessage {
     }else {
       this._show = false;
     }
+  }*/
+
+  constructor(text?: string, title?: string, type?: string, show?: boolean) {
+      this._text = text;
+      this._title = title;
+      this._type = type;
+
+      if ( show ) {
+        this._show = show;
+      }else {
+        this._show = false;
+      }
   }
 
   get text(): string {
@@ -46,4 +58,9 @@ export class AppMessage {
   set show(value: boolean) {
     this._show = value;
   }
+
+  public static createMessage(text?: string, title?: string, type?: string, show?: boolean): AppMessage {
+    return new AppMessage(text, title, type, show);
+  }
+
 }

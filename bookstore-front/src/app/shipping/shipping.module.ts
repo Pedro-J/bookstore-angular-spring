@@ -6,12 +6,14 @@ import { ShippingListComponent } from './shipping-list/shipping-list.component';
 import { NewShippingComponent } from './new-shipping/new-shipping.component';
 import { ShippingService } from './shipping.service';
 import { MaterialModule } from '../shared/material.module';
+import {MessageModule} from '../shared/message/message.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    MessageModule
   ],
   declarations: [
     ShippingComponent,

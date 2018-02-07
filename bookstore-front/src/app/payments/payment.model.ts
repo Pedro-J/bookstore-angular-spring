@@ -1,4 +1,4 @@
-import {Billing} from './billing';
+import {Billing} from './billing.model';
 
 export class Payment {
   public id: number;
@@ -9,6 +9,10 @@ export class Payment {
   public expiryYear: string;
   public cvc: number;
   public holderName: string;
-  public defaultPayment: boolean;
+  public default: boolean;
   public userBilling: Billing;
+
+  constructor() {
+    this.default = false;
+  }
 }

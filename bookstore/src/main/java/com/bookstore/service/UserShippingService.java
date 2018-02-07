@@ -8,8 +8,8 @@ public interface UserShippingService {
 	UserShipping findById(Long id);
 	
 	void removeById(Long id);
-
-	void updateUserShipping(UserShipping userShipping, User user);
+	UserShipping save(UserShipping shipping);
+	UserShipping save(UserShipping userShipping, User user);
 	void setUserDefaultShipping(Long userShippingId, User user);
 
 }

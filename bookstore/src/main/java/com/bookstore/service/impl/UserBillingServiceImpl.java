@@ -1,8 +1,5 @@
 package com.bookstore.service.impl;
 
-import com.bookstore.domain.User;
-import com.bookstore.domain.UserBilling;
-import com.bookstore.domain.UserPayment;
 import com.bookstore.repository.UserPaymentRepository;
 import com.bookstore.repository.UserRepository;
 import com.bookstore.service.UserBillingService;
@@ -11,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional( readOnly = true )
+@Transactional
 public class UserBillingServiceImpl implements UserBillingService {
 
     private UserPaymentRepository userPaymentRepository;
@@ -22,16 +19,6 @@ public class UserBillingServiceImpl implements UserBillingService {
     public UserBillingServiceImpl(UserPaymentRepository userPaymentRepository, UserRepository userRepository) {
         this.userPaymentRepository = userPaymentRepository;
         this.userRepository = userRepository;
-    }
-
-    @Transactional
-    public void updateUserBilling(UserBilling userBilling, UserPayment userPayment, User user) {
-        userPayment.setUser(user);
-        userPayment.setUserBilling(userBilling);
-        userPayment.setDefaultPayment(true);
-        userBilling.setUserPayment(userPayment);
-        user.getUserPaymentList().add(userPayment);
-        userRepository.save(user);
     }
 
 

@@ -1,11 +1,12 @@
 <div>
   <br/>
+  <app-message [message]="message"></app-message>
   <mat-tab-group (selectedIndexChange)="selectedChange($event)" [selectedIndex]="selectedShippingTab">
     <mat-tab label="List of Shipping Addresses" >
-      <app-shipping-list></app-shipping-list>
+      <app-shipping-list (updateTabEvent)="changeTab($event)"></app-shipping-list>
     </mat-tab>
     <mat-tab label="Add(Update) Shipping Address">
-      <app-new-shipping></app-new-shipping>
+      <app-new-shipping (updateTabEvent)="changeTab($event)"></app-new-shipping>
     </mat-tab>
   </mat-tab-group>
 </div>

@@ -45,7 +45,6 @@ export class AccountEditComponent implements OnInit {
   ngOnInit() {
     this.getCurrentUser();
   }
-  
   get user(): User {
     return this._user;
   }

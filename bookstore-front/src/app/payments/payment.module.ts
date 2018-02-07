@@ -6,12 +6,14 @@ import {NewPaymentComponent} from './new-payment/new-payment.component';
 import {PaymentListComponent} from './payment-list/payment-list.component';
 import {PaymentService} from './payment.service';
 import {MaterialModule} from '../shared/material.module';
+import {MessageModule} from '../shared/message/message.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    MessageModule
   ],
   declarations: [
     PaymentsComponent,

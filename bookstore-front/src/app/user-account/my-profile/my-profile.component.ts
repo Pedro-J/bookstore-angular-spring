@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppConst } from '../../constants/app-const';
 import { UserService } from '../user.service';
 import { LoginService } from '../login/login.service';
 import { User } from '../user.model';

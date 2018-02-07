@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional( readOnly = true )
+@Transactional
 public class UserShippingServiceImpl implements UserShippingService{
 
 	private UserRepository userRepository;
@@ -25,35 +25,44 @@ public class UserShippingServiceImpl implements UserShippingService{
 		this.userShippingRepository = userShippingRepository;
 	}
 
+    @Transactional( readOnly = true )
 	public UserShipping findById(Long id) {
 		return userShippingRepository.findOne(id);
 	}
 
-	@Transactional
+
 	public void removeById(Long id) {
 		userShippingRepository.delete(id);
 	}
 
-	@Transactional
-	public void updateUserShipping(UserShipping userShipping, User user) {
+
+	public UserShipping save(UserShipping userShipping, User user) {
 		userShipping.setUser(user);
-		userShipping.setUserShippingDefault(true);
-		user.getUserShippingList().add(userShipping);
-		userRepository.save(user);
+		userShipping.setDefault(false);
+
+		List<UserShipping> shippingList = user.getUserShippingList();
+
+		if( shippingList == null || shippingList.isEmpty() )
+		    userShipping.setDefault(true);
+
+		return userShippingRepository.save(userShipping);
 	}
 
-	@Transactional
+	public UserShipping save(UserShipping shipping) {
+		return userShippingRepository.save(shipping);
+	}
+
 	public void setUserDefaultShipping(Long userShippingId, User user) {
-		List<UserShipping> userShippingList = (List<UserShipping>) userShippingRepository.findAll();
+		List<UserShipping> userShippingList = userShippingRepository.findByUser(user);
 
 		for (UserShipping userShipping : userShippingList) {
 			if( userShipping.getId().equals(userShippingId) ) {
-				userShipping.setUserShippingDefault(true);
-				userShippingRepository.save(userShipping);
+				userShipping.setDefault(true);
 			} else {
-				userShipping.setUserShippingDefault(false);
-				userShippingRepository.save(userShipping);
+				userShipping.setDefault(false);
+
 			}
+			userShippingRepository.save(userShipping);
 		}
 	}
 }

@@ -1,5 +1,4 @@
 <div class="container">
-  <p *ngIf="defaultShippingSet">Default shipping set successfully!</p>
   <form (ngSubmit)="setDefaultShipping()" method="post">
     <table class="table">
       <thead>
@@ -15,14 +14,15 @@
           <input type="radio" name="defaultUserShippingId" [(ngModel)]="defaultShippingId" [value]="shipping.id" />
           <span>default</span>
         </td>
-        <td>{{shipping.userShippingStreet1}}, {{shipping.userShippingStreetCity}}, {{shipping.userShippingState}}</td>
+        <td>{{shipping.street1}}, {{shipping.city}}, {{shipping.state}}</td>
         <td>
           <a mat-button (click)="onUpdateShipping(shipping)"><i class="fa fa-pencil"></i></a>
-          <a mat-button (click)="onRemoveShipping(shipping.id)"><i class="fa fa-times"></i></a>
+          <a mat-button (click)="onRemoveShipping(shipping)"><i class="fa fa-times"></i></a>
         </td>
       </tr>
       </tbody>
     </table>
-    <button mat-raised-button class="mat-primary" type="submit">Save</button>
+    <button mat-raised-button class="mat-primary" type="submit">Set Default</button>
+    <button mat-raised-button class="mat-primary" (click)="onAddNew()">Add New</button>
   </form>
 </div>

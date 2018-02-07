@@ -12,14 +12,15 @@ public class UserShipping implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String userShippingName;
-	private String userShippingStreet1;
-	private String userShippingStreet2;
-	private String userShippingCity;
-	private String userShippingState;
-	private String userShippingCountry;
-	private String userShippingZipcode;
-	private Boolean userShippingDefault;
+	private String name;
+	private String street1;
+	private String street2;
+	private String city;
+	private String state;
+	private String country;
+	private String zipcode;
+
+	private Boolean isDefault;
 	
 	
 	@ManyToOne
@@ -32,102 +33,83 @@ public class UserShipping implements Serializable{
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
-	public String getUserShippingName() {
-		return userShippingName;
-	}
-
-
-	public void setUserShippingName(String userShippingName) {
-		this.userShippingName = userShippingName;
-	}
-
-
-	public String getUserShippingStreet1() {
-		return userShippingStreet1;
-	}
-
-
-	public void setUserShippingStreet1(String userShippingStreet1) {
-		this.userShippingStreet1 = userShippingStreet1;
-	}
-
-
-	public String getUserShippingStreet2() {
-		return userShippingStreet2;
-	}
-
-
-	public void setUserShippingStreet2(String userShippingStreet2) {
-		this.userShippingStreet2 = userShippingStreet2;
-	}
-
-
-	public String getUserShippingCity() {
-		return userShippingCity;
-	}
-
-
-	public void setUserShippingCity(String userShippingCity) {
-		this.userShippingCity = userShippingCity;
-	}
-
-
-	public String getUserShippingState() {
-		return userShippingState;
-	}
-
-
-	public void setUserShippingState(String userShippingState) {
-		this.userShippingState = userShippingState;
-	}
-
-
-	public String getUserShippingCountry() {
-		return userShippingCountry;
-	}
-
-
-	public void setUserShippingCountry(String userShippingCountry) {
-		this.userShippingCountry = userShippingCountry;
-	}
-
-
-	public String getUserShippingZipcode() {
-		return userShippingZipcode;
-	}
-
-
-	public void setUserShippingZipcode(String userShippingZipcode) {
-		this.userShippingZipcode = userShippingZipcode;
-	}
-
-
-	public Boolean getUserShippingDefault() {
-		return userShippingDefault;
-	}
-
-
-	public void setUserShippingDefault(Boolean userShippingDefault) {
-		this.userShippingDefault = userShippingDefault;
-	}
-
 
 	public User getUser() {
 		return user;
 	}
 
-
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
-	
 
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getStreet1() {
+		return street1;
+	}
+
+	public void setStreet1(String street1) {
+		this.street1 = street1;
+	}
+
+	public String getStreet2() {
+		return street2;
+	}
+
+	public void setStreet2(String street2) {
+		this.street2 = street2;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+    public Boolean getDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(Boolean aDefault) {
+        isDefault = aDefault;
+    }
 }

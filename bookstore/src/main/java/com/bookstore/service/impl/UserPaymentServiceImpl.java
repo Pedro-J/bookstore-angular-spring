@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional( readOnly = true )
@@ -40,25 +41,50 @@ public class UserPaymentServiceImpl implements UserPaymentService {
 	}
 
 	@Transactional
-	public void updateUserPaymentInfo(UserBilling userBilling, UserPayment userPayment, User user) {
+	public void updatePaymentInfo(UserBilling userBilling, UserPayment userPayment, User user) {
 		userRepository.save(user);
 		userBillingRepository.save(userBilling);
 		userPaymentRepository.save(userPayment);
 	}
 
     @Transactional
-    public void setUserDefaultPayment(Long userPaymentId, User user) {
-        List<UserPayment> userPaymentList = (List<UserPayment>) userPaymentRepository.findAll();
+    public void setDefaultPayment(Long userPaymentId, User user) {
+        List<UserPayment> userPaymentList = userPaymentRepository.findByUser(user);
 
         for (UserPayment userPayment : userPaymentList) {
             if( userPayment.getId().equals(userPaymentId) ) {
-                userPayment.setDefaultPayment(true);
-                userPaymentRepository.save(userPayment);
+                userPayment.setDefault(true);
             } else {
-                userPayment.setDefaultPayment(false);
-                userPaymentRepository.save(userPayment);
+                userPayment.setDefault(false);
             }
+			userPaymentRepository.save(userPayment);
         }
+    }
+
+    @Transactional
+    public UserPayment save(UserPayment userPayment, User user) {
+        userPayment.setUser(user);
+        userPayment.getUserBilling().setUserPayment(userPayment);
+
+        List<UserPayment> paymentList = user.getUserPaymentList();
+
+        if( paymentList == null || paymentList.isEmpty() )
+            userPayment.setDefault(true);
+        else
+            userPayment.setDefault(false);
+
+        return userPaymentRepository.save(userPayment);
+    }
+
+    private void setNewPaymentAsDefault(List<UserPayment> oldPayments, UserPayment newDefaultPayment){
+        Optional<UserPayment> oldDefaultPayment = oldPayments.stream()
+                .filter(payment -> payment.getDefault() ).findFirst();
+
+        if( oldDefaultPayment.isPresent() ){
+            oldDefaultPayment.get().setDefault(false);
+        }
+        newDefaultPayment.setDefault(true);
+        oldPayments.add(newDefaultPayment);
     }
 	
 }

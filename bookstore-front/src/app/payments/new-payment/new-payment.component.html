@@ -1,6 +1,5 @@
 <div class="container" style="margin-top:20px;">
-  <form (ngSubmit)="onNewPayment()" method="post">
-    <div class="bg-info" *ngIf="message.show">{{message.text}}</div>
+  <form (ngSubmit)="onSubmit()" method="post">
     <input hidden="hidden" name="id" [(ngModel)]="payment.id" />
     <div class="form-group">
       <h5>* Give a name for your card:</h5>
@@ -12,32 +11,32 @@
     <div class="form-group">
       <label for="billingName">* Name</label>
       <input type="text" class="form-control" id="billingName" placeholder="Receiver name"
-             name="userBillingName" required="required" [(ngModel)]="billing.userBillingName" />
+             name="userBillingName" required="required" [(ngModel)]="billing.name" />
     </div>
     <div class="form-group">
       <label for="billAddress">* Street Address</label>
       <input type="text" class="form-control" id="billAddress" placeholder="Street Address 1"
-             name="userBillingStreet1" required="required" [(ngModel)]="billing.userBillingStreet1" />
+             name="userBillingStreet1" required="required" [(ngModel)]="billing.street1" />
     </div>
     <div class="form-group">
       <input type="text" class="form-control" placeholder="Street Address 2" name="userBillingStreet2"
-             [(ngModel)]="billing.userBillingStreet2" />
+             [(ngModel)]="billing.street2" />
     </div>
     <div class="row">
       <div class="col-xs-4">
         <div class="form-group">
           <label for="userBillingCity">* City</label>
           <input type="text" class="form-control" id="userBillingCity" placeholder="Your Billing City"
-                 name="userBillingCity" required="required" [(ngModel)]="billing.userBillingCity" />
+                 name="userBillingCity" required="required" [(ngModel)]="billing.city" />
         </div>
       </div>
       <div class="col-xs-4">
         <div class="form-group">
           <label for="billingState">* State</label>
           <select id="billingState" class="form-control" name="userBillingstate"
-                  [(ngModel)]="billing.userBillingState" required="required">
+                  [(ngModel)]="billing.state" required="required">
             <option value="" disabled>-- state --</option>
-            <option *ngFor="let state of stateList">{{state}}</option>
+            <option *ngFor="let state of stateList" [value]="state.value">{{state.label}}</option>
           </select>
         </div>
       </div>
@@ -45,7 +44,7 @@
         <div class="form-group">
           <label for="userBillingZipcode">* Zipcode</label>
           <input type="text" class="form-control" id="userBillingZipcode" placeholder="Zipcode"
-                 name="userBillingZipcode" required="required" [(ngModel)]="billing.userBillingZipcode" />
+                 name="userBillingZipcode" required="required" [(ngModel)]="billing.zipcode" />
         </div>
       </div>
     </div>

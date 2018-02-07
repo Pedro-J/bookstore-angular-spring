@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-@Transactional( readOnly = true )
+@Transactional
 public class UserServiceImpl implements UserService{
 	
 	private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
@@ -44,11 +44,11 @@ public class UserServiceImpl implements UserService{
 		this.mailSender = mailSender;
 	}
 
+    @Transactional( readOnly = true )
 	public User findById(Long id) {
 		return userRepository.findOne(id);
 	}
 
-	@Transactional
 	public User createUser(User user) {
 		User savedUser = userRepository.findByUsername(user.getUsername());
 
@@ -91,15 +91,16 @@ public class UserServiceImpl implements UserService{
 		return savedUser;
 	}
 
+	@Transactional( readOnly = true )
 	public User findByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
 
+	@Transactional( readOnly = true )
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
 
-	@Transactional
 	public void updateForgottenPassword(String email) {
 
 		User user = userRepository.findByEmail(email);
@@ -118,7 +119,6 @@ public class UserServiceImpl implements UserService{
 		mailSender.send(newEmail);
 	}
 
-	@Transactional
 	public void updateProfile(User modifiedUser, User currentUser){
 
 		if( currentUser == null ) {
@@ -160,7 +160,6 @@ public class UserServiceImpl implements UserService{
 
 	}
 
-	@Transactional
 	public void update(User user) {
 		userRepository.save(user);
 	}

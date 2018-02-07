@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional( readOnly = true )
+@Transactional
 public class BookServiceImpl implements BookService {
 
     private BookRepository bookRepository;
@@ -21,15 +21,16 @@ public class BookServiceImpl implements BookService {
         this.bookRepository = bookRepository;
     }
 
-    @Transactional
     public Book save(Book book) {
         return bookRepository.save(book);
     }
 
+    @Transactional( readOnly = true )
     public Book findById(Long id) {
         return bookRepository.findOne(id);
     }
 
+    @Transactional( readOnly = true )
     public List<Book> findAll() {
         List<Book> books = (List<Book>) bookRepository.findAll();
         List<Book> activeBooks = books.stream()
@@ -38,6 +39,7 @@ public class BookServiceImpl implements BookService {
         return activeBooks;
     }
 
+    @Transactional( readOnly = true )
     public List<Book> search(String keyword) {
         List<Book> books = bookRepository.findByTitleContaining(keyword);
         List<Book> activeBooks = books.stream()
@@ -46,7 +48,6 @@ public class BookServiceImpl implements BookService {
         return activeBooks;
     }
 
-    @Transactional
     public void remove(Long id) {
         bookRepository.delete(id);
     }

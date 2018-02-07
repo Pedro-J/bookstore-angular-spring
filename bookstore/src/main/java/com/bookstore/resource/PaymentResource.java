@@ -1,9 +1,7 @@
 package com.bookstore.resource;
 
 import com.bookstore.domain.User;
-import com.bookstore.domain.UserBilling;
 import com.bookstore.domain.UserPayment;
-import com.bookstore.service.UserBillingService;
 import com.bookstore.service.UserPaymentService;
 import com.bookstore.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -22,21 +20,17 @@ public class PaymentResource {
 
 	private UserPaymentService userPaymentService;
 
-	private UserBillingService userBillingService;
 
-    public PaymentResource(UserService userService, UserPaymentService userPaymentService, UserBillingService userBillingService) {
+    public PaymentResource(UserService userService, UserPaymentService userPaymentService) {
         this.userService = userService;
         this.userPaymentService = userPaymentService;
-        this.userBillingService = userBillingService;
     }
 
     @PostMapping("/add")
-	public void addNewPayment(@RequestBody UserPayment userPayment, Principal principal) {
+	public UserPayment addNewPayment(@RequestBody UserPayment userPayment, Principal principal) {
 		User user = userService.findByUsername(principal.getName());
 		
-		UserBilling userBilling = userPayment.getUserBilling();
-		
-		userBillingService.updateUserBilling(userBilling, userPayment, user);
+		return userPaymentService.save(userPayment, user);
 	}
 	
 	@RequestMapping("/list")
@@ -53,11 +47,20 @@ public class PaymentResource {
 		userPaymentService.removeById(id);
 	}
 
+	@PutMapping("/update")
+	@ResponseStatus(HttpStatus.OK)
+	public void updatePayment(@RequestBody UserPayment payment, Principal principal){
+        User user = userService.findByUsername(principal.getName());
+        payment.setUser(user);
+
+		userPaymentService.save(payment, user);
+	}
+
 	@PostMapping("/setDefault")
 	@ResponseStatus(HttpStatus.OK)
 	public void setDefaultPaymentPost(@RequestBody String id, Principal principal) {
 		User user = userService.findByUsername(principal.getName());
-		userPaymentService.setUserDefaultPayment(Long.parseLong(id), user);
+		userPaymentService.setDefaultPayment(Long.parseLong(id), user);
 	}
 	
 }

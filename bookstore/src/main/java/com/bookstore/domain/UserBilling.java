@@ -12,13 +12,13 @@ public class UserBilling implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String userBillingName;
-	private String userBillingStreet1;
-	private String userBillingStreet2;
-	private String userBillingCity;
-	private String userBillingState;
-	private String userBillingCountry;
-	private String userBillingZipcode;
+	private String name;
+	private String street1;
+	private String street2;
+	private String city;
+	private String state;
+	private String country;
+	private String zipcode;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
@@ -32,60 +32,64 @@ public class UserBilling implements Serializable{
 		this.id = id;
 	}
 
-	public String getUserBillingName() {
-		return userBillingName;
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 
-	public void setUserBillingName(String userBillingName) {
-		this.userBillingName = userBillingName;
+	public String getName() {
+		return name;
 	}
 
-	public String getUserBillingStreet1() {
-		return userBillingStreet1;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setUserBillingStreet1(String userBillingStreet1) {
-		this.userBillingStreet1 = userBillingStreet1;
+	public String getStreet1() {
+		return street1;
 	}
 
-	public String getUserBillingStreet2() {
-		return userBillingStreet2;
+	public void setStreet1(String street1) {
+		this.street1 = street1;
 	}
 
-	public void setUserBillingStreet2(String userBillingStreet2) {
-		this.userBillingStreet2 = userBillingStreet2;
+	public String getStreet2() {
+		return street2;
 	}
 
-	public String getUserBillingCity() {
-		return userBillingCity;
+	public void setStreet2(String street2) {
+		this.street2 = street2;
 	}
 
-	public void setUserBillingCity(String userBillingCity) {
-		this.userBillingCity = userBillingCity;
+	public String getCity() {
+		return city;
 	}
 
-	public String getUserBillingState() {
-		return userBillingState;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-	public void setUserBillingState(String userBillingState) {
-		this.userBillingState = userBillingState;
+	public String getState() {
+		return state;
 	}
 
-	public String getUserBillingCountry() {
-		return userBillingCountry;
+	public void setState(String state) {
+		this.state = state;
 	}
 
-	public void setUserBillingCountry(String userBillingCountry) {
-		this.userBillingCountry = userBillingCountry;
+	public String getCountry() {
+		return country;
 	}
 
-	public String getUserBillingZipcode() {
-		return userBillingZipcode;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
-	public void setUserBillingZipcode(String userBillingZipcode) {
-		this.userBillingZipcode = userBillingZipcode;
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 
 	public UserPayment getUserPayment() {
@@ -95,6 +99,4 @@ public class UserBilling implements Serializable{
 	public void setUserPayment(UserPayment userPayment) {
 		this.userPayment = userPayment;
 	}
-	
-	
 }

@@ -1,11 +1,12 @@
 <div>
   <br/>
-  <mat-tab-group (selectedIndexChange)="selectedChange($event)" [selectedIndex]="selectedPaymentTab">
+  <app-message [message]="message"></app-message>
+  <mat-tab-group (selectedIndexChange)="selectedChange($event)" [selectedIndex]="selectedPaymentTab" >
     <mat-tab label="List of Credit Cards">
-      <app-payment-list></app-payment-list>
+      <app-payment-list (updateTabEvent)="changeTab($event)" ></app-payment-list>
     </mat-tab>
     <mat-tab label="Add(Update) Credit Card">
-      <app-new-payment></app-new-payment>
+      <app-new-payment (updateTabEvent)="changeTab($event)"></app-new-payment>
     </mat-tab>
   </mat-tab-group>
 </div>

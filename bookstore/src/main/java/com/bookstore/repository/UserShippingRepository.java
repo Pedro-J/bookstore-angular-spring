@@ -1,9 +1,12 @@
 package com.bookstore.repository;
 
+import com.bookstore.domain.User;
+import com.bookstore.domain.UserShipping;
 import org.springframework.data.repository.CrudRepository;
 
-import com.bookstore.domain.UserShipping;
+import java.util.List;
 
 public interface UserShippingRepository extends CrudRepository<UserShipping, Long> {
 
+    List<UserShipping> findByUser(User user);
 }

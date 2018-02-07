@@ -25,7 +25,7 @@ import {MaterialModule} from './shared/material.module';
     UserAccountModule,
     CoreModule
   ],
-  providers: [ LoginService, UserService ],
+  providers: [ LoginService, UserService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
