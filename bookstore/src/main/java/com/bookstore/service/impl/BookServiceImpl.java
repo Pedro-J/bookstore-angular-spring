@@ -4,6 +4,8 @@ import com.bookstore.domain.Book;
 import com.bookstore.repository.BookRepository;
 import com.bookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,12 +42,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Transactional( readOnly = true )
-    public List<Book> search(String keyword) {
-        List<Book> books = bookRepository.findByTitleContaining(keyword);
-        List<Book> activeBooks = books.stream()
+    public Page<Book> search(String keyword) {
+        Page<Book> books = bookRepository.findByTitleContaining(keyword);
+        List<Book> activeBooks = books.getContent().stream()
                 .filter(book -> book.getActive().booleanValue())
                 .collect(Collectors.toList());
-        return activeBooks;
+        return new PageImpl<>(activeBooks);
     }
 
     public void remove(Long id) {

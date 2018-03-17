@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 public class UserShipping implements Serializable{
-	private static final long serialVersionUID = 498745987L;
+	private static final long serialVersionUID = 978978987L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

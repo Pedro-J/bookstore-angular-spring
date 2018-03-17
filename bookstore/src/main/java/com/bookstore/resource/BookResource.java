@@ -3,6 +3,7 @@ package com.bookstore.resource;
 import com.bookstore.domain.Book;
 import com.bookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -90,6 +91,12 @@ public class BookResource {
             e.printStackTrace();
             return new ResponseEntity("Upload failed", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/book/search")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<Book> searchBook(@RequestBody String keyword){
+        return bookService.search(keyword);
     }
 
 

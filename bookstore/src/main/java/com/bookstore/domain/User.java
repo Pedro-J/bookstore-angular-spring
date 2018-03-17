@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name="tb_user")
 public class User implements UserDetails, Serializable{
 
-	private static final long serialVersionUID = 902783495L;
+	private static final long serialVersionUID = 9879895L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +45,9 @@ public class User implements UserDetails, Serializable{
 
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "user")
 	private List<UserShipping> userShippingList;
+
+	@OneToOne(cascade=CascadeType.ALL, mappedBy = "user")
+	private ShoppingCart shoppingCart;
 
 	@Transient
 	@JsonIgnore
@@ -183,6 +186,11 @@ public class User implements UserDetails, Serializable{
 		return enabled;
 	}
 
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
 
-
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
 }

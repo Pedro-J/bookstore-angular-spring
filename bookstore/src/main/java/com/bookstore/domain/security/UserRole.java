@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name="tb_user_role")
 public class UserRole implements Serializable {
-	private static final long serialVersionUID = 890345L;
+	private static final long serialVersionUID = 7878745L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

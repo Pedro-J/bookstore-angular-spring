@@ -1,11 +1,12 @@
 package com.bookstore.repository;
 
 import com.bookstore.domain.Book;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.util.List;
+public interface BookRepository extends PagingAndSortingRepository<Book, Long> {
 
-public interface BookRepository extends CrudRepository<Book, Long> {
+    Page<Book> findByTitleContaining(String keyword);
 
-    List<Book> findByTitleContaining(String keyword);
+
 }

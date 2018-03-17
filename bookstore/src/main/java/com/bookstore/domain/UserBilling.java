@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 public class UserBilling implements Serializable{
-	private static final long serialVersionUID = 79872894528934L;
+	private static final long serialVersionUID = 1231123934L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

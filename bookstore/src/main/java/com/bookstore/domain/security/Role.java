@@ -9,7 +9,7 @@ import java.util.Set;
 @Table(name="tb_role")
 public class Role implements Serializable{
 	
-	private static final long serialVersionUID = 890245234L;
+	private static final long serialVersionUID = 65675234L;
 	
 	@Id
 	private int roleId;

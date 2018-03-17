@@ -14,7 +14,7 @@ import {
   MatPaginatorModule,
   MatTableModule,
   MatDialogModule,
-  MatTabsModule
+  MatTabsModule,
 } from '@angular/material';
 
 
