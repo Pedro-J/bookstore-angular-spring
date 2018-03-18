@@ -4,6 +4,7 @@ import {AppConst} from '../../constants/app-const';
 import {Book} from '../book.model';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Http} from '@angular/http';
+import {ShoppingCartService} from '../../shopping-cart/shopping-cart.service';
 
 @Component({
   selector: 'app-book-detail',
@@ -23,7 +24,7 @@ export class BookDetailComponent implements OnInit {
 
   constructor(
     private bookService: BookService,
-    private cartService: CartService,
+    private cartService: ShoppingCartService,
     private router: Router,
     private http: Http,
     private route: ActivatedRoute

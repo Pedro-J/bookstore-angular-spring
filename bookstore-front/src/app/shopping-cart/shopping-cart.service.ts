@@ -33,7 +33,7 @@ export class ShoppingCartService {
   }
 
   getShoppingCart(): Observable<Response> {
-    const url = this.serverPath + '/cart/getShoppingCart';
+    const url = this.serverPath + '/cart';
 
     const tokenHeader = new Headers({
       'Content-Type' : 'application/json',
@@ -43,7 +43,7 @@ export class ShoppingCartService {
   }
 
   updateCartItem(cartItemId: number, qty: number): Observable<Response> {
-    const url = this.serverPath + '/cart/updateCartItem';
+    const url = this.serverPath + '/cart/update';
     const cartItemInfo = {
       'cartItemId' : cartItemId,
       'qty' : qty
@@ -52,17 +52,17 @@ export class ShoppingCartService {
       'Content-Type' : 'application/json',
       'x-auth-token' : localStorage.getItem('xAuthToken')
     });
-    return this.http.post(url, cartItemInfo, {headers: tokenHeader});
+    return this.http.put(url, cartItemInfo, {headers: tokenHeader});
   }
 
   removeCartItem(id: number): Observable<Response> {
-    const url = this.serverPath + '/cart/removeItem';
+    const url = this.serverPath + '/cart/item/' + id ;
 
     const tokenHeader = new Headers({
       'Content-Type' : 'application/json',
       'x-auth-token' : localStorage.getItem('xAuthToken')
     });
-    return this.http.post(url, id, {headers: tokenHeader});
+    return this.http.delete(url, {headers: tokenHeader});
   }
 
 }

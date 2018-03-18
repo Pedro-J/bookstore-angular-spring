@@ -21,6 +21,16 @@ export class BookService {
     return this.http.get(url, {headers: tokenHeaders});
   }
 
+  getBook(id: number): Observable<Response> {
+    const url = this.serverPath + '/book/' + id;
+
+    const tokenHeader = new Headers({
+      'Content-Type' : 'application/json',
+      'x-auth-token' : localStorage.getItem('xAuthToken')
+    });
+    return this.http.get(url, {headers: tokenHeader});
+  }
+
   public searchBook(keyword: string): Observable<Response> {
     const url = this.serverPath + '/book/searchBook';
 

@@ -1,6 +1,7 @@
 package com.bookstore.service.impl;
 
 import com.bookstore.config.SecurityUtility;
+import com.bookstore.domain.ShoppingCart;
 import com.bookstore.domain.User;
 import com.bookstore.domain.security.Role;
 import com.bookstore.domain.security.UserRole;
@@ -37,7 +38,8 @@ public class UserServiceImpl implements UserService{
 	private JavaMailSender mailSender;
 
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, MailBuilder mailBuilder, JavaMailSender mailSender) {
+	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
+                           MailBuilder mailBuilder, JavaMailSender mailSender) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.mailBuilder = mailBuilder;
@@ -81,6 +83,10 @@ public class UserServiceImpl implements UserService{
 
 			String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
 			user.setPassword(encryptedPassword);
+
+			ShoppingCart shoppingCart = new ShoppingCart();
+			shoppingCart.setUser(user);
+			user.setShoppingCart(shoppingCart);
 
 			savedUser = userRepository.save(user);
 
