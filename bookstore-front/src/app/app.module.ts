@@ -13,12 +13,14 @@ import { UserAccountModule } from './user-account/user-account.module';
 import { MaterialModule } from './shared/material.module';
 import { BookModule } from './book/book.module';
 import { ShoppingCartModule } from './shopping-cart/shopping-cart.module';
-
-
+import { OrderComponent } from './order/order.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    OrderComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

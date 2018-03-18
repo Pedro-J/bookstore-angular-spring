@@ -7,11 +7,13 @@ import com.bookstore.service.ShoppingCartItemService;
 import com.bookstore.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Service
+@Transactional
 public class ShoppingCartServiceImpl implements ShoppingCartService{
 	
 	@Autowired
@@ -26,7 +28,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 		List<ShoppingCartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
 		
 		for (ShoppingCartItem cartItem : cartItemList) {
-			if(cartItem.getBook().getInStockNumber()>0) {
+			if (cartItem.getBook().getInStockNumber() > 0) {
 				cartItemService.updateCartItem(cartItem);
 				cartTotal = cartTotal.add(cartItem.getSubtotal());
 			}

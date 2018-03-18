@@ -1,6 +1,9 @@
 package com.bookstore.resource;
 
-import com.bookstore.domain.*;
+import com.bookstore.domain.Book;
+import com.bookstore.domain.ShoppingCart;
+import com.bookstore.domain.ShoppingCartItem;
+import com.bookstore.domain.User;
 import com.bookstore.exception.BadRequestException;
 import com.bookstore.service.BookService;
 import com.bookstore.service.ShoppingCartItemService;
@@ -8,7 +11,6 @@ import com.bookstore.service.ShoppingCartService;
 import com.bookstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -72,17 +74,13 @@ public class ShoppingCartResource {
 		User user = userService.findByUsername(principal.getName());
 		ShoppingCart shoppingCart = user.getShoppingCart();
 		
-		shoppingCartService.updateShoppingCart(shoppingCart);
-		
-		return shoppingCart;
+		return shoppingCartService.updateShoppingCart(shoppingCart);
 	}
 	
 	@DeleteMapping("/items/{id}")
     @ResponseStatus(HttpStatus.OK)
-	public ResponseEntity removeItem(@PathVariable("id") String id) {
+	public void removeItem(@PathVariable("id") String id) {
 		cartItemService.removeCartItem(cartItemService.findById(Long.parseLong(id)));
-		
-		return new ResponseEntity("Cart Item Removed Successfully!", HttpStatus.OK);
 	}
 	
 	@PutMapping("/update")
