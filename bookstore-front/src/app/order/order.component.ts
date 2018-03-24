@@ -3,16 +3,16 @@ import {AppConst} from '../constants/app-const';
 import {Book} from '../book/book.model';
 import {ShoppingCartItem} from '../shopping-cart/shopping-cart-item.model';
 import {ShoppingCart} from '../shopping-cart/shopping-cart.model';
-import {Billing} from '../payments/billing.model';
-import {Shipping} from '../shipping/shipping.model';
-import {Payment} from '../payments/payment.model';
+import {UserBilling} from '../user-payment/user-billing.model';
+import {UserShipping} from '../user-shipping/user-shipping.model';
+import {UserPayment} from '../user-payment/user-payment.model';
 import {OrderShipping} from './order-shipping.model';
 import {OrderBilling} from './order-billing.model';
 import {Order} from './order.model';
 import {NavigationExtras, Router} from '@angular/router';
 import {ShoppingCartService} from '../shopping-cart/shopping-cart.service';
-import {ShippingService} from '../shipping/shipping.service';
-import {PaymentService} from '../payments/payment.service';
+import {UserShippingService} from '../user-shipping/user-shipping.service';
+import {PaymentService} from '../user-payment/user-payment.service';
 import {CheckoutService} from '../checkout/checkout.service';
 
 @Component({
@@ -22,57 +22,67 @@ import {CheckoutService} from '../checkout/checkout.service';
 })
 export class OrderComponent implements OnInit {
 
-  private serverPath = AppConst.FULL_API_BASE_PATH;
-  private selectedBook: Book;
-  private cartItemList: ShoppingCartItem[] = [];
-  private cartItemNumber: number;
-  private shoppingCart: ShoppingCart = new ShoppingCart();
-  private cartItemUpdated: boolean;
-  private orderShipping: OrderShipping = new OrderShipping();
-  private orderBilling: OrderBilling = new OrderBilling();
-  private userPayment: Payment = new Payment();
-  private userShipping: Shipping = new Shipping();
-  private userBilling: Billing = new Billing();
-  private userShippingList: Shipping[] = [];
-  private userPaymentList: Payment[] = [];
-  private payment: Payment = new Payment();
-  private selectedTab: number;
-  private emptyShippingList = true;
-  private emptyPaymentList = true;
-  private stateList: string[] = [];
-  private shippingMethod: string;
-  private order: Order = new Order();
+  private _serverPath = AppConst.FULL_API_BASE_PATH;
+  private _selectedBook: Book;
+
+  // Cart variables
+  private _cartItemList: ShoppingCartItem[] = [];
+  private _cartItemNumber: number;
+  private _cart: ShoppingCart = new ShoppingCart();
+  private _cartItemUpdated: boolean;
+
+  // UserBilling and userShipping variables
+  private _orderShipping: OrderShipping = new OrderShipping();
+  private _orderBilling: OrderBilling = new OrderBilling();
+  private _userShippingList: UserShipping[] = [];
+  private _userShipping: UserShipping = new UserShipping();
+  private _userBilling: UserBilling = new UserBilling();
+
+  // UserPayment variables
+  private _userPaymentList: UserPayment[] = [];
+  private _payment: UserPayment = new UserPayment();
+
+  // Order variable
+  private _order: Order = new Order();
+
+  // Aux variables
+  private _selectedTab: number;
+  private _emptyShippingList = true;
+  private _emptyPaymentList = true;
+  private _stateList: string[] = [];
+  private _shippingMethod: string;
+
 
   constructor(
     private router: Router,
     private cartService: ShoppingCartService,
-    private shippingService: ShippingService,
+    private shippingService: UserShippingService,
     private paymentService: PaymentService,
     private checkoutService: CheckoutService
   ) { }
 
   public onSelect(book: Book): void {
-    this.selectedBook = book;
+    this._selectedBook = book;
     this.router.navigate(['/bookDetail', this.selectedBook.id]);
   }
 
   public selectedChange(val: number): void {
-    this.selectedTab = val;
+    this._selectedTab = val;
   }
 
   public goToPayment(): void {
-    this.selectedTab = 1;
+    this._selectedTab = 1;
   }
 
   public goToReview(): void {
-    this.selectedTab = 2;
+    this._selectedTab = 2;
   }
 
   public getCartItemList(): void {
     this.cartService.getCartItemList().subscribe(
       res => {
-        this.cartItemList = res.json();
-        this.cartItemNumber = this.cartItemList.length;
+        this._cartItemList = res.json();
+        this._cartItemNumber = this._cartItemList.length;
       },
       error => {
         console.log(error.text());
@@ -80,17 +90,17 @@ export class OrderComponent implements OnInit {
     );
   }
 
-  public setShippingAddress(shipping: Shipping) {
-    this.orderShipping.name = shipping.name;
-    this.orderShipping.street1 = shipping.street1;
-    this.orderShipping.street2 = shipping.street2;
-    this.orderShipping.city = shipping.city;
-    this.orderShipping.state = shipping.state;
-    this.orderShipping.country = shipping.country;
-    this.orderShipping.zipcode = shipping.zipcode;
+  public setShippingAddress(shipping: UserShipping) {
+    this._orderShipping.name = shipping.name;
+    this._orderShipping.street1 = shipping.street1;
+    this._orderShipping.street2 = shipping.street2;
+    this._orderShipping.city = shipping.city;
+    this._orderShipping.state = shipping.state;
+    this._orderShipping.country = shipping.country;
+    this._orderShipping.zipcode = shipping.zipcode;
   }
 
-  public setPaymentMethod(payment: Payment) {
+  public setPaymentMethod(payment: UserPayment) {
     this.payment.type = payment.type;
     this.payment.cardNumber = payment.cardNumber;
     this.payment.expiryMonth = payment.expiryMonth;
@@ -108,7 +118,7 @@ export class OrderComponent implements OnInit {
   }
 
   public setBillingAsShipping(checked: boolean): void {
-    console.log('same as shipping');
+    console.log('same as userShipping');
 
     if (checked) {
       this.orderBilling.name = this.orderShipping.name;
@@ -168,7 +178,7 @@ export class OrderComponent implements OnInit {
       }
     );
 
-    this.shippingService.getShippingList().subscribe(
+    this.shippingService.getUserShippingList().subscribe(
       res => {
         console.log(res.json());
         this.userShippingList = res.json();
@@ -188,7 +198,7 @@ export class OrderComponent implements OnInit {
       }
     );
 
-    this.paymentService.getPaymentList().subscribe(
+    this.paymentService.getUserPaymentList().subscribe(
       res => {
         console.log(res.json());
         this.userPaymentList = res.json();
