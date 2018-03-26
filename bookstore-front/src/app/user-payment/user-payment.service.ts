@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { AppConst } from '../constants/app-const';
 import {Http, Headers, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {Payment} from './payment.model';
+import {UserPayment} from './user-payment.model';
 import {Subject} from 'rxjs/Subject';
 
 @Injectable()
-export class PaymentService {
+export class UserPaymentService {
 
   paymentListSubject = new Subject();
   paymentSelectSubject = new Subject();
@@ -14,7 +14,7 @@ export class PaymentService {
 
   constructor(private http: Http) { }
 
-  public newPayment(payment: Payment): Observable<Response> {
+  public newUserPayment(payment: UserPayment): Observable<Response> {
     const url = this.serverPath + '/payments/add';
 
     const tokenHeader = new Headers({
@@ -25,7 +25,7 @@ export class PaymentService {
     return this.http.post(url, JSON.stringify(payment), {headers: tokenHeader});
   }
 
-  public updatePayment(payment: Payment): Observable<Response> {
+  public updateUserPayment(payment: UserPayment): Observable<Response> {
     const url = this.serverPath + '/payments/update';
 
     const tokenHeader = new Headers({
@@ -36,7 +36,7 @@ export class PaymentService {
     return this.http.put(url, JSON.stringify(payment), {headers: tokenHeader});
   }
 
-  public getPaymentList(): Observable<Response> {
+  public getUserPaymentList(): Observable<Response> {
     const url = this.serverPath + '/payments/list';
 
     const tokenHeader = new Headers({
@@ -47,7 +47,7 @@ export class PaymentService {
     return this.http.get(url,  {headers: tokenHeader});
   }
 
-  public deletePayment(id: number): Observable<Response> {
+  public deleteUserPayment(id: number): Observable<Response> {
     const url = this.serverPath + '/payments/' + id;
 
     const tokenHeader = new Headers({
@@ -58,7 +58,7 @@ export class PaymentService {
     return this.http.delete(url, {headers: tokenHeader});
   }
 
-  public setDefaultPayment (id: number): Observable<Response> {
+  public setDefaultUserPayment (id: number): Observable<Response> {
     const url = this.serverPath + '/payments/setDefault';
 
     const tokenHeader = new Headers({

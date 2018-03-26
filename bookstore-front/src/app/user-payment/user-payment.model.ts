@@ -1,6 +1,6 @@
-import {Billing} from './billing.model';
+import {UserBilling} from './user-billing.model';
 
-export class Payment {
+export class UserPayment {
   public id: number;
   public type: string;
   public cardName: string;
@@ -10,7 +10,7 @@ export class Payment {
   public cvc: number;
   public holderName: string;
   public default: boolean;
-  public userBilling: Billing;
+  public userBilling: UserBilling;
 
   constructor() {
     this.default = false;

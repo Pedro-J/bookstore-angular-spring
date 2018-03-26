@@ -9,7 +9,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let shipping of shippingList">
+      <tr *ngFor="let shipping of userShippingList">
         <td>
           <input type="radio" name="defaultUserShippingId" [(ngModel)]="defaultShippingId" [value]="shipping.id" />
           <span>default</span>

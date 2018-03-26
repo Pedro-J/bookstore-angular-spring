@@ -3,10 +3,10 @@
   <app-message [message]="message"></app-message>
   <mat-tab-group (selectedIndexChange)="selectedChange($event)" [selectedIndex]="selectedPaymentTab" >
     <mat-tab label="List of Credit Cards">
-      <app-payment-list (updateTabEvent)="changeTab($event)" ></app-payment-list>
+      <app-user-payment-list (updateTabEvent)="changeTab($event)" ></app-user-payment-list>
     </mat-tab>
     <mat-tab label="Add(Update) Credit Card">
-      <app-new-payment (updateTabEvent)="changeTab($event)"></app-new-payment>
+      <app-new-user-payment (updateTabEvent)="changeTab($event)"></app-new-user-payment>
     </mat-tab>
   </mat-tab-group>
 </div>

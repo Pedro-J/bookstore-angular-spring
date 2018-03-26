@@ -13,14 +13,11 @@ import { UserAccountModule } from './user-account/user-account.module';
 import { MaterialModule } from './shared/material.module';
 import { BookModule } from './book/book.module';
 import { ShoppingCartModule } from './shopping-cart/shopping-cart.module';
-import { OrderComponent } from './order/order.component';
-import { CheckoutComponent } from './checkout/checkout.component';
+import { OrderModule } from './order/order.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    OrderComponent,
-    CheckoutComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +27,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     UserAccountModule,
     CoreModule,
     BookModule,
-    ShoppingCartModule
+    ShoppingCartModule,
+    OrderModule
   ],
   providers: [ LoginService, UserService],
   bootstrap: [ AppComponent ]

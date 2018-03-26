@@ -47,10 +47,10 @@
                   </select>
                 </div>
                 <div class="col-xs-6">
-                  <h4 *ngIf="book.inStockNumber>10" style="color:green;">In Stock</h4>
-                  <h4 *ngIf="book.inStockNumber<10 && book.inStockNumber>0" style="color:green;">Only <span>{{book.inStockNumber}}</span> In Stock</h4>
-                  <h4 *ngIf="book.inStockNumber==0" style="color:darkred;">Unavailable</h4>
-                  <button md-raised-button [disabled]="book.inStockNumber==0" (click)="onAddToCart()" class="mat-primary">Add to Cart</button>
+                  <h4 *ngIf="book.inStockNumber > 10" style="color:green;">In Stock</h4>
+                  <h4 *ngIf="book.inStockNumber < 10 && book.inStockNumber > 0" style="color:green;">Only <span>{{book.inStockNumber}}</span> In Stock</h4>
+                  <h4 *ngIf="book.inStockNumber === 0" style="color:darkred;">Unavailable</h4>
+                  <button md-raised-button [disabled]="book.inStockNumber === 0" (click)="onAddToCart()" class="mat-primary">Add to Cart</button>
                 </div>
               </div>
 

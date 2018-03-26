@@ -6,12 +6,12 @@ import {Router} from '@angular/router';
 
 @Injectable()
 export class LoginService {
-  private serverPath: string = AppConst.FULL_API_BASE_PATH;
+  private _serverPath: string = AppConst.FULL_API_BASE_PATH;
 
   constructor(private http: Http, private router: Router) { }
 
-  sendCredential(username: string, password: string): Observable<Response> {
-    const url = this.serverPath + '/token';
+  public sendCredential(username: string, password: string): Observable<Response> {
+    const url = this._serverPath + '/token';
     const encodedCredentials = btoa(username + ':' + password);
     const basicHeader = 'Basic ' + encodedCredentials;
     const headers = new Headers({
@@ -22,8 +22,8 @@ export class LoginService {
     return this.http.get(url, {headers: headers});
   }
 
-  checkSession(): Observable<Response> {
-    const url = this.serverPath + '/session/active';
+  public checkSession(): Observable<Response> {
+    const url = this._serverPath + '/session/active';
     const headers = new Headers({
       'x-auth-token' : localStorage.getItem('xAuthToken')
     });
@@ -31,8 +31,8 @@ export class LoginService {
     return this.http.get(url, {headers: headers});
   }
 
-  logout(): Observable<Response> {
-    const url = this.serverPath + '/user/logout';
+  public logout(): Observable<Response> {
+    const url = this._serverPath + '/user/logout';
     const headers = new Headers({
       'x-auth-token' : localStorage.getItem('xAuthToken')
     });

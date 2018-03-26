@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Http, Headers, Response} from '@angular/http';
-import {Payment} from '../payments/payment.model';
+import {UserPayment} from '../user-payment/user-payment.model';
 import {AppConst} from '../constants/app-const';
-import {Billing} from '../payments/billing.model';
-import {Shipping} from '../shipping/shipping.model';
+import {UserBilling} from '../user-payment/user-billing.model';
+import {UserShipping} from '../user-shipping/user-shipping.model';
 import {Observable} from 'rxjs/Observable';
 import {OrderShipping} from '../order/order-shipping.model';
 import {OrderBilling} from '../order/order-billing.model';
@@ -16,7 +16,7 @@ export class CheckoutService {
   constructor(private http: Http) { }
 
   public checkout(orderShipping: OrderShipping, orderBilling: OrderBilling,
-                  payment: Payment, shippingMethod: string): Observable<Response> {
+                  payment: UserPayment, shippingMethod: string): Observable<Response> {
 
     const url = this.serverPath + '/checkout/checkout';
     const order = {

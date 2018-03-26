@@ -17,7 +17,11 @@ export class AccountEditComponent implements OnInit {
 
   constructor(private userService: UserService) { }
 
-  onUpdateUserInfo () {
+  ngOnInit(): void {
+    this.getCurrentUser();
+  }
+
+  public onUpdateUserInfo(): void {
     this.userService.updateUserInfo(this._user, this._newPassword, this._currentPassword).subscribe(
       res => {
         console.log(res.text());
@@ -32,7 +36,7 @@ export class AccountEditComponent implements OnInit {
       });
   }
 
-  getCurrentUser() {
+  public getCurrentUser(): void {
     this.userService.getCurrentUser().subscribe(
       res => {
         this._user = res.json();
@@ -42,9 +46,6 @@ export class AccountEditComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
-    this.getCurrentUser();
-  }
   get user(): User {
     return this._user;
   }
@@ -84,4 +85,5 @@ export class AccountEditComponent implements OnInit {
   set currentPassword(value: string) {
     this._currentPassword = value;
   }
+
 }

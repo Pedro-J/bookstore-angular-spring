@@ -8,9 +8,9 @@ import { UserService } from '../user.service';
 })
 export class ForgetPasswordComponent implements OnInit {
 
-  private emailNotExists = false;
-  private forgetPasswordEmailSent: boolean;
-  private recoverEmail: string;
+  private _emailNotExists = false;
+  private _forgetPasswordEmailSent: boolean;
+  private _recoverEmail: string;
 
   constructor(private userService: UserService) { }
 
@@ -19,22 +19,45 @@ export class ForgetPasswordComponent implements OnInit {
   }
 
   public onForgetPassword(): void {
-    this.forgetPasswordEmailSent = false;
-    this.emailNotExists = false;
+    this._forgetPasswordEmailSent = false;
+    this._emailNotExists = false;
 
-    this.userService.retrievePassword(this.recoverEmail).subscribe(
+    this.userService.retrievePassword(this._recoverEmail).subscribe(
       res => {
         console.log(res);
-        this.forgetPasswordEmailSent = true;
+        this._forgetPasswordEmailSent = true;
       },
       error => {
         console.log(error.text());
         const errorMessage = error.text();
         if (errorMessage === 'Email not found') {
-          this.emailNotExists = true;
+          this._emailNotExists = true;
         }
       }
     );
   }
 
+  get emailNotExists(): boolean {
+    return this._emailNotExists;
+  }
+
+  set emailNotExists(value: boolean) {
+    this._emailNotExists = value;
+  }
+
+  get forgetPasswordEmailSent(): boolean {
+    return this._forgetPasswordEmailSent;
+  }
+
+  set forgetPasswordEmailSent(value: boolean) {
+    this._forgetPasswordEmailSent = value;
+  }
+
+  get recoverEmail(): string {
+    return this._recoverEmail;
+  }
+
+  set recoverEmail(value: string) {
+    this._recoverEmail = value;
+  }
 }

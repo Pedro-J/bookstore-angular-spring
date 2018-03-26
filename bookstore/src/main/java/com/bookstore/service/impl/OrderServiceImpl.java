@@ -1,27 +1,19 @@
 package com.bookstore.service.impl;
 
-import java.util.Calendar;
-import java.util.List;
-
+import com.bookstore.domain.*;
+import com.bookstore.repository.OrderBillingRepository;
+import com.bookstore.repository.OrderPaymentRepository;
+import com.bookstore.repository.OrderRepository;
+import com.bookstore.repository.OrderShippingRepository;
+import com.bookstore.service.BookService;
+import com.bookstore.service.OrderService;
+import com.bookstore.service.ShoppingCartItemService;
+import com.bookstore.utility.MailBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bookstore.domain.BillingAddress;
-import com.bookstore.domain.Book;
-import com.bookstore.domain.CartItem;
-import com.bookstore.domain.Order;
-import com.bookstore.domain.Payment;
-import com.bookstore.domain.ShippingAddress;
-import com.bookstore.domain.ShoppingCart;
-import com.bookstore.domain.User;
-import com.bookstore.repository.BillingAddressRepository;
-import com.bookstore.repository.OrderRepository;
-import com.bookstore.repository.OrderPaymentRepository;
-import com.bookstore.repository.OrderShippingRepository;
-import com.bookstore.service.BookService;
-import com.bookstore.service.CartItemService;
-import com.bookstore.service.OrderService;
-import com.bookstore.utility.MailConstructor;
+import java.util.Calendar;
+import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -30,7 +22,7 @@ public class OrderServiceImpl implements OrderService{
 	private OrderRepository orderRepository;
 	
 	@Autowired
-	private BillingAddressRepository billingAddressRepository;
+	private OrderBillingRepository billingAddressRepository;
 	
 	@Autowired
 	private OrderShippingRepository shippingAddressRepository;
@@ -39,19 +31,19 @@ public class OrderServiceImpl implements OrderService{
 	private OrderPaymentRepository paymentRepository;
 	
 	@Autowired
-	private CartItemService cartItemService;
+	private ShoppingCartItemService cartItemService;
 	
 	@Autowired
 	private BookService bookService;
 	
 	@Autowired
-	private MailConstructor mailConstructor;
+	private MailBuilder mailConstructor;
 	
 	public synchronized  Order createOrder(
 			ShoppingCart shoppingCart,
-			ShippingAddress shippingAddress,
-			BillingAddress billingAddress,
-			Payment payment,
+			OrderShipping shippingAddress,
+			OrderBilling billingAddress,
+			UserPayment payment,
 			String shippingMethod,
 			User user
 			){

@@ -9,9 +9,9 @@
     <div id="navbar">
       <ul class="nav navbar-nav navbar-left">
         <li><a mat-button routerLink="/book/list">BOOK</a></li>
-        <form (ngSubmit)="onSearcyByTitle()" class="navbar-form">
+        <form (ngSubmit)="onSearchByTitle()" class="navbar-form">
           <div class="form-group">
-            <input type="text" name="searcyByTitle" [(ngModel)]="searchValue" class="form-control" placeholder="Book Title" />
+            <input type="text" name="searcyByTitle" [(ngModel)]="title" class="form-control" placeholder="Book Title" />
           </div>
           <button type="submit" mat-button class="btn btn-default">Search</button>
         </form>

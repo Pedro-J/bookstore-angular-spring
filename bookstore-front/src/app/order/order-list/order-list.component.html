@@ -35,15 +35,15 @@
                   <div class="panel-heading"><strong>Billing Details</strong>
                   </div>
                   <div class="panel-body">
-                    <span>{{order.billingAddress.billingAddressName}}</span>
+                    <span>{{order.orderBilling.name}}</span>
                     <br/>
-                    <span>{{order.billingAddress.billingAddressStreet1}} {{order.billingAddress.billingAddressStreet2}}</span>
+                    <span>{{order.orderBilling.street1}} {{order.orderBilling.street2}}</span>
                     <br/>
-                    <span>{{order.billingAddress.billingAddressCity}}</span>
+                    <span>{{order.orderBilling.city}}</span>
                     <br/>
-                    <span>{{order.billingAddress.billingAddressState}}</span>
+                    <span>{{order.orderBilling.state}}</span>
                     <br/>
-                    <span>{{order.billingAddress.billingAddressZipcode}}</span>
+                    <span>{{order.orderBilling.zipcode}}</span>
                     <br/>
                   </div>
                 </div>
@@ -53,12 +53,12 @@
                   <div class="panel-heading"><strong>Payment Information</strong>
                   </div>
                   <div class="panel-body">
-                    <span>{{order.userPayment.holderName}}</span>
+                    <span>{{order.orderPayment.holderName}}</span>
                     <br/> Visa
                     <br/>
-                    <span>{{order.userPayment.cardNumber}}</span>
+                    <span>{{order.orderPayment.cardNumber}}</span>
                     <br/>
-                    <span>Exp Date:</span> <span>{{order.userPayment.expiryMonth}}</span>/<span>{{order.userPayment.expiryYear}}</span>
+                    <span>Exp Date:</span> <span>{{order.orderPayment.expiryMonth}}</span>/<span>{{order.orderPayment.expiryYear}}</span>
                     <br/>
                   </div>
                 </div>
@@ -68,15 +68,15 @@
                   <div class="panel-heading"><strong>Shipping Address</strong>
                   </div>
                   <div class="panel-body">
-                    <span>{{order.shippingAddress.shippingAddressName}}</span>
+                    <span>{{order.orderShipping.name}}</span>
                     <br/>
-                    <span>{{order.shippingAddress.shippingAddressStreet1}}' '{{order.shippingAddress.shippingAddressStreet2}}</span>
+                    <span>{{order.orderShipping.street1}}' '{{order.orderShipping.street2}}</span>
                     <br/>
-                    <span>{{order.shippingAddress.shippingAddressCity}}</span>
+                    <span>{{order.orderShipping.city}}</span>
                     <br/>
-                    <span>{{order.shippingAddress.shippingAddressState}}</span>
+                    <span>{{order.orderShipping.state}}</span>
                     <br/>
-                    <span>{{order.shippingAddress.shippingAddressZipcode}}</span>
+                    <span>{{order.orderShipping.zipcode}}</span>
                     <br/>
                   </div>
                 </div>
@@ -103,7 +103,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let cartItem of cartItemList">
+                    <tr *ngFor="let cartItem of order.cartItemList">
                       <td>{{cartItem.book.title}}
                       </td>
                       <td class="text-center">{{cartItem.book.ourPrice}}

@@ -27,13 +27,13 @@ public class Order implements Serializable{
 	private List<ShoppingCartItem> cartItemList;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	private OrderShipping shippingAddress;
+	private OrderShipping orderShipping;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	private OrderBilling billingAddress;
+	private OrderBilling orderBilling;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	private UserPayment payment;
+	private OrderPayment orderPayment;
 	
 	@ManyToOne
 	@JsonIgnore
@@ -99,28 +99,28 @@ public class Order implements Serializable{
 		this.cartItemList = cartItemList;
 	}
 
-	public OrderShipping getShippingAddress() {
-		return shippingAddress;
+	public OrderShipping getOrderShipping() {
+		return orderShipping;
 	}
 
-	public void setShippingAddress(OrderShipping shippingAddress) {
-		this.shippingAddress = shippingAddress;
+	public void setOrderShipping(OrderShipping orderShipping) {
+		this.orderShipping = orderShipping;
 	}
 
-	public OrderBilling getBillingAddress() {
-		return billingAddress;
+	public OrderBilling getOrderBilling() {
+		return orderBilling;
 	}
 
-	public void setBillingAddress(OrderBilling billingAddress) {
-		this.billingAddress = billingAddress;
+	public void setOrderBilling(OrderBilling orderBilling) {
+		this.orderBilling = orderBilling;
 	}
 
-	public UserPayment getPayment() {
-		return payment;
+	public OrderPayment getOrderPayment() {
+		return orderPayment;
 	}
 
-	public void setPayment(UserPayment payment) {
-		this.payment = payment;
+	public void setOrderPayment(OrderPayment orderPayment) {
+		this.orderPayment = orderPayment;
 	}
 
 	public User getUser() {

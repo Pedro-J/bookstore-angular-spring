@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../user-account/login/login.service';
-import { Router } from '@angular/router';
+import {NavigationExtras, Router} from '@angular/router';
+import {Book} from '../../book/book.model';
+import {BookService} from '../../book/book.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,10 +13,24 @@ export class NavBarComponent implements OnInit {
 
   private _loggedIn = false;
   private _searchValue: string;
+  private _title: string;
+  private _bookList: Book[] = [];
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private _router: Router, private bookService: BookService) { }
 
-  logout() {
+  ngOnInit() {
+    this.loginService.checkSession().subscribe(
+      res => {
+        this._loggedIn = true;
+      },
+      err => {
+        this._loggedIn = false;
+        this._router.navigate(['/home']);
+      }
+    );
+  }
+
+  public logout(): void {
     this.loginService.logout().subscribe(
       res => {
         location.reload();
@@ -25,20 +41,23 @@ export class NavBarComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
-    this.loginService.checkSession().subscribe(
+  public onSearchByTitle(): void {
+    this.bookService.searchBook(this._title).subscribe(
       res => {
-        this._loggedIn = true;
+        this._bookList = res.json();
+        console.log(this._bookList);
+        const navigationExtras: NavigationExtras = {
+          queryParams: {
+            'bookList': JSON.stringify(this._bookList)
+          }
+        };
+
+        this.router.navigate(['/bookList'], navigationExtras);
       },
-      err => {
-        this._loggedIn = false;
-        this.router.navigate(['/home']);
+      error => {
+        console.log(error);
       }
     );
-  }
-
-  onSearcyByTitle() {
-
   }
 
   get loggedIn(): boolean {
@@ -55,5 +74,21 @@ export class NavBarComponent implements OnInit {
 
   set searchValue(value: string) {
     this._searchValue = value;
+  }
+
+  get router(): Router {
+    return this._router;
+  }
+
+  set router(value: Router) {
+    this._router = value;
+  }
+
+  get title(): string {
+    return this._title;
+  }
+
+  set title(value: string) {
+    this._title = value;
   }
 }

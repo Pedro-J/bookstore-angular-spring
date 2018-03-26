@@ -1,30 +1,30 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {ShippingService} from '../shipping.service';
-import {Shipping} from '../shipping.model';
+import {UserShippingService} from '../user-shipping.service';
+import {UserShipping} from '../user-shipping.model';
 import {AppMessage} from '../../utils/app-message';
 import { AppConst } from '../../constants/app-const';
 
 @Component({
-  selector: 'app-new-shipping',
-  templateUrl: './new-shipping.component.html',
-  styleUrls: ['./new-shipping.component.css']
+  selector: 'app-new-user-shipping',
+  templateUrl: './new-user-shipping.component.html',
+  styleUrls: ['./new-user-shipping.component.css']
 })
-export class NewShippingComponent implements OnInit, OnDestroy {
+export class NewUserShippingComponent implements OnInit, OnDestroy {
 
   @Output() updateTabEvent = new EventEmitter<{tab?: number, message?: AppMessage}>();
 
   private _stateList: {label: string, value: string}[];
-  private _shipping: Shipping = new Shipping();
+  private _userShipping: UserShipping = new UserShipping();
   private _message: AppMessage = new AppMessage();
 
-  constructor(private shippingService: ShippingService) { }
+  constructor(private shippingService: UserShippingService) { }
 
   ngOnInit() {
     this._stateList = AppConst.states;
 
     this.shippingService.shippingSelectSubject.subscribe(
-      (shipping: Shipping) => {
-        this._shipping = shipping;
+      (shipping: UserShipping) => {
+        this._userShipping = shipping;
       }
     );
   }
@@ -34,7 +34,7 @@ export class NewShippingComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void{
-    if ( this._shipping.id ) {
+    if ( this._userShipping.id ) {
       this.onUpdateShipping();
     }else {
       this.onNewShipping();
@@ -42,14 +42,14 @@ export class NewShippingComponent implements OnInit, OnDestroy {
   }
 
   public onNewShipping(): void {
-    this.shippingService.newShipping(this._shipping).subscribe(
+    this.shippingService.newUserShipping(this._userShipping).subscribe(
       res => {
-        this._shipping = res.json();
-        this.shippingService.shippingListSubject.next(this._shipping);
-        this._message = AppMessage.createMessage('Shipping was saved sucessfully.', '', 'success', true);
+        this._userShipping = res.json();
+        this.shippingService.shippingListSubject.next(this._userShipping);
+        this._message = AppMessage.createMessage('UserShipping was saved sucessfully.', '', 'success', true);
         this.updateTabEvent.emit({tab: 0, message: this._message});
 
-        this._shipping = new Shipping();
+        this._userShipping = new UserShipping();
       },
       error => {
         console.log(error.text());
@@ -58,11 +58,11 @@ export class NewShippingComponent implements OnInit, OnDestroy {
   }
 
   public onUpdateShipping(): void {
-    this.shippingService.updateShipping(this._shipping).subscribe(
+    this.shippingService.updateUserShipping(this._userShipping).subscribe(
       res => {
-        this._message = AppMessage.createMessage('Shipping was updated sucessfully.', '', 'success', true);
+        this._message = AppMessage.createMessage('UserShipping was updated sucessfully.', '', 'success', true);
         this.updateTabEvent.emit({tab: 0, message: this._message});
-        this._shipping = new Shipping();
+        this._userShipping = new UserShipping();
       },
       error => {
         console.log(error.text());
@@ -70,12 +70,12 @@ export class NewShippingComponent implements OnInit, OnDestroy {
     );
   }
 
-  get shipping(): Shipping {
-    return this._shipping;
+  get userShipping(): UserShipping {
+    return this._userShipping;
   }
 
-  set shipping(value: Shipping) {
-    this._shipping = value;
+  set userShipping(value: UserShipping) {
+    this._userShipping = value;
   }
 
   get message(): AppMessage {

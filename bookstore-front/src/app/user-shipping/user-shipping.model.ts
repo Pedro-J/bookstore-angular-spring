@@ -1,5 +1,5 @@
 import {Address} from '../core/address.model';
 
-export class Shipping extends Address {
+export class UserShipping extends Address {
   public default: boolean;
 }

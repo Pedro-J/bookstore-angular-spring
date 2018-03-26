@@ -8,13 +8,12 @@ import {UserService} from '../user.service';
 })
 export class NewAccountComponent implements OnInit {
 
+  private _username: string;
+  private _email: string;
 
-  private username: string;
-  private email: string;
-
-  private emailSent = false;
-  private usernameExists: boolean;
-  private emailExists: boolean;
+  private _emailSent = false;
+  private _usernameExists: boolean;
+  private _emailExists: boolean;
 
   constructor(private userService: UserService) { }
 
@@ -23,26 +22,65 @@ export class NewAccountComponent implements OnInit {
   }
 
   public onNewAccount(): void {
-    this.usernameExists = false;
-    this.emailExists = false;
-    this.emailSent = false;
+    this._usernameExists = false;
+    this._emailExists = false;
+    this._emailSent = false;
 
-    this.userService.newUser(this.username, this.email).subscribe(
+    this.userService.newUser(this._username, this._email).subscribe(
       res => {
         console.log(res);
-        this.emailSent = true;
+        this._emailSent = true;
       },
       error => {
         console.log(error.text());
         const errorMessage = error.text();
         if (errorMessage === 'usernameExists') {
-          this.usernameExists = true;
+          this._usernameExists = true;
         }
         if (errorMessage === 'emailExists') {
-          this.emailExists = true;
+          this._emailExists = true;
         }
       }
     );
   }
 
+  get username(): string {
+    return this._username;
+  }
+
+  set username(value: string) {
+    this._username = value;
+  }
+
+  get email(): string {
+    return this._email;
+  }
+
+  set email(value: string) {
+    this._email = value;
+  }
+
+  get emailSent(): boolean {
+    return this._emailSent;
+  }
+
+  set emailSent(value: boolean) {
+    this._emailSent = value;
+  }
+
+  get usernameExists(): boolean {
+    return this._usernameExists;
+  }
+
+  set usernameExists(value: boolean) {
+    this._usernameExists = value;
+  }
+
+  get emailExists(): boolean {
+    return this._emailExists;
+  }
+
+  set emailExists(value: boolean) {
+    this._emailExists = value;
+  }
 }

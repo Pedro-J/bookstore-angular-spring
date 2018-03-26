@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {AppMessage} from '../utils/app-message';
 
 @Component({
-  selector: 'app-payments',
-  templateUrl: './payments.component.html',
-  styleUrls: ['./payments.component.css']
+  selector: 'app-user-payments',
+  templateUrl: './user-payment.component.html',
+  styleUrls: ['./user-payment.component.css']
 })
-export class PaymentsComponent implements OnInit {
+export class UserPaymentComponent implements OnInit {
 
   private _message: AppMessage = new AppMessage();
   private _selectedPaymentTab: number;

@@ -53,6 +53,9 @@ public class User implements UserDetails, Serializable{
 	@JsonIgnore
 	private String newPassword;
 
+	@OneToMany(mappedBy="user")
+	private List<Order> orderList;
+
 	public User(){}
 
     public User(String email, String username) {
@@ -165,26 +168,32 @@ public class User implements UserDetails, Serializable{
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
-	
-	@Override
+
+    @Override
 	public boolean isEnabled() {
 		return enabled;
 	}
+
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
 
     public ShoppingCart getShoppingCart() {
         return shoppingCart;

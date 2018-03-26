@@ -25,11 +25,11 @@
                     <h4>{{cartItem.book.title}}</h4></a>
                 <p *ngIf="cartItem.book.inStockNumber > 10" style="color:green;">In Stock</p>
                 <p *ngIf="cartItem.book.inStockNumber < 10 && cartItem.book.inStockNumber > 0" style="color:green;">Only <span>{{cartItem.book.inStockNumber}}</span> In Stock</p>
-                <p *ngIf="cartItem.book.inStockNumber == 0" style="color:darkred;">Product Unavailable</p>
+                <p *ngIf="cartItem.book.inStockNumber === 0" style="color:darkred;">Product Unavailable</p>
                 <a class="pointer" (click)="onRemoveCartItem(cartItem)">delete</a>
             </div>
             <div class="col-xs-2">
-                <h5 style="color:#db3208; font-size:large;">$<span [ngClass]="{'text-strike': cartItem.book.inStockNumber == 0}">{{cartItem.book.ourPrice}}</span>
+                <h5 style="color:#db3208; font-size:large;">$<span [ngClass]="{'text-strike': cartItem.book.inStockNumber === 0}">{{cartItem.book.ourPrice}}</span>
             			</h5>
             </div>
             <div class="col-xs-2 text-center">
