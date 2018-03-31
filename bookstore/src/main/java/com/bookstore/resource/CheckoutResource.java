@@ -57,9 +57,12 @@ public class CheckoutResource {
 		ShoppingCart shoppingCart = userService.findByUsername(principal.getName()).getShoppingCart();
 		List<ShoppingCartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
 		User user = userService.findByUsername(principal.getName());
+
 		Order order = orderService.createOrder(shoppingCart, shipping, billing, payment, shippingMethod, user);
 		
-		mailSender.send(mailConstructor.constructOrderConfirmationEmail(user, order, Locale.ENGLISH));
+		mailBuilder.constructOrderConfirmationEmail(user, order, Locale.ENGLISH);
+		mailBuilder.sendOrderConfirmationMail();
+
 		
 		shoppingCartService.clearShoppingCart(shoppingCart);
 		

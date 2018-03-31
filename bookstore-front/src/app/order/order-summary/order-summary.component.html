@@ -18,7 +18,7 @@
         <div class="row" *ngFor="let cartItem of cartItemList">
             <hr/>
             <div class="col-xs-2">
-                <a md-button (click)="onSelect(cartItem.book)"><img class="img-responsive" src="{{serverPath}}/image/book/{{cartItem.book.id}}.png" style="width:70px;" /></a>
+                <a mat-button (click)="onSelect(cartItem.book)"><img class="img-responsive" src="{{serverPath}}/image/book/{{cartItem.book.id}}.png" style="width:70px;" /></a>
             </div>
             <div class="col-xs-6">
                 <a class="pointer" (click)="onSelect(cartItem.book)">

@@ -7,9 +7,8 @@ import { BookListComponent } from './book/book-list/book-list.component';
 import { BookDetailComponent } from './book/book-detail/book-detail.component';
 import {ShoppingCart} from './shopping-cart/shopping-cart.model';
 import {ShoppingCartComponent} from './shopping-cart/shopping-cart.component';
-import {CheckoutComponent} from './checkout/checkout.component';
 import {OrderComponent} from './order/order.component';
-import {OrderSummaryComponent} from './order-summary/order-summary.component';
+import {OrderSummaryComponent} from './order/order-summary/order-summary.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },

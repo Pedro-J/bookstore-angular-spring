@@ -13,7 +13,7 @@ import {NavigationExtras, Router} from '@angular/router';
 import {ShoppingCartService} from '../shopping-cart/shopping-cart.service';
 import {UserShippingService} from '../user-shipping/user-shipping.service';
 import {UserPaymentService} from '../user-payment/user-payment.service';
-import {CheckoutService} from '../checkout/checkout.service';
+import {CheckoutService} from './checkout.service';
 
 @Component({
   selector: 'app-order',
@@ -49,6 +49,7 @@ export class OrderComponent implements OnInit {
   private _selectedTab: number;
   private _emptyShippingList = true;
   private _emptyPaymentList = true;
+  private _missingRequiredField = true;
   private _stateList: string[] = [];
   private _shippingMethod: string;
 
@@ -382,5 +383,13 @@ export class OrderComponent implements OnInit {
 
   set shippingMethod(value: string) {
     this._shippingMethod = value;
+  }
+
+  get missingRequiredField(): boolean {
+    return this._missingRequiredField;
+  }
+
+  set missingRequiredField(value: boolean) {
+    this._missingRequiredField = value;
   }
 }

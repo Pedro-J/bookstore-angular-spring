@@ -12,14 +12,14 @@ import {ShoppingCartService} from './shopping-cart.service';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-  private serverPath = AppConst.FULL_API_BASE_PATH;
-  private selectedBook: Book;
-  private cartItemList: ShoppingCartItem[] = [];
-  private cartItemNumber: number;
-  private shoppingCart: ShoppingCart = new ShoppingCart();
-  private cartItemUpdated: boolean;
-  private emptyCart: boolean;
-  private notEnoughStock: boolean;
+  private _serverPath = AppConst.FULL_API_BASE_PATH;
+  private _selectedBook: Book;
+  private _cartItemList: ShoppingCartItem[] = [];
+  private _cartItemNumber: number;
+  private _shoppingCart: ShoppingCart = new ShoppingCart();
+  private _cartItemUpdated: boolean;
+  private _emptyCart: boolean;
+  private _notEnoughStock: boolean;
 
   constructor(
     private router: Router,
@@ -27,8 +27,8 @@ export class ShoppingCartComponent implements OnInit {
   ) { }
 
   public onSelect(book: Book): void {
-    this.selectedBook = book;
-    this.router.navigate(['/bookDetail', this.selectedBook.id]);
+    this._selectedBook = book;
+    this.router.navigate(['/bookDetail', this._selectedBook.id]);
   }
 
   public onRemoveCartItem(cartItem: ShoppingCartItem): void {
@@ -48,7 +48,7 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.updateCartItem(cartItem.id, cartItem.qty).subscribe(
       res => {
         console.log(res.text());
-        this.cartItemUpdated = true;
+        this._cartItemUpdated = true;
         this.getShoppingCart();
       },
       error => {
@@ -60,8 +60,8 @@ export class ShoppingCartComponent implements OnInit {
   public getCartItemList(): void {
     this.cartService.getCartItemList().subscribe(
       res => {
-        this.cartItemList = res.json();
-        this.cartItemNumber = this.cartItemList.length;
+        this._cartItemList = res.json();
+        this._cartItemNumber = this._cartItemList.length;
       },
       error => {
         console.log(error.text());
@@ -73,7 +73,7 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.getShoppingCart().subscribe(
       res => {
         console.log(res.json());
-        this.shoppingCart = res.json();
+        this._shoppingCart = res.json();
       },
       error => {
         console.log(error.text());
@@ -82,13 +82,13 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   public onCheckout(): void {
-    if (this.cartItemNumber === 0) {
-      this.emptyCart = true;
+    if (this._cartItemNumber === 0) {
+      this._emptyCart = true;
     } else {
-      for (const item of this.cartItemList) {
+      for (const item of this._cartItemList) {
         if (item.qty > item.book.inStockNumber) {
           console.log('not enough stock on some item');
-          this.notEnoughStock = true;
+          this._notEnoughStock = true;
           return;
         }
       }
@@ -100,5 +100,69 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit() {
     this.getCartItemList();
     this.getShoppingCart();
+  }
+
+  get serverPath(): string {
+    return this._serverPath;
+  }
+
+  set serverPath(value: string) {
+    this._serverPath = value;
+  }
+
+  get selectedBook(): Book {
+    return this._selectedBook;
+  }
+
+  set selectedBook(value: Book) {
+    this._selectedBook = value;
+  }
+
+  get cartItemList(): ShoppingCartItem[] {
+    return this._cartItemList;
+  }
+
+  set cartItemList(value: ShoppingCartItem[]) {
+    this._cartItemList = value;
+  }
+
+  get cartItemNumber(): number {
+    return this._cartItemNumber;
+  }
+
+  set cartItemNumber(value: number) {
+    this._cartItemNumber = value;
+  }
+
+  get shoppingCart(): ShoppingCart {
+    return this._shoppingCart;
+  }
+
+  set shoppingCart(value: ShoppingCart) {
+    this._shoppingCart = value;
+  }
+
+  get cartItemUpdated(): boolean {
+    return this._cartItemUpdated;
+  }
+
+  set cartItemUpdated(value: boolean) {
+    this._cartItemUpdated = value;
+  }
+
+  get emptyCart(): boolean {
+    return this._emptyCart;
+  }
+
+  set emptyCart(value: boolean) {
+    this._emptyCart = value;
+  }
+
+  get notEnoughStock(): boolean {
+    return this._notEnoughStock;
+  }
+
+  set notEnoughStock(value: boolean) {
+    this._notEnoughStock = value;
   }
 }

@@ -12,8 +12,12 @@ export class AccountEditComponent implements OnInit {
   private _user: User = new User();
   private _updateSuccess: boolean;
   private _newPassword: string;
-  private _incorrectPassword: boolean;
   private _currentPassword: string;
+
+  private _incorrectPassword: boolean;
+  private _emailExists = false;
+  private _usernameExists = false;
+
 
   constructor(private userService: UserService) { }
 
@@ -24,14 +28,16 @@ export class AccountEditComponent implements OnInit {
   public onUpdateUserInfo(): void {
     this.userService.updateUserInfo(this._user, this._newPassword, this._currentPassword).subscribe(
       res => {
-        console.log(res.text());
         this._updateSuccess = true;
       },
       error => {
-        console.log(error.text());
-        const errorMessage = error.text();
-        if (errorMessage === 'Incorrect current password!') {
+        const errorMessage = error.text().trim().toLowerCase();
+        if ( errorMessage === 'IncorrectCurrentPassword'.toLowerCase() ) {
           this._incorrectPassword = true;
+        } else if ( errorMessage === 'UsernameNotFound'.toLowerCase() ) {
+          this._usernameExists = true;
+        } else if ( errorMessage === 'EmailNotFound'.toLowerCase() ) {
+          this._emailExists = true;
         }
       });
   }
@@ -86,4 +92,20 @@ export class AccountEditComponent implements OnInit {
     this._currentPassword = value;
   }
 
+
+  get emailExists(): boolean {
+    return this._emailExists;
+  }
+
+  set emailExists(value: boolean) {
+    this._emailExists = value;
+  }
+
+  get usernameExists(): boolean {
+    return this._usernameExists;
+  }
+
+  set usernameExists(value: boolean) {
+    this._usernameExists = value;
+  }
 }

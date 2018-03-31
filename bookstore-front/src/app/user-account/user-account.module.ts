@@ -11,6 +11,7 @@ import { MaterialModule } from '../shared/material.module';
 import { AccountEditComponent } from './account-edit/account-edit.component';
 import { UserPaymentModule } from '../user-payment/user-payment.module';
 import { UserShippingModule } from '../user-shipping/user-shipping.module';
+import { OrderListComponent } from '../order/order-list/order-list.component';
 
 
 

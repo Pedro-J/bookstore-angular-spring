@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AppMessage} from '../utils/app-message';
 
 @Component({
-  selector: 'app-user-payments',
+  selector: 'app-user-payment',
   templateUrl: './user-payment.component.html',
   styleUrls: ['./user-payment.component.css']
 })

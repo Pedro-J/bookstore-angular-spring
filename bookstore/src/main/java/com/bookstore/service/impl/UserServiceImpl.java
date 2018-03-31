@@ -14,7 +14,6 @@ import com.bookstore.utility.MailBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,15 +34,12 @@ public class UserServiceImpl implements UserService{
 
 	private MailBuilder mailBuilder;
 
-	private JavaMailSender mailSender;
-
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
                            MailBuilder mailBuilder, JavaMailSender mailSender) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
 		this.mailBuilder = mailBuilder;
-		this.mailSender = mailSender;
 	}
 
     @Transactional( readOnly = true )
@@ -90,8 +86,8 @@ public class UserServiceImpl implements UserService{
 
 			savedUser = userRepository.save(user);
 
-			SimpleMailMessage email = mailBuilder.constructNewUserEmail(user, password);
-			mailSender.send(email);
+			mailBuilder.constructNewUserEmail(user, password);
+			mailBuilder.send();
 		}
 		
 		return savedUser;
@@ -121,8 +117,8 @@ public class UserServiceImpl implements UserService{
 		user.setPassword(encryptedPassword);
 		userRepository.save(user);
 
-		SimpleMailMessage newEmail = mailBuilder.constructNewUserEmail(user, password);
-		mailSender.send(newEmail);
+		mailBuilder.constructNewUserEmail(user, password);
+		mailBuilder.send();
 	}
 
 	public void updateProfile(User modifiedUser, User currentUser){
@@ -133,13 +129,13 @@ public class UserServiceImpl implements UserService{
 
 		if( userRepository.findByEmail(modifiedUser.getEmail()) != null ) {
 			if( userRepository.findByEmail(modifiedUser.getEmail()).getId() != currentUser.getId() ) {
-				throw new BadRequestException("Email not found!");
+				throw new BadRequestException("EmailNotFound");
 			}
 		}
 
 		if( userRepository.findByUsername(modifiedUser.getUsername()) != null ) {
 			if( userRepository.findByUsername(modifiedUser.getUsername()).getId() != currentUser.getId() ) {
-				throw new BadRequestException("Username not found!");
+				throw new BadRequestException("UsernameNotFound");
 			}
 		}
 
@@ -149,7 +145,7 @@ public class UserServiceImpl implements UserService{
 		if ( modifiedUser.getPassword() != null ) {
 
 			if ( !passwordEncoder.matches(currentUser.getPassword(), dbPassword) ) {
-				throw new BadRequestException("Incorrect current password!");
+				throw new BadRequestException("IncorrectCurrentPassword");
 			}
 
 			if ( modifiedUser.getNewPassword() != null && !modifiedUser.getNewPassword().equals("")) {

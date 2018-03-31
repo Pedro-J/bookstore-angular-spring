@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, Params} from '@angular/router';
 import { Book } from '../book.model';
 import { BookService} from '../book.service';
 import 'rxjs/add/observable/of';
+import {AppConst} from '../../constants/app-const';
 
 @Component({
   selector: 'app-book-list',
@@ -10,6 +11,13 @@ import 'rxjs/add/observable/of';
   styleUrls: ['./book-list.component.css']
 })
 export class BookListComponent implements OnInit {
+
+  private _serverPath = AppConst.FULL_API_BASE_PATH;
+  private _filterQuery = '';
+  private _rowsOnPage = 5;
+
+  private _sortBy = 'title';
+  private _sortOrder = 'asc';
 
   private _selectedBook: Book;
   private _bookList = [];
@@ -54,5 +62,45 @@ export class BookListComponent implements OnInit {
 
   set bookList(value: any[]) {
     this._bookList = value;
+  }
+
+  get filterQuery(): string {
+    return this._filterQuery;
+  }
+
+  set filterQuery(value: string) {
+    this._filterQuery = value;
+  }
+
+  get rowsOnPage(): number {
+    return this._rowsOnPage;
+  }
+
+  set rowsOnPage(value: number) {
+    this._rowsOnPage = value;
+  }
+
+  get serverPath(): string {
+    return this._serverPath;
+  }
+
+  set serverPath(value: string) {
+    this._serverPath = value;
+  }
+
+  get sortBy(): string {
+    return this._sortBy;
+  }
+
+  set sortBy(value: string) {
+    this._sortBy = value;
+  }
+
+  get sortOrder(): string {
+    return this._sortOrder;
+  }
+
+  set sortOrder(value: string) {
+    this._sortOrder = value;
   }
 }
