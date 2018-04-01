@@ -86,8 +86,7 @@ public class UserServiceImpl implements UserService{
 
 			savedUser = userRepository.save(user);
 
-			mailBuilder.constructNewUserEmail(user, password);
-			mailBuilder.send();
+			mailBuilder.sendNewUserMail(user, password);
 		}
 		
 		return savedUser;
@@ -117,8 +116,7 @@ public class UserServiceImpl implements UserService{
 		user.setPassword(encryptedPassword);
 		userRepository.save(user);
 
-		mailBuilder.constructNewUserEmail(user, password);
-		mailBuilder.send();
+		mailBuilder.sendNewUserMail(user, password);
 	}
 
 	public void updateProfile(User modifiedUser, User currentUser){

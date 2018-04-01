@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@Table(name = "tb_shopping_cart_item")
+@Table(name = "tb_cart_item")
 public class ShoppingCartItem implements Serializable{
 
 	private static final long serialVersionUID = -189412481L;
@@ -30,6 +30,11 @@ public class ShoppingCartItem implements Serializable{
 	@JoinColumn(name="shopping_cart_id")
 	@JsonIgnore
 	private ShoppingCart shoppingCart;
+
+	@ManyToOne
+	@JoinColumn(name = "order_id")
+	@JsonIgnore
+	private Order order;
 
 	public Long getId() {
 		return id;
@@ -78,6 +83,13 @@ public class ShoppingCartItem implements Serializable{
 	public void setShoppingCart(ShoppingCart shoppingCart) {
 		this.shoppingCart = shoppingCart;
 	}
-	
-	
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
 }

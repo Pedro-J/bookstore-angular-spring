@@ -14,18 +14,23 @@ import java.util.List;
 @Service
 public class ShoppingCartItemServiceImpl implements ShoppingCartItemService{
 	
-	@Autowired
+
 	private ShoppingCartItemRepository cartItemRepository;
-	
-	@Autowired
+
 	private BookToCartItemRepository bookToShoppingCartItemRepository;
+
+	@Autowired
+	public ShoppingCartItemServiceImpl(ShoppingCartItemRepository cartItemRepository, BookToCartItemRepository bookToShoppingCartItemRepository) {
+		this.cartItemRepository = cartItemRepository;
+		this.bookToShoppingCartItemRepository = bookToShoppingCartItemRepository;
+	}
 
 	public ShoppingCartItem addBookToCartItem(Book book, User user, int qty) {
 		List<ShoppingCartItem> cartItemList = findByShoppingCart(user.getShoppingCart());
 		
 		for (ShoppingCartItem cartItem : cartItemList) {
-			if (book.getId() == cartItem.getBook().getId()) {
-				cartItem.setQty(cartItem.getQty()+qty);
+			if ( book.getId().equals(cartItem.getBook().getId()) ) {
+				cartItem.setQty(cartItem.getQty() + qty);
 				cartItem.setSubtotal(new BigDecimal(book.getOurPrice()).multiply(new BigDecimal(qty)));
 				cartItemRepository.save(cartItem);
 				return cartItem;

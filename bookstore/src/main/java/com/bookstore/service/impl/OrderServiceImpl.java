@@ -41,22 +41,22 @@ public class OrderServiceImpl implements OrderService{
 	
 	public synchronized  Order createOrder(
 			ShoppingCart shoppingCart,
-			OrderShipping shippingAddress,
-			OrderBilling billingAddress,
-			UserPayment payment,
+			OrderShipping orderShipping,
+			OrderBilling orderBilling,
+			OrderPayment orderPayment,
 			String shippingMethod,
-			User user
-			){
+			User user ){
+
 		Order order = new Order();
-		order.setBillingAddress(billingAddress);
+		order.setOrderBilling(orderBilling);
 		order.setOrderStatus("created");
-		order.setPayment(payment);
-		order.setShippingAddress(shippingAddress);
+		order.setOrderPayment(orderPayment);
+		order.setOrderShipping(orderShipping);
 		order.setShippingMethod(shippingMethod);
 		
-		List<CartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
+		List<ShoppingCartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
 		
-		for (CartItem cartItem : cartItemList) {
+		for (ShoppingCartItem cartItem : cartItemList) {
 			Book book = cartItem.getBook();
 			cartItem.setOrder(order);
 			book.setInStockNumber(book.getInStockNumber()-cartItem.getQty());
@@ -65,9 +65,9 @@ public class OrderServiceImpl implements OrderService{
 		order.setCartItemList(cartItemList);
 		order.setOrderDate(Calendar.getInstance().getTime());
 		order.setOrderTotal(shoppingCart.getGrandTotal());
-		shippingAddress.setOrder(order);
-		billingAddress.setOrder(order);
-		payment.setOrder(order);
+		orderShipping.setOrder(order);
+		orderBilling.setOrder(order);
+		orderPayment.setOrder(order);
 		order.setUser(user);
 		order = orderRepository.save(order);
 		

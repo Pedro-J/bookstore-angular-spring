@@ -32,7 +32,7 @@ export class BookService {
   }
 
   public searchBook(keyword: string): Observable<Response> {
-    const url = this.serverPath + '/book/searchBook';
+    const url = this.serverPath + '/book/search';
 
     const tokenHeaders = new Headers({
       'Content-Type': 'application/json',

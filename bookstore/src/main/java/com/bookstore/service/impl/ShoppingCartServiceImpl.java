@@ -15,14 +15,18 @@ import java.util.List;
 @Service
 @Transactional
 public class ShoppingCartServiceImpl implements ShoppingCartService{
-	
-	@Autowired
+
 	private ShoppingCartItemService cartItemService;
-	
-	@Autowired
+
 	private ShoppingCartRepository shoppingCartRepository;
-	
-	public ShoppingCart updateShoppingCart(ShoppingCart shoppingCart) {
+
+	@Autowired
+    public ShoppingCartServiceImpl(ShoppingCartItemService cartItemService, ShoppingCartRepository shoppingCartRepository) {
+        this.cartItemService = cartItemService;
+        this.shoppingCartRepository = shoppingCartRepository;
+    }
+
+    public ShoppingCart updateShoppingCart(ShoppingCart shoppingCart) {
 		BigDecimal cartTotal = new BigDecimal(0);
 		
 		List<ShoppingCartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);

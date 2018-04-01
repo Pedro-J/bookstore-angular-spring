@@ -21,7 +21,7 @@ public class User implements UserDetails, Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id", nullable=false, updatable = false)
+	@Column(name = "id", nullable = false, updatable = false)
 	private Long id;
 	
 	private String username;
@@ -36,7 +36,7 @@ public class User implements UserDetails, Serializable{
 	private String phone;
 	private boolean enabled = true;
 	
-	@OneToMany(mappedBy = "user", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<UserRole> userRoles = new HashSet<>();
 
@@ -121,10 +121,6 @@ public class User implements UserDetails, Serializable{
 		this.enabled = enabled;
 	}
 
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
-
 	public String getNewPassword() {
 		return newPassword;
 	}
@@ -202,4 +198,5 @@ public class User implements UserDetails, Serializable{
     public void setShoppingCart(ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
     }
+
 }

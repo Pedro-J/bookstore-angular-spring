@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "tb_user_payment")
 public class UserPayment implements Serializable {
 	
 	private static final long serialVersionUID = 7897891345L;
@@ -13,6 +14,7 @@ public class UserPayment implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+
 	private String type;
 	private String cardName;
 	private String cardNumber;
@@ -117,7 +119,5 @@ public class UserPayment implements Serializable {
 	public void setUserBilling(UserBilling userBilling) {
 		this.userBilling = userBilling;
 	}
-	
-	
 
 }

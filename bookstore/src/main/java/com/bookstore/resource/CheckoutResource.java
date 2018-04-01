@@ -8,11 +8,9 @@ import com.bookstore.service.ShoppingCartService;
 import com.bookstore.service.UserService;
 import com.bookstore.utility.MailBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -24,10 +22,6 @@ import java.util.Locale;
 @RequestMapping("/checkout")
 public class CheckoutResource {
 
-	private Order order = new Order();
-
-	private JavaMailSender mailSender;
-
 	private UserService userService;
 
 	private ShoppingCartItemService cartItemService;
@@ -38,20 +32,25 @@ public class CheckoutResource {
 
 	private MailBuilder mailBuilder;
 
-	public CheckoutResource() {
-
+	@Autowired
+    public CheckoutResource(UserService userService, ShoppingCartItemService cartItemService, OrderService orderService, ShoppingCartService shoppingCartService, MailBuilder mailBuilder) {
+        this.userService = userService;
+        this.cartItemService = cartItemService;
+        this.orderService = orderService;
+        this.shoppingCartService = shoppingCartService;
+        this.mailBuilder = mailBuilder;
     }
-	
-	@RequestMapping(value = "/checkout", method=RequestMethod.POST)
+
+    @PostMapping("/add")
+	@ResponseStatus(HttpStatus.OK)
 	public Order checkoutPost(
 				@RequestBody HashMap<String, Object> mapper,
-				Principal principal
-			){
+				Principal principal ){
 		ObjectMapper om = new ObjectMapper();
 
-        OrderShipping shipping = om.convertValue(mapper.get("shippingAddress"), OrderShipping.class);
-        OrderBilling billing = om.convertValue(mapper.get("billingAddress"), OrderBilling.class);
-        OrderPayment payment = om.convertValue(mapper.get("payment"), OrderPayment.class);
+        OrderShipping shipping = om.convertValue(mapper.get("orderShipping"), OrderShipping.class);
+        OrderBilling billing = om.convertValue(mapper.get("orderBilling"), OrderBilling.class);
+        OrderPayment payment = om.convertValue(mapper.get("orderPayment"), OrderPayment.class);
 		String shippingMethod = (String) mapper.get("shippingMethod");
 		
 		ShoppingCart shoppingCart = userService.findByUsername(principal.getName()).getShoppingCart();
@@ -59,25 +58,21 @@ public class CheckoutResource {
 		User user = userService.findByUsername(principal.getName());
 
 		Order order = orderService.createOrder(shoppingCart, shipping, billing, payment, shippingMethod, user);
-		
-		mailBuilder.constructOrderConfirmationEmail(user, order, Locale.ENGLISH);
-		mailBuilder.sendOrderConfirmationMail();
 
-		
+		mailBuilder.sendOrderConfirmationMail(user, order, Locale.ENGLISH);
+
 		shoppingCartService.clearShoppingCart(shoppingCart);
 		
 		LocalDate today = LocalDate.now();
 		LocalDate estimatedDeliveryDate;
+
 		if (shippingMethod.equals("groundShipping")) {
-			estimatedDeliveryDate=today.plusDays(5);
+			estimatedDeliveryDate = today.plusDays(5);
 		} else {
-			estimatedDeliveryDate=today.plusDays(3);
+			estimatedDeliveryDate = today.plusDays(3);
 		}
 		
-		this.order = order;
-		
 		return order;
-		
 	}
 
 }

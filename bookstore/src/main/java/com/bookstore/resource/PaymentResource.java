@@ -4,6 +4,7 @@ import com.bookstore.domain.User;
 import com.bookstore.domain.UserPayment;
 import com.bookstore.service.UserPaymentService;
 import com.bookstore.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ public class PaymentResource {
 	private UserPaymentService userPaymentService;
 
 
+	@Autowired
     public PaymentResource(UserService userService, UserPaymentService userPaymentService) {
         this.userService = userService;
         this.userPaymentService = userPaymentService;

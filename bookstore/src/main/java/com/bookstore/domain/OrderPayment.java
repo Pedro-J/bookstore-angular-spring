@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "tb_order_payment")
 public class OrderPayment implements Serializable{
 	private static final long serialVersionUID = 79151235145L;
 	
@@ -95,7 +96,5 @@ public class OrderPayment implements Serializable{
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-	
-	
 
 }

@@ -10,7 +10,7 @@ export class UserService {
 
   constructor(private http: Http) { }
 
-  newUser(username: string, email: string): Observable<Response> {
+  public newUser(username: string, email: string): Observable<Response> {
     const url = this.serverPath + '/users/add';
     const userInfo = {
       'username': username,
@@ -24,7 +24,7 @@ export class UserService {
     return this.http.post(url, JSON.stringify(userInfo), {headers : tokenHeader});
   }
 
-  updateUserInfo(user: User, newPassword: string, currentPassword: string): Observable<Response> {
+  public updateUserInfo(user: User, newPassword: string, currentPassword: string): Observable<Response> {
     const url = this.serverPath + '/users/' + user.id + '/update';
     const userInfo = {
       'id' : user.id,
@@ -44,7 +44,7 @@ export class UserService {
     return this.http.post(url, JSON.stringify(userInfo), {headers: tokenHeader});
   }
 
-  retrievePassword(email: string): Observable<Response> {
+  public retrievePassword(email: string): Observable<Response> {
     const url = this.serverPath + '/users/forgetPassword';
     const userInfo = {
       'email' : email

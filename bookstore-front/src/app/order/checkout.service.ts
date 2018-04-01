@@ -18,7 +18,7 @@ export class CheckoutService {
   public checkout(orderShipping: OrderShipping, orderBilling: OrderBilling,
                   payment: UserPayment, shippingMethod: string): Observable<Response> {
 
-    const url = this.serverPath + '/checkout/checkout';
+    const url = this.serverPath + '/checkout/add';
     const order = {
       'shippingAddress' : orderShipping,
       'billingAddress' : orderBilling,
@@ -34,7 +34,7 @@ export class CheckoutService {
   }
 
   public getUserOrder(): Observable<Response> {
-    const url = this.serverPath + '/checkout/getUserOrder';
+    const url = this.serverPath + '/checkout/order/user';
 
     const tokenHeader = new Headers({
       'Content-Type' : 'application/json',

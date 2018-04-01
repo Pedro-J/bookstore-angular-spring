@@ -16,10 +16,10 @@ export class UserPaymentListComponent implements OnInit, OnDestroy {
   private _message: AppMessage = new AppMessage();
   private _defaultPaymentId = 0;
 
-  constructor(private _paymentService: UserPaymentService) { }
+  constructor(private paymentService: UserPaymentService) { }
 
   ngOnInit(): void {
-    this._paymentService.getUserPaymentList().subscribe(
+    this.paymentService.getUserPaymentList().subscribe(
       res => {
         this._userPaymentList = res.json();
         for (const index in this._userPaymentList) {
@@ -34,7 +34,7 @@ export class UserPaymentListComponent implements OnInit, OnDestroy {
       }
     );
 
-    this._paymentService.paymentListSubject.subscribe(
+    this.paymentService.paymentListSubject.subscribe(
       (newPayment: UserPayment) => {
         this._userPaymentList.push(newPayment);
       }
@@ -42,7 +42,7 @@ export class UserPaymentListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._paymentService.paymentListSubject.unsubscribe();
+    this.paymentService.paymentListSubject.unsubscribe();
   }
 
   public onNew(): boolean {
@@ -54,7 +54,7 @@ export class UserPaymentListComponent implements OnInit, OnDestroy {
 
   public onUpdatePayment(payment: UserPayment) {
     this._userPayment = payment;
-    this._paymentService.paymentSelectSubject.next(payment);
+    this.paymentService.paymentSelectSubject.next(payment);
 
     this.updateTabEvent.emit({tab: 1});
   }
@@ -65,7 +65,7 @@ export class UserPaymentListComponent implements OnInit, OnDestroy {
       this._message = AppMessage.createMessage('Default userPayment cannot be removed.', '', 'danger', true);
       this.updateTabEvent.emit({message: this._message});
     }else {
-      this._paymentService.deleteUserPayment(payment.id).subscribe(
+      this.paymentService.deleteUserPayment(payment.id).subscribe(
         res => {
           const index = this._userPaymentList.findIndex(current => current.id === payment.id);
           this._userPaymentList.splice(index, 1);
@@ -82,7 +82,7 @@ export class UserPaymentListComponent implements OnInit, OnDestroy {
   }
 
   public setDefaultPayment() {
-    this._paymentService.setDefaultUserPayment(this._defaultPaymentId).subscribe(
+    this.paymentService.setDefaultUserPayment(this._defaultPaymentId).subscribe(
       res => {
 
         for (const payment of this._userPaymentList) {

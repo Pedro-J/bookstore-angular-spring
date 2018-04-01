@@ -43,6 +43,5 @@ public class BookToCartItem implements Serializable{
 	public void setCartItem(ShoppingCartItem cartItem) {
 		this.cartItem = cartItem;
 	}
-	
-	
+
 }

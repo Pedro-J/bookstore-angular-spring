@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@Table(name = "tb_shopping_cart")
+@Table(name = "tb_cart")
 public class ShoppingCart implements Serializable{
 	
 	private static final long serialVersionUID = -891273432L;
@@ -18,7 +18,7 @@ public class ShoppingCart implements Serializable{
 	private Long id;
 	private BigDecimal GrandTotal;
 	
-	@OneToMany(mappedBy = "shoppingCart", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<ShoppingCartItem> cartItemList;
 	
@@ -57,7 +57,5 @@ public class ShoppingCart implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
 
 }

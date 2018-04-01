@@ -6,96 +6,97 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "tb_order_billing")
 public class OrderBilling implements Serializable{
 	private static final long serialVersionUID = 78293749582348L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String billingAddressName;
-	private String billingAddressStreet1;
-	private String billingAddressStreet2;
-	private String billingAddressCity;
-	private String billingAddressState;
-	private String billingAddressCountry;
-	private String billingAddressZipcode;
+
+	private String name;
+	private String street1;
+	private String street2;
+	private String city;
+	private String state;
+	private String country;
+	private String zipcode;
 	
 	@OneToOne
 	@JsonIgnore
 	private Order order;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getBillingAddressName() {
-		return billingAddressName;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setBillingAddressName(String billingAddressName) {
-		this.billingAddressName = billingAddressName;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getBillingAddressStreet1() {
-		return billingAddressStreet1;
-	}
+    public String getStreet1() {
+        return street1;
+    }
 
-	public void setBillingAddressStreet1(String billingAddressStreet1) {
-		this.billingAddressStreet1 = billingAddressStreet1;
-	}
+    public void setStreet1(String street1) {
+        this.street1 = street1;
+    }
 
-	public String getBillingAddressStreet2() {
-		return billingAddressStreet2;
-	}
+    public String getStreet2() {
+        return street2;
+    }
 
-	public void setBillingAddressStreet2(String billingAddressStreet2) {
-		this.billingAddressStreet2 = billingAddressStreet2;
-	}
+    public void setStreet2(String street2) {
+        this.street2 = street2;
+    }
 
-	public String getBillingAddressCity() {
-		return billingAddressCity;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setBillingAddressCity(String billingAddressCity) {
-		this.billingAddressCity = billingAddressCity;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public String getBillingAddressCountry() {
-		return billingAddressCountry;
-	}
+    public String getState() {
+        return state;
+    }
 
-	public void setBillingAddressCountry(String billingAddressCountry) {
-		this.billingAddressCountry = billingAddressCountry;
-	}
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	public String getBillingAddressZipcode() {
-		return billingAddressZipcode;
-	}
+    public String getCountry() {
+        return country;
+    }
 
-	public void setBillingAddressZipcode(String billingAddressZipcode) {
-		this.billingAddressZipcode = billingAddressZipcode;
-	}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	public Order getOrder() {
-		return order;
-	}
+    public String getZipcode() {
+        return zipcode;
+    }
 
-	public void setOrder(Order order) {
-		this.order = order;
-	}
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
 
-	public String getBillingAddressState() {
-		return billingAddressState;
-	}
+    public Order getOrder() {
+        return order;
+    }
 
-	public void setBillingAddressState(String billingAddressState) {
-		this.billingAddressState = billingAddressState;
-	}
-	
-	
-			
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+
 }

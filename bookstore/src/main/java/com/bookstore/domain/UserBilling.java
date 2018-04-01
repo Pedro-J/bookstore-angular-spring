@@ -6,12 +6,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "tb_user_billing")
 public class UserBilling implements Serializable{
 	private static final long serialVersionUID = 1231123934L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
 	private String name;
 	private String street1;
 	private String street2;
@@ -30,10 +32,6 @@ public class UserBilling implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
 	}
 
 	public String getName() {
@@ -99,4 +97,5 @@ public class UserBilling implements Serializable{
 	public void setUserPayment(UserPayment userPayment) {
 		this.userPayment = userPayment;
 	}
+
 }

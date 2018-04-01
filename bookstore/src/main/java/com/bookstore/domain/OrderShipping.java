@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "tb_order_shipping")
 public class OrderShipping implements Serializable{
 	
 	private static final long serialVersionUID = 189013457L;
@@ -13,13 +14,13 @@ public class OrderShipping implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String shippingAddressName;
-	private String shippingAddressStreet1;
-	private String shippingAddressStreet2;
-	private String shippingAddressCity;
-	private String shippingAddressState;
-	private String shippingAddressCountry;
-	private String shippingAddressZipcode;
+	private String name;
+	private String street1;
+	private String street2;
+	private String city;
+	private String state;
+	private String country;
+	private String zipcode;
 	
 	@OneToOne
 	@JsonIgnore
@@ -33,62 +34,6 @@ public class OrderShipping implements Serializable{
 		this.id = id;
 	}
 
-	public String getShippingAddressName() {
-		return shippingAddressName;
-	}
-
-	public void setShippingAddressName(String shippingAddressName) {
-		this.shippingAddressName = shippingAddressName;
-	}
-
-	public String getShippingAddressStreet1() {
-		return shippingAddressStreet1;
-	}
-
-	public void setShippingAddressStreet1(String shippingAddressStreet1) {
-		this.shippingAddressStreet1 = shippingAddressStreet1;
-	}
-
-	public String getShippingAddressStreet2() {
-		return shippingAddressStreet2;
-	}
-
-	public void setShippingAddressStreet2(String shippingAddressStreet2) {
-		this.shippingAddressStreet2 = shippingAddressStreet2;
-	}
-
-	public String getShippingAddressCity() {
-		return shippingAddressCity;
-	}
-
-	public void setShippingAddressCity(String shippingAddressCity) {
-		this.shippingAddressCity = shippingAddressCity;
-	}
-
-	public String getShippingAddressState() {
-		return shippingAddressState;
-	}
-
-	public void setShippingAddressState(String shippingAddressState) {
-		this.shippingAddressState = shippingAddressState;
-	}
-
-	public String getShippingAddressCountry() {
-		return shippingAddressCountry;
-	}
-
-	public void setShippingAddressCountry(String shippingAddressCountry) {
-		this.shippingAddressCountry = shippingAddressCountry;
-	}
-
-	public String getShippingAddressZipcode() {
-		return shippingAddressZipcode;
-	}
-
-	public void setShippingAddressZipcode(String shippingAddressZipcode) {
-		this.shippingAddressZipcode = shippingAddressZipcode;
-	}
-
 	public Order getOrder() {
 		return order;
 	}
@@ -96,6 +41,61 @@ public class OrderShipping implements Serializable{
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-	
-	
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStreet1() {
+        return street1;
+    }
+
+    public void setStreet1(String street1) {
+        this.street1 = street1;
+    }
+
+    public String getStreet2() {
+        return street2;
+    }
+
+    public void setStreet2(String street2) {
+        this.street2 = street2;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
 }

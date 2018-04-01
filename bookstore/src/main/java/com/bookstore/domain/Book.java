@@ -171,4 +171,5 @@ public class Book implements Serializable{
     public void setInStockNumber(Integer inStockNumber) {
         this.inStockNumber = inStockNumber;
     }
+
 }

@@ -6,7 +6,6 @@ import com.bookstore.domain.UserShipping;
 public interface UserShippingService {
 	
 	UserShipping findById(Long id);
-	
 	void removeById(Long id);
 	UserShipping save(UserShipping shipping);
 	UserShipping save(UserShipping userShipping, User user);

@@ -21,5 +21,4 @@ public class UserBillingServiceImpl implements UserBillingService {
         this.userRepository = userRepository;
     }
 
-
 }

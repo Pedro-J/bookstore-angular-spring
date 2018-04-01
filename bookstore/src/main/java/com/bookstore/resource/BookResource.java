@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(BookResource.BASE_URL)
@@ -95,8 +96,8 @@ public class BookResource {
 
     @PostMapping("/book/search")
     @ResponseStatus(HttpStatus.OK)
-    public Page<Book> searchBook(@RequestBody String keyword){
-        return bookService.search(keyword);
+    public Page<Book> searchBook(@RequestBody Map<String, String> bookQuery){
+        return bookService.search(bookQuery);
     }
 
 

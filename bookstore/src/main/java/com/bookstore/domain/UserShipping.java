@@ -6,12 +6,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "tb_user_shipping")
 public class UserShipping implements Serializable{
 	private static final long serialVersionUID = 978978987L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
 	private String name;
 	private String street1;
 	private String street2;
@@ -21,13 +23,11 @@ public class UserShipping implements Serializable{
 	private String zipcode;
 
 	private Boolean isDefault;
-	
-	
+
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	@JsonIgnore
 	private User user;
-
 
 	public Long getId() {
 		return id;
