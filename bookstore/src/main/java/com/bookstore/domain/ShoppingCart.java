@@ -16,7 +16,7 @@ public class ShoppingCart implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private BigDecimal GrandTotal;
+	private BigDecimal grandTotal;
 	
 	@OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -35,11 +35,11 @@ public class ShoppingCart implements Serializable{
 	}
 
 	public BigDecimal getGrandTotal() {
-		return GrandTotal;
+		return grandTotal;
 	}
 
 	public void setGrandTotal(BigDecimal grandTotal) {
-		GrandTotal = grandTotal;
+		grandTotal = grandTotal;
 	}
 
 	public List<ShoppingCartItem> getCartItemList() {

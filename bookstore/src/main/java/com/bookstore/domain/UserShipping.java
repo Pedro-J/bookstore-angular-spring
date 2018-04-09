@@ -7,20 +7,12 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "tb_user_shipping")
-public class UserShipping implements Serializable{
+public class UserShipping extends Address implements Serializable{
 	private static final long serialVersionUID = 978978987L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
-	private String name;
-	private String street1;
-	private String street2;
-	private String city;
-	private String state;
-	private String country;
-	private String zipcode;
 
 	private Boolean isDefault;
 
@@ -29,7 +21,20 @@ public class UserShipping implements Serializable{
 	@JsonIgnore
 	private User user;
 
-	public Long getId() {
+    public UserShipping() {
+    }
+
+    public UserShipping(Address address) {
+        this.setCity(address.getCity());
+        this.setCountry(address.getCountry());
+        this.setState(address.getState());
+        this.setStreet1(address.getStreet1());
+        this.setStreet2(address.getStreet2());
+        this.setZipcode(address.getZipcode());
+        this.setName(address.getName());
+    }
+
+    public Long getId() {
 		return id;
 	}
 
@@ -47,62 +52,6 @@ public class UserShipping implements Serializable{
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getStreet1() {
-		return street1;
-	}
-
-	public void setStreet1(String street1) {
-		this.street1 = street1;
-	}
-
-	public String getStreet2() {
-		return street2;
-	}
-
-	public void setStreet2(String street2) {
-		this.street2 = street2;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getZipcode() {
-		return zipcode;
-	}
-
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
 	}
 
     public Boolean getDefault() {

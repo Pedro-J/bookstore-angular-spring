@@ -1,8 +1,6 @@
 package com.bookstore;
 
-import com.bookstore.config.SecurityUtility;
-import com.bookstore.domain.User;
-import com.bookstore.repository.UserRepository;
+import com.bookstore.utility.Bootstrap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BookstoreApplication implements CommandLineRunner {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private Bootstrap bootstrap;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BookstoreApplication.class, args);
@@ -20,28 +18,7 @@ public class BookstoreApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-
-		if ( userRepository.findByUsername("j") == null ){
-			User user1 = new User();
-			user1.setFirstName("John");
-			user1.setLastName("Adams");
-			user1.setUsername("j");
-			user1.setPassword(SecurityUtility.passwordEncoder().encode("p"));
-			user1.setEmail("JAdams@gmail.com");
-
-			userRepository.save(user1);
-		}
-
-		if ( userRepository.findByUsername("admin") == null ) {
-			User user2 = new User();
-			user2.setFirstName("Admin");
-			user2.setLastName("Admin");
-			user2.setUsername("admin");
-			user2.setPassword(SecurityUtility.passwordEncoder().encode("p"));
-			user2.setEmail("Admin@gmail.com");
-
-			userRepository.save(user2);
-		}
+		bootstrap.start();
 	}
 
 }

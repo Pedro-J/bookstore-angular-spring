@@ -11,10 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
@@ -62,13 +62,16 @@ public class BookResource {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteBook(@PathVariable Long id){
+    public void deleteBook(@PathVariable Long id) throws IOException {
+        String fileName = id+".png";
+        Files.delete(Paths.get(bookImagesDirectory + fileName));
+
         bookService.remove(id);
     }
 
     @PostMapping("/image/upload")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> upload(@RequestParam("id") Long id, HttpServletResponse response, HttpServletRequest request){
+    public ResponseEntity<String> upload(@RequestParam("id") Long id, HttpServletRequest request){
         try{
             Book book = bookService.findById(id);
             MultipartHttpServletRequest multipartRequst = (MultipartHttpServletRequest) request;
@@ -91,6 +94,33 @@ public class BookResource {
         }catch(Exception e){
             e.printStackTrace();
             return new ResponseEntity("Upload failed", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @RequestMapping(value="/update/image", method=RequestMethod.POST)
+    public ResponseEntity updateImagePost(
+            @RequestParam("id") Long id, HttpServletRequest request
+    ){
+        try {
+            Book book = bookService.findById(id);
+            MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+            Iterator<String> it = multipartRequest.getFileNames();
+            MultipartFile multipartFile = multipartRequest.getFile(it.next());
+
+            String fileName = book.getId() + ".png";
+
+            Files.delete(Paths.get("src/main/resources/static/image/book/"+fileName));
+
+            byte[] bytes = multipartFile.getBytes();
+            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File("src/main/resources/static/image/book/"+fileName)));
+            stream.write(bytes);
+            stream.close();
+
+            return new ResponseEntity("Upload Success!", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity("Upload failed!", HttpStatus.BAD_REQUEST);
         }
     }
 
