@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 @RestController
@@ -54,7 +53,6 @@ public class CheckoutResource {
 		String shippingMethod = (String) mapper.get("shippingMethod");
 		
 		ShoppingCart shoppingCart = userService.findByUsername(principal.getName()).getShoppingCart();
-		List<ShoppingCartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
 		User user = userService.findByUsername(principal.getName());
 
 		Order order = orderService.createOrder(shoppingCart, shipping, billing, payment, shippingMethod, user);

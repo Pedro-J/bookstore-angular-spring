@@ -19,8 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Arrays;
 
 @Service
 @Transactional
@@ -61,22 +60,10 @@ public class UserServiceImpl implements UserService{
 		if( savedUser != null ) {
 			LOG.info("User with username {} already exist. Nothing will be done. ", user.getUsername());
 		} else {
-			Role role = new Role();
-			role.setRoleId(1);
-			role.setName("ROLE_USER");
-			Set<UserRole> userRoles = new HashSet<>();
-			userRoles.add(new UserRole(user, role));
-			
-			user.getUserRoles().addAll(userRoles);
-			
-			userRepository.save(user);
-
-			for (UserRole ur : userRoles) {
-				roleRepository.save(ur.getRole());
-			}
+			Role role = new Role(1, "ROLE_USER");
+			user.getUserRoles().addAll(Arrays.asList(new UserRole(user, role)));
 
 			String password = SecurityUtility.randomPassword();
-
 			String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
 			user.setPassword(encryptedPassword);
 

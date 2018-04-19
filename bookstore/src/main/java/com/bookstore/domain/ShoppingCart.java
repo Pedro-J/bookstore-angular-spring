@@ -22,9 +22,16 @@ public class ShoppingCart implements Serializable{
 	@JsonIgnore
 	private List<ShoppingCartItem> cartItemList;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JsonIgnore
 	private User user;
+
+    public ShoppingCart() {
+    }
+
+    public ShoppingCart(User user) {
+		this.user = user;
+	}
 
 	public Long getId() {
 		return id;

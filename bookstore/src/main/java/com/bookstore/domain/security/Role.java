@@ -16,10 +16,15 @@ public class Role implements Serializable{
 	
 	private String name;
 	
-	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
 	private Set<UserRole> userRoles = new HashSet<>();
-	
-	public Role(){}
+
+    public Role(){}
+
+    public Role(int roleId, String name) {
+        this.roleId = roleId;
+        this.name = name;
+    }
 
 	public int getRoleId() {
 		return roleId;

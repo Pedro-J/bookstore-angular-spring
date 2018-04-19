@@ -1,13 +1,16 @@
 package com.bookstore.domain;
 
-public abstract class Address {
-    private String name;
-    private String street1;
-    private String street2;
-    private String city;
-    private String state;
-    private String country;
-    private String zipcode;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
+public class Address {
+    protected String name;
+    protected String street1;
+    protected String street2;
+    protected String city;
+    protected String state;
+    protected String country;
+    protected String zipcode;
 
     public String getName() {
         return name;

@@ -14,7 +14,7 @@ public class UserBilling extends Address implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "userBilling")
 	@JsonIgnore
 	private UserPayment userPayment;
 

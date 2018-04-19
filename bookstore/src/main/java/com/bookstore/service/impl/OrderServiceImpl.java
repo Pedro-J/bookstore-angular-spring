@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService{
 			String shippingMethod,
 			User user ){
 
-		Order order = new Order();
+		final Order order = new Order();
 		order.setOrderBilling(orderBilling);
 		order.setOrderStatus("created");
 		order.setOrderPayment(orderPayment);
@@ -55,12 +55,13 @@ public class OrderServiceImpl implements OrderService{
 		order.setShippingMethod(shippingMethod);
 		
 		List<ShoppingCartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
-		
-		for (ShoppingCartItem cartItem : cartItemList) {
-			Book book = cartItem.getBook();
-			cartItem.setOrder(order);
-			book.setInStockNumber(book.getInStockNumber()-cartItem.getQty());
-		}
+
+		cartItemList.forEach( item -> {
+            Book book = item.getBook();
+            item.setOrder(order);
+            book.setInStockNumber(book.getInStockNumber() - item.getQty());
+            bookService.save(book);
+        });
 		
 		order.setCartItemList(cartItemList);
 		order.setOrderDate(Calendar.getInstance().getTime());
@@ -69,9 +70,8 @@ public class OrderServiceImpl implements OrderService{
 		orderBilling.setOrder(order);
 		orderPayment.setOrder(order);
 		order.setUser(user);
-		order = orderRepository.save(order);
 		
-		return order;
+		return orderRepository.save(order);
 	}
 	
 	public Order findOne(Long id) {

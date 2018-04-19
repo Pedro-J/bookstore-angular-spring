@@ -2,6 +2,8 @@ package com.bookstore.utility;
 
 import com.bookstore.config.SecurityUtility;
 import com.bookstore.domain.*;
+import com.bookstore.domain.security.Role;
+import com.bookstore.domain.security.UserRole;
 import com.bookstore.repository.BookRepository;
 import com.bookstore.repository.UserPaymentRepository;
 import com.bookstore.repository.UserRepository;
@@ -35,12 +37,18 @@ public class Bootstrap {
     }
 
     private void createUsers() {
+
+        Role role = new Role(1, "ROLE_USER");
+
         User user1 = new User();
         user1.setFirstName("John");
         user1.setLastName("Adams");
         user1.setUsername("j");
         user1.setPassword(SecurityUtility.passwordEncoder().encode("p"));
         user1.setEmail("JAdams@gmail.com");
+        user1.getUserRoles().addAll(Arrays.asList(new UserRole(user1, role)));
+
+        user1.setShoppingCart(new ShoppingCart(user1));
 
 
         User user2 = new User();
@@ -49,6 +57,9 @@ public class Bootstrap {
         user2.setUsername("admin");
         user2.setPassword(SecurityUtility.passwordEncoder().encode("p"));
         user2.setEmail("Admin@gmail.com");
+        user2.getUserRoles().addAll(Arrays.asList(new UserRole(user2, role)));
+
+        user2.setShoppingCart(new ShoppingCart(user2));
 
         userRepository.save(Arrays.asList(user1, user2));
 
@@ -98,7 +109,6 @@ public class Bootstrap {
         book2.setPublicationDate("03/12/1999");
         book2.setShippingWeight(2.1);
 
-
         bookRepository.save(Arrays.asList(book, book2));
 
     }
@@ -127,7 +137,7 @@ public class Bootstrap {
         shipping2.setStreet1("Ruan F.");
         shipping2.setStreet2("Ruan F.");
         shipping2.setZipcode("55555-222");
-        shipping2.setUser(user);
+        shipping2.setUser(user2);
 
         userShippingRepository.save(Arrays.asList(shipping, shipping2));
 

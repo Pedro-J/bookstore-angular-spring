@@ -64,7 +64,6 @@ public class UserPaymentServiceImpl implements UserPaymentService {
     @Transactional
     public UserPayment save(UserPayment userPayment, User user) {
         userPayment.setUser(user);
-        userPayment.getUserBilling().setUserPayment(userPayment);
 
         List<UserPayment> paymentList = user.getUserPaymentList();
 

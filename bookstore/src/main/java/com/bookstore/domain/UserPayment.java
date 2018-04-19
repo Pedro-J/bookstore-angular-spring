@@ -29,7 +29,7 @@ public class UserPayment implements Serializable {
 	@JsonIgnore
 	private User user;
 	
-	@OneToOne(cascade=CascadeType.ALL, mappedBy = "userPayment")
+	@OneToOne(cascade=CascadeType.ALL)
 	private UserBilling userBilling;
 
 	public Long getId() {
