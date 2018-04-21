@@ -1,6 +1,7 @@
 package com.bookstore.service.impl;
 
 import com.bookstore.domain.*;
+import com.bookstore.exception.BadRequestException;
 import com.bookstore.repository.BookToCartItemRepository;
 import com.bookstore.repository.ShoppingCartItemRepository;
 import com.bookstore.service.ShoppingCartItemService;
@@ -26,6 +27,11 @@ public class ShoppingCartItemServiceImpl implements ShoppingCartItemService{
 	}
 
 	public ShoppingCartItem addBookToCartItem(Book book, User user, int qty) {
+
+		if( qty > book.getInStockNumber()) {
+			throw new BadRequestException("stockNotEnough");
+		}
+
 		List<ShoppingCartItem> cartItemList = findByShoppingCart(user.getShoppingCart());
 		
 		for (ShoppingCartItem cartItem : cartItemList) {

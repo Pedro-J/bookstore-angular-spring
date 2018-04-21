@@ -12,7 +12,7 @@ import com.bookstore.utility.MailBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -45,9 +45,9 @@ public class OrderServiceImpl implements OrderService{
 			OrderBilling orderBilling,
 			OrderPayment orderPayment,
 			String shippingMethod,
-			User user ){
+			User user) {
 
-		final Order order = new Order();
+		Order order = new Order();
 		order.setOrderBilling(orderBilling);
 		order.setOrderStatus("created");
 		order.setOrderPayment(orderPayment);
@@ -64,13 +64,22 @@ public class OrderServiceImpl implements OrderService{
         });
 		
 		order.setCartItemList(cartItemList);
-		order.setOrderDate(Calendar.getInstance().getTime());
 		order.setOrderTotal(shoppingCart.getGrandTotal());
+        order.setUser(user);
 		orderShipping.setOrder(order);
 		orderBilling.setOrder(order);
 		orderPayment.setOrder(order);
-		order.setUser(user);
-		
+
+		LocalDate today = LocalDate.now();
+
+        order.setOrderDate(today);
+
+		if (shippingMethod.equals("groundShipping")) {
+			order.setShippingDate(today.plusDays(5));
+		} else {
+            order.setShippingDate(today.plusDays(3));
+		}
+
 		return orderRepository.save(order);
 	}
 	

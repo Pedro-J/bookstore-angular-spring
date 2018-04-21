@@ -4,7 +4,6 @@ import com.bookstore.domain.Book;
 import com.bookstore.domain.ShoppingCart;
 import com.bookstore.domain.ShoppingCartItem;
 import com.bookstore.domain.User;
-import com.bookstore.exception.BadRequestException;
 import com.bookstore.service.BookService;
 import com.bookstore.service.ShoppingCartItemService;
 import com.bookstore.service.ShoppingCartService;
@@ -18,8 +17,10 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping(ShoppingCartResource.BASE_URL)
 public class ShoppingCartResource {
+
+	public static final String BASE_URL = "/bookstore/api/v1/cart";
 
 	private UserService userService;
 	
@@ -47,10 +48,6 @@ public class ShoppingCartResource {
 		User user = userService.findByUsername(principal.getName());
 		Book book = bookService.findById(Long.parseLong(bookId));
 		
-		if(Integer.parseInt(qty) > book.getInStockNumber()) {
-			throw new BadRequestException("stockNotEnough");
-		}
-		
 		cartItemService.addBookToCartItem(book, user, Integer.parseInt(qty));
 	}
 
@@ -68,7 +65,7 @@ public class ShoppingCartResource {
 		return cartItemList;
 	}
 	
-	@GetMapping("")
+	@GetMapping
     @ResponseStatus(HttpStatus.OK)
 	public ShoppingCart getShoppingCart(Principal principal) {
 		User user = userService.findByUsername(principal.getName());

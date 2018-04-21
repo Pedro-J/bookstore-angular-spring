@@ -14,8 +14,10 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping(OrderResource.BASE_URL)
 public class OrderResource {
+
+    public static final String BASE_URL = "/bookstore/api/v1/orders";
 
 	private UserService userService;
 
@@ -32,12 +34,4 @@ public class OrderResource {
 		
 		return orderList;
 	}
-
-
-	@GetMapping("/user")
-	@ResponseStatus(HttpStatus.OK)
-	public Order getUserOrder(Principal principal){
-        return null;
-	}
-
 }

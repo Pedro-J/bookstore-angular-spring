@@ -5,18 +5,12 @@ import com.bookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +22,6 @@ public class BookResource {
     private BookService bookService;
 
     public static final String BASE_URL = "/bookstore/api/v1/books";
-
-    private final String bookImagesDirectory = "src/main/resources/static/image/book/";
 
     @Autowired
     public BookResource(BookService bookService){
@@ -63,65 +55,28 @@ public class BookResource {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteBook(@PathVariable Long id) throws IOException {
-        String fileName = id+".png";
-        Files.delete(Paths.get(bookImagesDirectory + fileName));
-
         bookService.remove(id);
     }
 
     @PostMapping("/image/upload")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> upload(@RequestParam("id") Long id, HttpServletRequest request){
-        try{
-            Book book = bookService.findById(id);
-            MultipartHttpServletRequest multipartRequst = (MultipartHttpServletRequest) request;
-            Iterator<String> it = multipartRequst.getFileNames();
-            MultipartFile multipartFile = multipartRequst.getFile(it.next());
-            String fileName = id + ".png";
+    @ResponseStatus(value = HttpStatus.OK)
+    public void saveBookImage(@RequestParam("id") Long id, HttpServletRequest request) {
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        Iterator<String> it = multipartRequest.getFileNames();
+        MultipartFile multipartFile = multipartRequest.getFile(it.next());
 
-            byte[] fileContent = multipartFile.getBytes();
-
-            File fileDestination = new File(bookImagesDirectory + fileName);
-
-            if( fileDestination.exists() )
-                Files.delete(Paths.get(bookImagesDirectory + fileName));
-
-            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(fileDestination));
-            stream.write(fileContent);
-            stream.close();
-
-            return new ResponseEntity("Upload sucess", HttpStatus.OK);
-        }catch(Exception e){
-            e.printStackTrace();
-            return new ResponseEntity("Upload failed", HttpStatus.BAD_REQUEST);
-        }
+        bookService.saveImage(id, multipartFile);
     }
 
 
-    @RequestMapping(value="/update/image", method=RequestMethod.POST)
-    public ResponseEntity updateImagePost(
-            @RequestParam("id") Long id, HttpServletRequest request
-    ){
-        try {
-            Book book = bookService.findById(id);
-            MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-            Iterator<String> it = multipartRequest.getFileNames();
-            MultipartFile multipartFile = multipartRequest.getFile(it.next());
+    @PostMapping("/update/image")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void updateBookImage(@RequestParam("id") Long id, HttpServletRequest request){
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        Iterator<String> it = multipartRequest.getFileNames();
+        MultipartFile multipartFile = multipartRequest.getFile(it.next());
 
-            String fileName = book.getId() + ".png";
-
-            Files.delete(Paths.get("src/main/resources/static/image/book/"+fileName));
-
-            byte[] bytes = multipartFile.getBytes();
-            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File("src/main/resources/static/image/book/"+fileName)));
-            stream.write(bytes);
-            stream.close();
-
-            return new ResponseEntity("Upload Success!", HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity("Upload failed!", HttpStatus.BAD_REQUEST);
-        }
+        bookService.saveImage(id, multipartFile);
     }
 
     @PostMapping("/book/search")

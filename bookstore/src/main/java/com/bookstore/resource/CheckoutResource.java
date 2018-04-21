@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -60,15 +59,8 @@ public class CheckoutResource {
 		mailBuilder.sendOrderConfirmationMail(user, order, Locale.ENGLISH);
 
 		shoppingCartService.clearShoppingCart(shoppingCart);
-		
-		LocalDate today = LocalDate.now();
-		LocalDate estimatedDeliveryDate;
 
-		if (shippingMethod.equals("groundShipping")) {
-			estimatedDeliveryDate = today.plusDays(5);
-		} else {
-			estimatedDeliveryDate = today.plusDays(3);
-		}
+
 		
 		return order;
 	}

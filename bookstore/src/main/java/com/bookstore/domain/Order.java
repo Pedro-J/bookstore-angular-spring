@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -17,8 +17,8 @@ public class Order implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private Date orderDate;
-	private Date shippingDate;
+	private LocalDate orderDate;
+	private LocalDate shippingDate;
 	private String shippingMethod;
 	private String orderStatus;
 	private BigDecimal orderTotal;
@@ -47,19 +47,19 @@ public class Order implements Serializable{
 		this.id = id;
 	}
 
-	public Date getOrderDate() {
+	public LocalDate getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(LocalDate orderDate) {
 		this.orderDate = orderDate;
 	}
 
-	public Date getShippingDate() {
+	public LocalDate getShippingDate() {
 		return shippingDate;
 	}
 
-	public void setShippingDate(Date shippingDate) {
+	public void setShippingDate(LocalDate shippingDate) {
 		this.shippingDate = shippingDate;
 	}
 
