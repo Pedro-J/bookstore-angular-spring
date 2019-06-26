@@ -1,7 +1,7 @@
-package com.bookstore.resource;
+package com.bookstore.rest.resource;
 
-import com.bookstore.domain.User;
-import com.bookstore.domain.UserShipping;
+import com.bookstore.domain.UserEntity;
+import com.bookstore.domain.UserShippingEntity;
 import com.bookstore.service.UserService;
 import com.bookstore.service.UserShippingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,22 +29,22 @@ public class ShippingResource {
 
 	@PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-	public UserShipping addNewShipping(@RequestBody UserShipping userShipping, Principal principal) {
-		User user = userService.findByUsername(principal.getName());
+	public UserShippingEntity addNewShipping(@RequestBody UserShippingEntity userShipping, Principal principal) {
+		UserEntity user = userService.findByUsername(principal.getName());
 		return userShippingService.save(userShipping, user);
 	}
 
 	@PutMapping("/update")
     @ResponseStatus(HttpStatus.OK)
-	public void updateShipping(@RequestBody UserShipping shipping, Principal principal){
+	public void updateShipping(@RequestBody UserShippingEntity shipping, Principal principal){
 	    shipping.setUser(userService.findByUsername(principal.getName()));
         userShippingService.save(shipping);
 	}
 	
 	@GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-	public List<UserShipping> getShippingList(Principal principal){
-		User user = userService.findByUsername(principal.getName());
+	public List<UserShippingEntity> getShippingList(Principal principal){
+		UserEntity user = userService.findByUsername(principal.getName());
 		return user.getUserShippingList();
 	}
 	
@@ -57,7 +57,7 @@ public class ShippingResource {
 	@PostMapping("/setDefault")
     @ResponseStatus(HttpStatus.OK)
 	public void setDefaultShipping(@RequestBody String id, Principal principal){
-		User user = userService.findByUsername(principal.getName());
+		UserEntity user = userService.findByUsername(principal.getName());
 		userShippingService.setUserDefaultShipping(Long.parseLong(id), user);
 	}
 }

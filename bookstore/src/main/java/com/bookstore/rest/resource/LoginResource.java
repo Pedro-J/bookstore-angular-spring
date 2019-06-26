@@ -1,4 +1,4 @@
-package com.bookstore.resource;
+package com.bookstore.rest.resource;
 
 import com.bookstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

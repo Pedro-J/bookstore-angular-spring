@@ -1,6 +1,6 @@
-package com.bookstore.resource;
+package com.bookstore.rest.resource;
 
-import com.bookstore.domain.Book;
+import com.bookstore.domain.BookEntity;
 import com.bookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,25 +30,25 @@ public class BookResource {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public Book addNewBook(@RequestBody Book book){
+    public BookEntity addNewBook(@RequestBody BookEntity book){
         return bookService.save(book);
     }
 
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.OK)
-    public Book updateBook(@RequestBody Book book){
+    public BookEntity updateBook(@RequestBody BookEntity book){
         return bookService.save(book);
     }
 
     @GetMapping("/list")
     @ResponseStatus(HttpStatus.OK)
-    public List<Book> getBooks(){
+    public List<BookEntity> getBooks(){
         return bookService.findAll();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Book getBook(@PathVariable("id") Long id){
+    public BookEntity getBook(@PathVariable("id") Long id){
         return bookService.findById(id);
     }
 
@@ -81,7 +81,7 @@ public class BookResource {
 
     @PostMapping("/book/search")
     @ResponseStatus(HttpStatus.OK)
-    public Page<Book> searchBook(@RequestBody Map<String, String> bookQuery){
+    public Page<BookEntity> searchBook(@RequestBody Map<String, String> bookQuery){
         return bookService.search(bookQuery);
     }
 

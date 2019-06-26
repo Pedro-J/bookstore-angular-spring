@@ -20,11 +20,11 @@ public class ShoppingCartItem implements Serializable{
 	private BigDecimal subtotal;
 	
 	@OneToOne
-	private Book book;
+	private BookEntity book;
 	
 	@OneToMany(mappedBy ="cartItem")
 	@JsonIgnore
-	private List<BookToCartItem> bookToCartItemList;
+	private List<BookToCartItemEntity> bookToCartItemList;
 	
 	@ManyToOne
 	@JoinColumn(name="shopping_cart_id")
@@ -34,7 +34,7 @@ public class ShoppingCartItem implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "order_id")
 	@JsonIgnore
-	private Order order;
+	private OrderEntity order;
 
 	public Long getId() {
 		return id;
@@ -60,19 +60,19 @@ public class ShoppingCartItem implements Serializable{
 		this.subtotal = subtotal;
 	}
 
-	public Book getBook() {
+	public BookEntity getBook() {
 		return book;
 	}
 
-	public void setBook(Book book) {
+	public void setBook(BookEntity book) {
 		this.book = book;
 	}
 
-	public List<BookToCartItem> getBookToCartItemList() {
+	public List<BookToCartItemEntity> getBookToCartItemList() {
 		return bookToCartItemList;
 	}
 
-	public void setBookToCartItemList(List<BookToCartItem> bookToCartItemList) {
+	public void setBookToCartItemList(List<BookToCartItemEntity> bookToCartItemList) {
 		this.bookToCartItemList = bookToCartItemList;
 	}
 
@@ -84,11 +84,11 @@ public class ShoppingCartItem implements Serializable{
 		this.shoppingCart = shoppingCart;
 	}
 
-    public Order getOrder() {
+    public OrderEntity getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(OrderEntity order) {
         this.order = order;
     }
 

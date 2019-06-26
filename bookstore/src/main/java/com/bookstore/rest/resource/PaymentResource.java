@@ -1,7 +1,7 @@
-package com.bookstore.resource;
+package com.bookstore.rest.resource;
 
-import com.bookstore.domain.User;
-import com.bookstore.domain.UserPayment;
+import com.bookstore.domain.UserEntity;
+import com.bookstore.domain.UserPaymentEntity;
 import com.bookstore.service.UserPaymentService;
 import com.bookstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +29,17 @@ public class PaymentResource {
     }
 
     @PostMapping("/add")
-	public UserPayment addNewPayment(@RequestBody UserPayment userPayment, Principal principal) {
-		User user = userService.findByUsername(principal.getName());
+	public UserPaymentEntity addNewPayment(@RequestBody UserPaymentEntity userPayment, Principal principal) {
+		UserEntity user = userService.findByUsername(principal.getName());
 		
 		return userPaymentService.save(userPayment, user);
 	}
 	
 	@RequestMapping("/list")
-	public List<UserPayment> getPaymentList(Principal principal){
-		User user = userService.findByUsername(principal.getName());
+	public List<UserPaymentEntity> getPaymentList(Principal principal){
+		UserEntity user = userService.findByUsername(principal.getName());
 		
-		List<UserPayment> userPaymentList = user.getUserPaymentList();
+		List<UserPaymentEntity> userPaymentList = user.getUserPaymentList();
 		
 		return userPaymentList;
 	}
@@ -51,8 +51,8 @@ public class PaymentResource {
 
 	@PutMapping("/update")
 	@ResponseStatus(HttpStatus.OK)
-	public void updatePayment(@RequestBody UserPayment payment, Principal principal){
-        User user = userService.findByUsername(principal.getName());
+	public void updatePayment(@RequestBody UserPaymentEntity payment, Principal principal){
+        UserEntity user = userService.findByUsername(principal.getName());
         payment.setUser(user);
 
 		userPaymentService.save(payment, user);
@@ -61,7 +61,7 @@ public class PaymentResource {
 	@PostMapping("/setDefault")
 	@ResponseStatus(HttpStatus.OK)
 	public void setDefaultPaymentPost(@RequestBody String id, Principal principal) {
-		User user = userService.findByUsername(principal.getName());
+		UserEntity user = userService.findByUsername(principal.getName());
 		userPaymentService.setDefaultPayment(Long.parseLong(id), user);
 	}
 	

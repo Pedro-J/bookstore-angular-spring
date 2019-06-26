@@ -1,7 +1,7 @@
 package com.bookstore.domain;
 
-import com.bookstore.domain.security.Authority;
-import com.bookstore.domain.security.UserRole;
+import com.bookstore.domain.security.AuthorityEntity;
+import com.bookstore.domain.security.UserRoleEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,7 +38,7 @@ public class User implements UserDetails, Serializable{
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
-	private Set<UserRole> userRoles = new HashSet<>();
+	private Set<UserRoleEntity> userRoles = new HashSet<>();
 
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "user")
 	private List<UserPayment> userPaymentList;
@@ -54,7 +54,7 @@ public class User implements UserDetails, Serializable{
 	private String newPassword;
 
 	@OneToMany(mappedBy="user")
-	private List<Order> orderList;
+	private List<OrderEntity> orderList;
 
 	public User(){}
 
@@ -131,11 +131,11 @@ public class User implements UserDetails, Serializable{
 		this.newPassword = newPassword;
 	}
 
-	public Set<UserRole> getUserRoles() {
+	public Set<UserRoleEntity> getUserRoles() {
 		return userRoles;
 	}
 
-	public void setUserRoles(Set<UserRole> userRoles) {
+	public void setUserRoles(Set<UserRoleEntity> userRoles) {
 		this.userRoles = userRoles;
 	}
 
@@ -159,7 +159,7 @@ public class User implements UserDetails, Serializable{
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		
 		Set<GrantedAuthority> authorities = new HashSet<>();
-		userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
+		userRoles.forEach(ur -> authorities.add(new AuthorityEntity(ur.getRole().getName())));
 		
 		return authorities;
 	}
@@ -185,11 +185,11 @@ public class User implements UserDetails, Serializable{
 	}
 
 
-    public List<Order> getOrderList() {
+    public List<OrderEntity> getOrderList() {
         return orderList;
     }
 
-    public void setOrderList(List<Order> orderList) {
+    public void setOrderList(List<OrderEntity> orderList) {
         this.orderList = orderList;
     }
 

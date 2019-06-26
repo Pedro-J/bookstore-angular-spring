@@ -23,7 +23,7 @@ public class OrderPayment implements Serializable{
 	
 	@OneToOne
 	@JsonIgnore
-	private Order order;
+	private OrderEntity order;
 
 	public Long getId() {
 		return id;
@@ -89,11 +89,11 @@ public class OrderPayment implements Serializable{
 		this.defaultPayment = defaultPayment;
 	}
 
-	public Order getOrder() {
+	public OrderEntity getOrder() {
 		return order;
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(OrderEntity order) {
 		this.order = order;
 	}
 

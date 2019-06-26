@@ -20,6 +20,11 @@ public class BookToCartItem implements Serializable{
 	@JoinColumn(name="cart_item_id")
 	private ShoppingCartItem cartItem;
 
+	public BookToCartItem(Book book, ShoppingCartItem cartItem) {
+		this.book = book;
+		this.cartItem = cartItem;
+	}
+
 	public Long getId() {
 		return id;
 	}

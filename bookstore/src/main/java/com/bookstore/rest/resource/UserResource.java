@@ -1,6 +1,6 @@
-package com.bookstore.resource;
+package com.bookstore.rest.resource;
 
-import com.bookstore.domain.User;
+import com.bookstore.domain.UserEntity;
 import com.bookstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,10 +25,10 @@ public class UserResource {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public User addNewUser(@RequestBody Map<String, String> mapper) {
+    public UserEntity addNewUser(@RequestBody Map<String, String> mapper) {
         String email = mapper.get("email");
         String username = mapper.get("username");
-        return userService.createUser(new User(email, username));
+        return userService.createUser(new UserEntity(email, username));
     }
 
     @RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
@@ -39,15 +39,15 @@ public class UserResource {
 
     @PutMapping("{id}/update")
     @ResponseStatus(HttpStatus.OK)
-    public void updateProfileInfo(@PathVariable("id") Long id, @RequestBody User modifiedUser) {
-        User currentUser = userService.findById(id);
+    public void updateProfileInfo(@PathVariable("id") Long id, @RequestBody UserEntity modifiedUser) {
+        UserEntity currentUser = userService.findById(id);
         userService.updateProfile(modifiedUser, currentUser);
     }
 
     @RequestMapping("/current")
     @ResponseStatus(HttpStatus.OK)
-    public User getCurrentUser(Principal principal) {
-        User user = new User();
+    public UserEntity getCurrentUser(Principal principal) {
+        UserEntity user = new UserEntity();
         if ( principal != null ) {
             user = userService.findByUsername(principal.getName());
         }

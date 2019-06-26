@@ -1,4 +1,4 @@
-package com.bookstore.resource;
+package com.bookstore.rest.resource;
 
 
 import com.bookstore.domain.*;
@@ -41,20 +41,20 @@ public class CheckoutResource {
 
     @PostMapping("/add")
 	@ResponseStatus(HttpStatus.OK)
-	public Order checkoutPost(
+	public OrderEntity checkoutPost(
 				@RequestBody HashMap<String, Object> mapper,
 				Principal principal ){
 		ObjectMapper om = new ObjectMapper();
 
-        OrderShipping shipping = om.convertValue(mapper.get("orderShipping"), OrderShipping.class);
-        OrderBilling billing = om.convertValue(mapper.get("orderBilling"), OrderBilling.class);
-        OrderPayment payment = om.convertValue(mapper.get("orderPayment"), OrderPayment.class);
+        OrderShippingEntity shipping = om.convertValue(mapper.get("orderShipping"), OrderShippingEntity.class);
+        OrderBillingEntity billing = om.convertValue(mapper.get("orderBilling"), OrderBillingEntity.class);
+        OrderPaymentEntity payment = om.convertValue(mapper.get("orderPayment"), OrderPaymentEntity.class);
 		String shippingMethod = (String) mapper.get("shippingMethod");
 		
-		ShoppingCart shoppingCart = userService.findByUsername(principal.getName()).getShoppingCart();
-		User user = userService.findByUsername(principal.getName());
+		ShoppingCartEntity shoppingCart = userService.findByUsername(principal.getName()).getShoppingCart();
+		UserEntity user = userService.findByUsername(principal.getName());
 
-		Order order = orderService.createOrder(shoppingCart, shipping, billing, payment, shippingMethod, user);
+		OrderEntity order = orderService.createOrder(shoppingCart, shipping, billing, payment, shippingMethod, user);
 
 		mailBuilder.sendOrderConfirmationMail(user, order, Locale.ENGLISH);
 

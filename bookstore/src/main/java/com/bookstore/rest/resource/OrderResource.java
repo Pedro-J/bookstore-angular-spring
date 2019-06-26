@@ -1,7 +1,7 @@
-package com.bookstore.resource;
+package com.bookstore.rest.resource;
 
-import com.bookstore.domain.Order;
-import com.bookstore.domain.User;
+import com.bookstore.domain.OrderEntity;
+import com.bookstore.domain.UserEntity;
 import com.bookstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,9 +28,9 @@ public class OrderResource {
 
 	@GetMapping("/list")
 	@ResponseStatus(HttpStatus.OK)
-	public List<Order> getOrderList(Principal principal) {
-		User user = userService.findByUsername(principal.getName());
-		List<Order> orderList = user.getOrderList();
+	public List<OrderEntity> getOrderList(Principal principal) {
+		UserEntity user = userService.findByUsername(principal.getName());
+		List<OrderEntity> orderList = user.getOrderList();
 		
 		return orderList;
 	}

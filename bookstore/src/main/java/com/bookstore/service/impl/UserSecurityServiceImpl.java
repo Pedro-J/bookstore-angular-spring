@@ -12,9 +12,9 @@ import com.bookstore.domain.User;
 import com.bookstore.repository.UserRepository;
 
 @Service
-public class UserSecurityService implements UserDetailsService{
+public class UserSecurityServiceImpl implements UserDetailsService{
 	
-	private static final Logger LOG = LoggerFactory.getLogger(UserSecurityService.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UserSecurityServiceImpl.class);
 	
 	@Autowired 
 	private UserRepository userRepository;

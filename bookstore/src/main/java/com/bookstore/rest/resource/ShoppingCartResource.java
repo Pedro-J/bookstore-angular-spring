@@ -1,9 +1,9 @@
-package com.bookstore.resource;
+package com.bookstore.rest.resource;
 
-import com.bookstore.domain.Book;
-import com.bookstore.domain.ShoppingCart;
-import com.bookstore.domain.ShoppingCartItem;
-import com.bookstore.domain.User;
+import com.bookstore.domain.BookEntity;
+import com.bookstore.domain.ShoppingCartEntity;
+import com.bookstore.domain.ShoppingCartItemEntity;
+import com.bookstore.domain.UserEntity;
 import com.bookstore.service.BookService;
 import com.bookstore.service.ShoppingCartItemService;
 import com.bookstore.service.ShoppingCartService;
@@ -45,8 +45,8 @@ public class ShoppingCartResource {
 		String bookId = (String) mapper.get("bookId");
 		String qty = (String) mapper.get("qty");
 		
-		User user = userService.findByUsername(principal.getName());
-		Book book = bookService.findById(Long.parseLong(bookId));
+		UserEntity user = userService.findByUsername(principal.getName());
+		BookEntity book = bookService.findById(Long.parseLong(bookId));
 		
 		cartItemService.addBookToCartItem(book, user, Integer.parseInt(qty));
 	}
@@ -54,11 +54,11 @@ public class ShoppingCartResource {
 
 	@GetMapping("/items")
     @ResponseStatus(HttpStatus.OK)
-	public List<ShoppingCartItem> getCartItemList(Principal principal) {
-		User user = userService.findByUsername(principal.getName());
-		ShoppingCart shoppingCart = user.getShoppingCart();
+	public List<ShoppingCartItemEntity> getCartItemList(Principal principal) {
+		UserEntity user = userService.findByUsername(principal.getName());
+		ShoppingCartEntity shoppingCart = user.getShoppingCart();
 		
-		List<ShoppingCartItem> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
+		List<ShoppingCartItemEntity> cartItemList = cartItemService.findByShoppingCart(shoppingCart);
 		
 		shoppingCartService.updateShoppingCart(shoppingCart);
 		
@@ -67,9 +67,9 @@ public class ShoppingCartResource {
 	
 	@GetMapping
     @ResponseStatus(HttpStatus.OK)
-	public ShoppingCart getShoppingCart(Principal principal) {
-		User user = userService.findByUsername(principal.getName());
-		ShoppingCart shoppingCart = user.getShoppingCart();
+	public ShoppingCartEntity getShoppingCart(Principal principal) {
+		UserEntity user = userService.findByUsername(principal.getName());
+		ShoppingCartEntity shoppingCart = user.getShoppingCart();
 		
 		return shoppingCartService.updateShoppingCart(shoppingCart);
 	}
@@ -86,8 +86,8 @@ public class ShoppingCartResource {
 		String cartItemId = mapper.get("cartItemId");
 		String qty = mapper.get("qty");
 		
-		ShoppingCartItem cartItem = cartItemService.findById(Long.parseLong(cartItemId));
-		cartItem.setQty(Integer.parseInt(qty));
+		ShoppingCartItemEntity cartItem = cartItemService.findById(Long.parseLong(cartItemId));
+		cartItem.setQuantity(Integer.parseInt(qty));
 		
 		cartItemService.updateCartItem(cartItem);
 	}

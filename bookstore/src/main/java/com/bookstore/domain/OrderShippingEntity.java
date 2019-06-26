@@ -6,22 +6,23 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "tb_user_billing")
-public class UserBilling extends Address implements Serializable{
-	private static final long serialVersionUID = 1231123934L;
+@Table(name = "tb_order_shipping")
+public class OrderShipping extends AddressEntity implements Serializable{
+	
+	private static final long serialVersionUID = 189013457L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@OneToOne(mappedBy = "userBilling")
+	@OneToOne
 	@JsonIgnore
-	private UserPayment userPayment;
+	private OrderEntity order;
 
-    public UserBilling() {
+    public OrderShipping() {
     }
 
-    public UserBilling(Address address) {
+    public OrderShipping(AddressEntity address) {
         this.setCity(address.getCity());
         this.setCountry(address.getCountry());
         this.setState(address.getState());
@@ -31,9 +32,7 @@ public class UserBilling extends Address implements Serializable{
         this.setName(address.getName());
     }
 
-
-
-    public Long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -41,12 +40,12 @@ public class UserBilling extends Address implements Serializable{
 		this.id = id;
 	}
 
-	public UserPayment getUserPayment() {
-		return userPayment;
+	public OrderEntity getOrder() {
+		return order;
 	}
 
-	public void setUserPayment(UserPayment userPayment) {
-		this.userPayment = userPayment;
+	public void setOrder(OrderEntity order) {
+		this.order = order;
 	}
 
 }

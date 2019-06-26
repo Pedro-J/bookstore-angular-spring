@@ -1,13 +1,17 @@
-package com.bookstore.mapper;
+package com.bookstore.rest.mapper;
 
-import com.bookstore.domain.Book;
+import com.bookstore.domain.BookEntity;
+import com.bookstore.rest.contract.request.BookRequest;
+import com.bookstore.rest.contract.response.BookResponse;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-//@Mapper
+@Mapper
 public interface BookMapper {
 
-/*    BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
+    BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
 
-    BookDTO bookToBookDTO(Book book);
+    BookResponse toBookResponse(BookEntity book);
 
-    Book vendorDTOtoVendor(BookDTO bookDTO);*/
+    BookEntity toBookEntity(BookRequest bookRequest);
 }

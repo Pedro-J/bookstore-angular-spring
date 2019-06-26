@@ -6,25 +6,22 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "tb_user_shipping")
-public class UserShipping extends Address implements Serializable{
-	private static final long serialVersionUID = 978978987L;
+@Table(name = "tb_user_billing")
+public class UserBilling extends AddressEntity implements Serializable{
+	private static final long serialVersionUID = 1231123934L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
-	private Boolean isDefault;
-
-	@ManyToOne
-	@JoinColumn(name="user_id")
+	
+	@OneToOne(mappedBy = "userBilling")
 	@JsonIgnore
-	private User user;
+	private UserPayment userPayment;
 
-    public UserShipping() {
+    public UserBilling() {
     }
 
-    public UserShipping(Address address) {
+    public UserBilling(AddressEntity address) {
         this.setCity(address.getCity());
         this.setCountry(address.getCountry());
         this.setState(address.getState());
@@ -34,6 +31,8 @@ public class UserShipping extends Address implements Serializable{
         this.setName(address.getName());
     }
 
+
+
     public Long getId() {
 		return id;
 	}
@@ -42,23 +41,12 @@ public class UserShipping extends Address implements Serializable{
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
+	public UserPayment getUserPayment() {
+		return userPayment;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserPayment(UserPayment userPayment) {
+		this.userPayment = userPayment;
 	}
 
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
-
-    public Boolean getDefault() {
-        return isDefault;
-    }
-
-    public void setDefault(Boolean aDefault) {
-        isDefault = aDefault;
-    }
 }
